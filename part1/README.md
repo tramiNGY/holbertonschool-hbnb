@@ -34,13 +34,13 @@ Sequence Diagrams for API: Illustrates the flow of requests and responses betwee
 |-is_admin |bool|
 |+is_owner |bool|
 
-| Methods | Parameter | Return Type |
-| :---------------: |:---------------:| :---------------:|
-|-register |first_name, last_name, password, email, id| bool | helloooooo
-|-update |obj| bool|
-|-delete |id| bool|
-|-login |email, password| bool|
-|-user_type |id| str |
+| Methods | Parameter | Return Type | Description |
+| :---------------: |:---------------:| :---------------:| :---------------:| 
+|-register |first_name, last_name, password, email, id| bool | create a new user |
+|-update |obj| bool| update already existing user info |
+|-delete |id| bool| delete a user |
+|-login |email, password| bool| retrive user data |
+|-user_type |id| str | check is user is owner and admin |
 
 ## Subclass Owner
 
@@ -58,10 +58,10 @@ The Owner class inherits from the User class, Owner class is also depedent of Re
 
 The Admin class inherits from the User class.
 
-| Methods | Parameter | Return Type |
-| :---------------: |:---------------:| :---------------:|
-|promotion | id_user | bool |
-|demotion | id_user | bool |
+| Methods | Parameter | Return Type | Description |
+| :---------------: |:---------------:| :---------------:|:---------------:|
+|promotion | id_user | bool | promote a user to admin |
+|demotion | id_user | bool | demote an admin |
 
 ## Class Place
 
@@ -76,11 +76,11 @@ The Admin class inherits from the User class.
 |+owner |UUID4|
 |+amenities_list |list|
 
-| Methods | Parameter | Return Type |
-| :---------------: |:---------------:| :---------------:|
-|create | title, description, price, latitude, longitude, owner, amenities_list | bool |
-|update | title, description, price, amenities_list | bool |
-|delete | id | bool |
+| Methods | Parameter | Return Type | Description |
+| :---------------: |:---------------:| :---------------:|:---------------:|
+|create | title, description, price, latitude, longitude, owner, amenities_list | bool | create a new place tied to a owner with a list of amenities|
+|update | title, description, price, amenities_list | bool | update the infos of an already existing place |
+|delete | id | bool | delete a place |
 
 
 
