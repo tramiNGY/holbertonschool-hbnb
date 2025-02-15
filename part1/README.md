@@ -208,7 +208,7 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 |User |Initiates registration request |
 |API | Acts as an intermediary, forwarding requests and responses |
 |Business Logic |Validates, processes, and coordinates registration logic |
-| Database | Stores user information upon successful validation.|
+| Database | Stores user information upon successful validation|
 
 
 ## Authors
