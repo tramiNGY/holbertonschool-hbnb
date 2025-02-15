@@ -1,1 +1,23 @@
-hbnb part 1
+# **HBNB project**
+
+## Introduction
+This document outlines the design and structure of HBnB, a vacation rental platform. The purpose of this document is to provide a clear overview of the system architecture, including its key components, relationships, and functionalities.
+HBnB is designed to facilitate short-term property rentals by connecting property owners with potential guests. The system allows users to list properties with a list of amenities, search for accommodations, leave reviews, and manage reservations efficiently.
+
+## Scope
+
+This document covers multiple aspects of HBnB’s system design
+
+High-Level Package Diagram:
+
+Class Diagram: Represents the data model, relationships, and key operations for managing users, places, reviews, and amenities.
+
+Sequence Diagrams for API: Illustrates the flow of requests and responses between system components, detailing key API interactions.
+
+## In depth look at the diagrams
+
+## High-Level Package Diagram
+
+## Class Diagram
+![printf image image (1)](![printf image image (1)](https://pbs.twimg.com/media/Gg3-FCFWwAEnvUE?format=jpg&name=medium))
+## Sequence Diagrams for API
