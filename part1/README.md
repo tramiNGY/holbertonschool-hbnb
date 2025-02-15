@@ -18,7 +18,7 @@ Sequence Diagrams for API: Illustrates the flow of requests and responses betwee
 
 ## High-Level Package Diagram
 
-# Class Diagram
+# Business Logic Layer
 
 ![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
 
@@ -66,6 +66,7 @@ The Admin class inherits from the User class.
 ## Class Place
 
 The Place class is tied to the subclass Owner by Composition, which means that Place cannot exist without an Owner, therefore if an owner delete his account, their place will be deleted as well, they can't exist without an owner. 
+
 Place class is also aggregated with the class Amenity, they exist indepedently, amenity exists soly to provide a list to Place.
 
 | Attributes | Type |
@@ -102,4 +103,28 @@ Amenity class is also aggregated with the class Place, they exist indepedently, 
 |delete | id | bool | delete an amenity |
 |list | id | bool | lists the amenities available|
 
+## Class Review
+
+The Review class is tied to the class Place by Composition, which means that Review cannot exist without a Place, therefore if a Place is deleted, their reviews will be deleted as well, they can't exist without a Place. 
+
+If an Owner deletes his account, it also deletes the reviews in his places since Place is tied to Owner by Composition
+
+Review class is depedent of User, without a user there are no reviews.
+
+| Attributes | Type |
+| :---------------: |:---------------:|
+|+id |UUID4|
+|+place_id |UUID4|
+|+user_review |UUID4|
+|+rating |int|
+|+comment |str|
+
+| Methods | Parameter | Return Type | Description |
+| :---------------: |:---------------:| :---------------:|:---------------:|
+|create | place_id, user_review, rating, comment | bool | create a new review with a rating |
+|update | rating, comment | bool | update the review and rating of an alreadyy existing review|
+|delete | id | bool | delete a review |
+|list_by_place| place_id | list | lists the reviews and rating of a place|
+
+# API Interaction Flow
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
