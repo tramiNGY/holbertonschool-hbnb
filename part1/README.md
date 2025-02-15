@@ -102,7 +102,7 @@ Business Logic Layer provides a structured and scalable foundation for the hbnb 
 |update |obj| bool| update already existing user info |
 |delete |id| bool| delete a user |
 |login |email, password| bool| retrive user data |
-|user_type |id| str | check is user is owner and admin |
+|user_type |id| str | check if user is owner and admin |
 
 ### Subclass Owner
 
