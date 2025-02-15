@@ -6,6 +6,7 @@
 This document outlines the design and structure of HBnB, a vacation rental platform. The purpose of this document is to provide a clear overview of the system architecture, including its key components, relationships, and functionalities.
 HBnB is designed to facilitate short-term property rentals by connecting property owners with potential guests. The system allows users to list properties with a list of amenities, search for accommodations, leave reviews, and manage reservations efficiently.
 
+
 ## Scope
 
 This document covers multiple aspects of HBnB’s system design
@@ -15,6 +16,7 @@ High-Level Package Diagram:
 Class Diagram: Represents the data model, relationships, and key operations for managing users, places, reviews, and amenities.
 
 Sequence Diagrams for API: Illustrates the flow of requests and responses between system components, detailing key API interactions.
+
 
 
 # High-Level Package Diagram
@@ -40,6 +42,8 @@ The API Endpoints define the communication interfaces between the frontend and t
 
 The User Interface is the visible and interactive component of the application, it is responsible for capturing user input, displaying system responses.
 
+
+
 ## Business Logic Layer (Middle Layer)
 
 This layer acts as an intermediary between the Presentation Layer and the Persistence Layer, ensuring that business operations are executed. Business Logic Layer is responsible for enforcing business rules, managing transactions, and coordinating interactions between different components.
@@ -60,6 +64,8 @@ Processes and validates user-generated reviews and ratings.
 
 Manages additional features or services associated with places.
 
+
+
 ## Persistence Layer (Bottom Layer)
 
 The Persistence Layer is responsible for managing data storage and retrieval operations within the system.
@@ -75,6 +81,8 @@ Manages user-related data, including user profiles, authentication credentials, 
 ### DataPlace
 
 Manages information related to places, including property details, locations, and ownership.
+
+
 
 # Business Logic
 ![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
