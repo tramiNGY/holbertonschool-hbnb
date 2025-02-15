@@ -25,12 +25,44 @@ This diagram represents a three-layered architecture used in software design. It
 
 ## Presentation Layer (Top Layer)
 
+The Presentation Layer is responsible for managing user interactions and displaying information in a user-friendly manner. It communicates with the Business Logic Layer through well-defined API endpoints.
+This layer follows the Facade Pattern, which simplifies the interface for the UI by providing a cohesive entry point to the system’s core functionality.
+
 ### Services
 
-Business Logic Layer (Middle Layer)
-Persistence Layer (Bottom Layer)
+The services in this layer act as intermediaries between the UI and the backend. They process requests, validate input, and prepare data before sending it to the Business Logic Layer.
 
+### API Endpoints
 
+The API Endpoints define the communication interfaces between the frontend and the backend. These endpoints are responsible for handling HTTP requests, performing required logic through the Facade in the Business Logic Layer, and returning responses to the UI.
+
+### User Interface
+
+The User Interface is the visible and interactive component of the application, it is responsible for capturing user input, displaying system responses.
+
+## Business Logic Layer (Middle Layer)
+
+This layer acts as an intermediary between the Presentation Layer and the Persistence Layer, ensuring that business operations are executed. Business Logic Layer is responsible for enforcing business rules, managing transactions, and coordinating interactions between different components.
+
+### User
+
+Handles user-related operations such as registration, authentication, profile updates, and role assignments, as well as security policies, including password encryptionand and role-based access control
+
+### Place
+
+This class manages entities related to locations, properties, or businesses. Handles Create, Read, Update, Delete operations for places
+
+### Review
+
+Processes and validates user-generated reviews and ratings.
+
+### Amenity
+
+Manages additional features or services associated with places.
+
+## Persistence Layer (Bottom Layer)
+
+The Persistence Layer is responsible for managing data storage and retrieval operations within the system.
 
 # Business Logic Layer
 
@@ -61,7 +93,7 @@ Business Logic Layer provides a structured and scalable foundation for the hbnb 
 |login |email, password| bool| retrive user data |
 |user_type |id| str | check is user is owner and admin |
 
-## Subclass Owner
+### Subclass Owner
 
 The Owner class inherits from the User class, Owner class is also depedent of Review class.
 
@@ -73,7 +105,7 @@ The Owner class inherits from the User class, Owner class is also depedent of Re
 | :---------------: |:---------------:| :---------------:| :---------------:|
 |reply_review | review_id | str | enable user to reply to a review |
 
-## Subclass Admin
+### Subclass Admin
 
 The Admin class inherits from the User class.
 
