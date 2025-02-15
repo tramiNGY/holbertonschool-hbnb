@@ -27,7 +27,9 @@ Presentation Layer (Top Layer)
 
 This layer contains
 
-| Services | API enpoints | and User Interface|
+| Services | API enpoints | and User Interface |
+| :---------------: |:---------------:|
+
 Business Logic Layer (Middle Layer)
 Persistence Layer (Bottom Layer)
 
