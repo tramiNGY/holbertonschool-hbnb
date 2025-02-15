@@ -50,9 +50,9 @@ The Owner class inherits from the User class, Owner class is also depedent of Re
 | :---------------: |:---------------:|
 |+place |str|
 
-| Methods | Parameter | Return Type |
-| :---------------: |:---------------:| :---------------:|
-|reply_review | review_id | str |
+| Methods | Parameter | Return Type | Description |
+| :---------------: |:---------------:| :---------------:| :---------------:|
+|reply_review | review_id | str | enable user to reply to a review [
 
 ## Subclass Admin
 
@@ -64,6 +64,9 @@ The Admin class inherits from the User class.
 |demotion | id_user | bool | demote an admin |
 
 ## Class Place
+
+The Place class is tied to the subclass Owner by Composition, which means that Place cannot exist without an Owner, therefore if an owner delete his account, their place will be deleted as well, they can't exist without an owner. 
+Place class is also aggregated with the class Amenity, they exist indepedently, amenity exists soly to provide a list to Place.
 
 | Attributes | Type |
 | :---------------: |:---------------:|
@@ -78,11 +81,25 @@ The Admin class inherits from the User class.
 
 | Methods | Parameter | Return Type | Description |
 | :---------------: |:---------------:| :---------------:|:---------------:|
-|create | title, description, price, latitude, longitude, owner, amenities_list | bool | create a new place tied to a owner with a list of amenities|
+|create | title, description, price, latitude, longitude, owner, amenities_list | bool | create a new place tied to an owner with a list of amenities|
 |update | title, description, price, amenities_list | bool | update the infos of an already existing place |
 |delete | id | bool | delete a place |
 
+## Class Amenity
 
+Amenity class is also aggregated with the class Place, they exist indepedently, amenity exists soly to provide a list to Place.
 
+| Attributes | Type |
+| :---------------: |:---------------:|
+|+id |UUID4|
+|+name |str|
+|+description |str|
+
+| Methods | Parameter | Return Type | Description |
+| :---------------: |:---------------:| :---------------:|:---------------:|
+|create | name, description | bool | create a new amenity |
+|update | name, description | bool | update info of an amenity|
+|delete | id | bool | delete an amenity |
+|list | id | bool | lists the amenities available|
 
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
