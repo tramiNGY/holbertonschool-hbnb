@@ -18,11 +18,11 @@ Sequence Diagrams for API: Illustrates the flow of requests and responses betwee
 
 ## High-Level Package Diagram
 
-## Class Diagram
+# Class Diagram
 
 ![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
 
-# Class User
+## Class User
 
 | Attributes | Type |
 | :---------------: |:---------------:|
@@ -32,6 +32,14 @@ Sequence Diagrams for API: Illustrates the flow of requests and responses betwee
 |-password |str|
 |-is_admin |bool|
 |+is_owner |bool|
+
+| Methods | Parameter | Return Type |
+| :---------------: |:---------------:| :---------------:|
+|-register |first_name, last_name, password, email, id| bool |
+|-update |obj| bool|
+|-delete |id| bool|
+|-login |email, password| bool]
+|-user_type |id| str |
 
 
 ## Sequence Diagrams for API
