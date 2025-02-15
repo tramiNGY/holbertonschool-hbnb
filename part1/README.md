@@ -64,8 +64,19 @@ Manages additional features or services associated with places.
 
 The Persistence Layer is responsible for managing data storage and retrieval operations within the system.
 
-# Business Logic Layer
+### Database Access
 
+Handles direct interactions with the database, including executing queries, managing transactions, and ensuring efficient data retrieval.
+
+### DataUser
+
+Manages user-related data, including user profiles, authentication credentials, and role-based permissions.
+
+### DataPlace
+
+Manages information related to places, including property details, locations, and ownership.
+
+# Business Logic
 ![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
 
 
