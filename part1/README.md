@@ -22,6 +22,18 @@ Sequence Diagrams for API: Illustrates the flow of requests and responses betwee
 
 ![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
 
+# Class User
+
+| Attributes | Type |
+| :---------------: |:---------------:|
+|+first_name |str|
+|+last_name |str|
+|-email |str|
+|-password |str|
+|-is_admin |bool|
+|+is_owner |bool|
+
+
 ## Sequence Diagrams for API
 
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
