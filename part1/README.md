@@ -24,7 +24,9 @@ Sequence Diagrams for API: Illustrates the flow of requests and responses betwee
 This diagram represents a three-layered architecture used in software design. It is divided into three layers that each have specific responsibilities and interacts with the layer below it:
 
 Presentation Layer (Top Layer)
+
 This layer contains
+
 | Services | API enpoints | and User Interface|
 Business Logic Layer (Middle Layer)
 Persistence Layer (Bottom Layer)
