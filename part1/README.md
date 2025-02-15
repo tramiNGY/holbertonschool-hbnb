@@ -200,6 +200,16 @@ Review class is depedent of User, without a user there are no reviews.
 # API Interaction Flow
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
 
+The sequence diagram illustrates the flow of a user registration request in a layered architecture system. It shows the interactions between the four main components:
+If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
+
+| Component | Role |
+| :---------------: |:---------------:|
+|User |Initiates registration request |
+|API | Acts as an intermediary, forwarding requests and responses |
+|Business Logic |Validates, processes, and coordinates registration logic |
+| Database | Stores user information upon successful validation.|
+
 
 ## Authors
 - [Tra Mi NGUYEN](https://github.com/tramiNGY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Badge](https://badgen.net/badge/icon/github?icon=github&label)
