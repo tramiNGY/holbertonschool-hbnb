@@ -45,11 +45,11 @@ Business Logic Layer provides a structured and scalable foundation for the hbnb 
 
 | Methods | Parameter | Return Type | Description |
 | :---------------: |:---------------:| :---------------:| :---------------:| 
-|-register |first_name, last_name, password, email, id| bool | create a new user |
-|-update |obj| bool| update already existing user info |
-|-delete |id| bool| delete a user |
-|-login |email, password| bool| retrive user data |
-|-user_type |id| str | check is user is owner and admin |
+|register |first_name, last_name, password, email, id| bool | create a new user |
+|update |obj| bool| update already existing user info |
+|delete |id| bool| delete a user |
+|login |email, password| bool| retrive user data |
+|user_type |id| str | check is user is owner and admin |
 
 ## Subclass Owner
 
