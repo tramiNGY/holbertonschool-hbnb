@@ -14,13 +14,17 @@ Class Diagram: Represents the data model, relationships, and key operations for 
 
 Sequence Diagrams for API: Illustrates the flow of requests and responses between system components, detailing key API interactions.
 
-## In depth look at the diagrams
 
-## High-Level Package Diagram
+# High-Level Package Diagram
 
 # Business Logic Layer
 
 ![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
+
+
+The diagram serves as a blueprint for the hbnb application, detailing the core classes, their attributes, methods, and interactions. It provides structure for managing users, places, reviews, and administrative functions.
+
+Business Logic Layer provides a structured and scalable foundation for the hbnb application, ensuring efficient management of users, places, and reviews while maintaining security and user experience.
 
 ## Class User
 
@@ -125,6 +129,7 @@ Review class is depedent of User, without a user there are no reviews.
 |update | rating, comment | bool | update the review and rating of an alreadyy existing review|
 |delete | id | bool | delete a review |
 |list_by_place| place_id | list | lists the reviews and rating of a place|
+
 
 # API Interaction Flow
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
