@@ -19,5 +19,5 @@ Sequence Diagrams for API: Illustrates the flow of requests and responses betwee
 ## High-Level Package Diagram
 
 ## Class Diagram
-![printf image image (1)](![printf image image (1)](https://pbs.twimg.com/media/Gg3-FCFWwAEnvUE?format=jpg&name=medium))
+![printf image image (1)](![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium))
 ## Sequence Diagrams for API
