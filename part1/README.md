@@ -61,7 +61,7 @@ The Owner class inherits from the User class, Owner class is also depedent of Re
 
 | Methods | Parameter | Return Type | Description |
 | :---------------: |:---------------:| :---------------:| :---------------:|
-|reply_review | review_id | str | enable user to reply to a review [
+|reply_review | review_id | str | enable user to reply to a review |
 
 ## Subclass Admin
 
