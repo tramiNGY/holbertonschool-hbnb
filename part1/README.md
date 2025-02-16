@@ -1,29 +1,36 @@
 ![printf image image (1)](https://pbs.twimg.com/media/Gj1Hgv2XYAAiHmC?format=jpg&name=small)
 
-# **HBNB project**
+# **HBNB UML**
 
 ## Introduction
-This document outlines the design and structure of HBnB, a vacation rental platform. The purpose of this document is to provide a clear overview of the system architecture, including its key components, relationships, and functionalities.
-HBnB is designed to facilitate short-term property rentals by connecting property owners with potential guests. The system allows users to list properties with a list of amenities, search for accommodations, leave reviews, and manage reservations efficiently.
+**What is UML?**
+UML stands for Unified Modeling Language. It’s a standardized way to visualize the design of a system. Think of it as a blueprint for your code, much like architectural blueprints for buildings.
+
+
+This **Technical Documentation** outlines the design and structure of a simplified AirBnB-like application, named **HBnB Evolution** which is a places rental platform. The purpose of this document is to provide a clear overview of the system architecture, including its key components, relationships, and functionalities.
+HBnB is designed to facilitate short-term property rentals by connecting property owners with potential guests. The system allows users to list properties with a list of amenities, search for accommodations and leave reviews.
 
 
 ## Scope
 
-This document covers multiple aspects of HBnB’s system design
+This document covers multiple aspects of HBnB’s system design.
 
-High-Level Package Diagram:
+**High-Level Package Diagram**: illustrates the three-layer architecture of the HBnB application and the communication between these layers via the facade pattern.
 
-Class Diagram: Represents the data model, relationships, and key operations for managing users, places, reviews, and amenities.
+**Class Diagram**: Represents the data model, relationships, and key operations for managing users, places, reviews, and amenities.
 
-Sequence Diagrams for API: Illustrates the flow of requests and responses between system components, detailing key API interactions.
+**Sequence Diagrams for API**: Illustrates the flow of requests and responses between system components, detailing key API interactions.
 
 
 
 # High-Level Package Diagram
-
+This diagram represents a **three-layered architecture** used in software design. It provides a conceptual overview of how the different components of the application are organized and how they interact with each other. It is divided into three layers that each have specific responsibilities and interacts with the layer below it.
 ![printf image image (1)](https://pbs.twimg.com/media/Gj1IYDZX0AAI2is?format=jpg&name=small)
 
-This diagram represents a three-layered architecture used in software design. It is divided into three layers that each have specific responsibilities and interacts with the layer below it.
+## Legends
+- Packages appear as rectangles with small tabs at the top,
+- The package name is inside the rectangles,
+- The dotted arrows are dependencies.
 
 ## Presentation Layer (Top Layer)
 
@@ -36,33 +43,33 @@ The services in this layer act as intermediaries between the UI and the backend.
 
 ### API Endpoints
 
-The API Endpoints define the communication interfaces between the frontend and the backend. These endpoints are responsible for handling HTTP requests, performing required logic through the Facade in the Business Logic Layer, and returning responses to the UI.
+The API Endpoints define the communication interfaces between the frontend and the backend. These endpoints are responsible for handling requests, performing required logic through the Facade in the Business Logic Layer, and returning responses to the UI.
 
 ### User Interface
 
-The User Interface is the visible and interactive component of the application, it is responsible for capturing user input, displaying system responses.
+The User Interface (UI) is the visible and interactive component of the application, it is responsible for capturing user input, displaying system responses.
 
 
 
 ## Business Logic Layer (Middle Layer)
 
-This layer acts as an intermediary between the Presentation Layer and the Persistence Layer, ensuring that business operations are executed. Business Logic Layer is responsible for enforcing business rules, managing transactions, and coordinating interactions between different components.
+This layer acts as an intermediary between the Presentation Layer and the Persistence Layer, ensuring that business operations are executed. Business Logic Layer is responsible for enforcing business rules, managing transactions, and coordinating interactions between different components. It contains the core business logic and the models that represent the entities of the system.
 
 ### User
 
-Handles user-related operations such as registration, authentication, profile updates, and role assignments, as well as security policies, including password encryptionand and role-based access control
+Handles user-related operations such as registration, authentication, profile updates, and role assignments, as well as security policies, including password encryption and role-based access control.
 
 ### Place
 
-This class manages entities related to locations, properties, or businesses. Handles Create, Read, Update, Delete operations for places
+This class manages entities related to locations, properties or businesses. They are associated with the user who created them (owner) and can have a list of amenities. Handles Create, Read, Update, Delete operations for places.
 
 ### Review
 
-Processes and validates user-generated reviews and ratings.
+Processes and validates user-generated reviews and ratings. Each review is associated with a specific place and user. Reviews can be created, deleted and listed by place.
 
 ### Amenity
 
-Manages additional features or services associated with places.
+Amenity handles all equipments available through all the places. Each has a name and description, can be created, updated, deleted and listed.
 
 
 
@@ -84,15 +91,31 @@ Manages information related to places, including property details, locations, an
 
 
 
-# Business Logic
-![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
-
-
+# Class diagram for Business Logic
 The diagram serves as a blueprint for the hbnb application, detailing the core classes, their attributes, methods, and interactions. It provides structure for managing users, places, reviews, and administrative functions.
 
 Business Logic Layer provides a structured and scalable foundation for the hbnb application, ensuring efficient management of users, places, and reviews while maintaining security and user experience.
+![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
 
+## Legends
+**Entity/Class**: Each is represented by a rectangle with up to 3 compartments (class's name, attributes and operations/methods) which visibility can be public (+), private (-) or protected (#):
+
+![printf image image (1)](https://www.assignmenthelp.net/webimg/yah/images/UML/class-diagraml-visibility.gif)
+
+**Relationships**:
+![printf image image (1)](https://d3n817fwly711g.cloudfront.net/uploads/2018/08/Class-Diagram-Relationships.png)
+- **Association**: Represents a bi-directional relationship between two classes. It establishes a connection between objects of the two classes.
+- **Inheritance/Generalization**: Represents an “is-a” relationship, also known as inheritance (ClassA is a subclass of ClassB). 
+- **Realization/Implementation**: Represents the relationship between a class and an interface. The class (usually concrete) realizes the operations declared by the interface.
+- **Dependency**: Indicates that one class depends on another. This dependency can be due to a method parameter, local variable, or even due to the usage of an object as a method.
+- **Aggregation**: Represents a “whole-part” relationship. It’s a weaker form of association where one class (the whole) contains objects of another class (the part), but the part can exist independently of the whole.
+- **Composition**: A stronger form of aggregation. Represents a “whole-part” relationship where the part cannot exist without the whole. If the whole is destroyed, the part is destroyed as well.
+
+**Multiplicity**: How many objects of each class take part in the relationships and multiplicity can be expressed as:
+
+![printf image image (1)](https://www.researchgate.net/profile/Scott-Ambler/publication/235616285/figure/tbl1/AS:668964975808522@1536505087568/UML-multiplicity-indicators.png)
 ## Class User
+The User class is a person registered with personal informations.
 
 | Attributes | Type |
 | :---------------: |:---------------:|
@@ -104,7 +127,7 @@ Business Logic Layer provides a structured and scalable foundation for the hbnb 
 |-is_admin |bool|
 |+is_owner |bool|
 
-| Methods | Parameter | Return Type | Description |
+| Methods | Parameters | Return Type | Description |
 | :---------------: |:---------------:| :---------------:| :---------------:| 
 |register |first_name, last_name, password, email, id| bool | create a new user |
 |update |obj| bool| update already existing user info |
@@ -120,15 +143,15 @@ The Owner class inherits from the User class, Owner class is also depedent of Re
 | :---------------: |:---------------:|
 |+place |str|
 
-| Methods | Parameter | Return Type | Description |
+| Methods | Parameters | Return Type | Description |
 | :---------------: |:---------------:| :---------------:| :---------------:|
 |reply_review | review_id | str | enable user to reply to a review |
 
 ### Subclass Admin
 
-The Admin class inherits from the User class.
+The Admin class inherits from the User class and have additional rights for actions on regular Users.
 
-| Methods | Parameter | Return Type | Description |
+| Methods | Parameters | Return Type | Description |
 | :---------------: |:---------------:| :---------------:|:---------------:|
 |promotion | id_user | bool | promote a user to admin |
 |demotion | id_user | bool | demote an admin |
@@ -197,11 +220,18 @@ Review class is depedent of User, without a user there are no reviews.
 |list_by_place| place_id | list | lists the reviews and rating of a place|
 
 
-# API Interaction Flow
+# Sequence diagrams for API calls
+Sequence diagrams illustrate the interaction between the layers (Presentation, Business Logic, Persistence) and the flow of information within the HBnB application. The sequence diagrams will help visualize how different components of the system interact to fulfill specific use cases, showing the step-by-step process of handling API requests.
+Below are 4 API calls with their sequence diagram associated.
+
+## Legends
+![printf image image (1)](https://www.uml-diagrams.org/sequence-diagrams/sequence-diagram-overview.png)
+
+## User Registration
+A User signs up for a new account.
+If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
 
-The sequence diagram illustrates the flow of a user registration request in a layered architecture system. It shows the interactions between the four main components:
-If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
 
 | Component | Role |
 | :---------------: |:---------------:|
@@ -209,6 +239,48 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 |API | Acts as an intermediary, forwarding requests and responses |
 |Business Logic |Validates, processes, and coordinates registration logic |
 | Database | Stores user information upon successful validation|
+
+## Place Creation
+A user creates a new place listing.
+If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
+![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
+
+
+| Component | Role |
+| :---------------: |:---------------:|
+|User |Initiates place creation request |
+|API | Acts as an intermediary, forwarding requests and responses |
+|Business Logic |Validates, processes, and coordinates place creation logic |
+| Database | Stores place information upon successful validation|
+
+
+## Review Submission
+A user submits a review for a place.
+If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
+![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
+
+
+| Component | Role |
+| :---------------: |:---------------:|
+|User |Initiates review submission request |
+|API | Acts as an intermediary, forwarding requests and responses |
+|Business Logic |Validates, processes, and coordinates review submission logic |
+| Database | Stores review information upon successful validation|
+
+
+## Fetching a List of Places
+A user requests a list of places based on certain criteria.
+If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
+![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
+
+
+| Component | Role |
+| :---------------: |:---------------:|
+|User |Initiates list of places request |
+|API | Acts as an intermediary, forwarding requests and responses |
+|Business Logic |Validates requests and apply filter |
+| Database | Fetch places based on criteria and return place list|
+
 
 
 ## Authors
