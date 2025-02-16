@@ -23,7 +23,7 @@ This document covers multiple aspects of HBnB’s system design.
 
 
 
-# High-Level Package Diagram
+# High-Level Architecture Package Diagram
 This diagram represents a **three-layered architecture** used in software design. It provides a conceptual overview of how the different components of the application are organized and how they interact with each other. It is divided into three layers that each have specific responsibilities and interacts with the layer below it.
 
 ![printf image image (1)](https://pbs.twimg.com/media/Gj1IYDZX0AAI2is?format=jpg&name=small)
@@ -92,7 +92,7 @@ Manages information related to places, including property details, locations, an
 
 
 
-# Class diagram for Business Logic
+# Business Logic Layer Class Diagram
 The diagram serves as a blueprint for the hbnb application, detailing the core classes, their attributes, methods, and interactions. It provides structure for managing users, places, reviews, and administrative functions.
 
 Business Logic Layer provides a structured and scalable foundation for the hbnb application, ensuring efficient management of users, places, and reviews while maintaining security and user experience.
@@ -224,7 +224,7 @@ Review class is depedent of User, without a user there are no reviews.
 |list_by_place| place_id | list | lists the reviews and rating of a place|
 
 
-# Sequence diagrams for API calls
+# API Interaction Flow Sequence diagrams
 Sequence diagrams illustrate the interaction between the layers (Presentation, Business Logic, Persistence) and the flow of information within the HBnB application. The sequence diagrams will help visualize how different components of the system interact to fulfill specific use cases, showing the step-by-step process of handling API requests.
 Below are 4 API calls with their sequence diagram associated.
 
