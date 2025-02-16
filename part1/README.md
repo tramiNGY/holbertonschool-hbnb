@@ -25,6 +25,7 @@ This document covers multiple aspects of HBnB’s system design.
 
 # High-Level Package Diagram
 This diagram represents a **three-layered architecture** used in software design. It provides a conceptual overview of how the different components of the application are organized and how they interact with each other. It is divided into three layers that each have specific responsibilities and interacts with the layer below it.
+
 ![printf image image (1)](https://pbs.twimg.com/media/Gj1IYDZX0AAI2is?format=jpg&name=small)
 
 ## Legends
@@ -95,6 +96,7 @@ Manages information related to places, including property details, locations, an
 The diagram serves as a blueprint for the hbnb application, detailing the core classes, their attributes, methods, and interactions. It provides structure for managing users, places, reviews, and administrative functions.
 
 Business Logic Layer provides a structured and scalable foundation for the hbnb application, ensuring efficient management of users, places, and reviews while maintaining security and user experience.
+
 ![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
 
 ## Legends
@@ -103,6 +105,7 @@ Business Logic Layer provides a structured and scalable foundation for the hbnb 
 ![printf image image (1)](https://www.assignmenthelp.net/webimg/yah/images/UML/class-diagraml-visibility.gif)
 
 **Relationships**:
+
 ![printf image image (1)](https://d3n817fwly711g.cloudfront.net/uploads/2018/08/Class-Diagram-Relationships.png)
 - **Association**: Represents a bi-directional relationship between two classes. It establishes a connection between objects of the two classes.
 - **Inheritance/Generalization**: Represents an “is-a” relationship, also known as inheritance (ClassA is a subclass of ClassB). 
@@ -112,8 +115,8 @@ Business Logic Layer provides a structured and scalable foundation for the hbnb 
 - **Composition**: A stronger form of aggregation. Represents a “whole-part” relationship where the part cannot exist without the whole. If the whole is destroyed, the part is destroyed as well.
 
 **Multiplicity**: How many objects of each class take part in the relationships and multiplicity can be expressed as:
+![printf image image (1)](https://miro.medium.com/v2/resize:fit:970/1*bdhU4W2R3LcnVi1fqAubUw.png)
 
-![printf image image (1)](https://www.researchgate.net/profile/Scott-Ambler/publication/235616285/figure/tbl1/AS:668964975808522@1536505087568/UML-multiplicity-indicators.png)
 ## Class User
 The User class is a person registered with personal informations.
 
@@ -230,6 +233,7 @@ Below are 4 API calls with their sequence diagram associated.
 ## User Registration
 A User signs up for a new account.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
+
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
 
 
@@ -243,6 +247,7 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 ## Place Creation
 A user creates a new place listing.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
+
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
 
 
@@ -257,6 +262,7 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 ## Review Submission
 A user submits a review for a place.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
+
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
 
 
@@ -271,6 +277,7 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 ## Fetching a List of Places
 A user requests a list of places based on certain criteria.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
+
 ![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
 
 
