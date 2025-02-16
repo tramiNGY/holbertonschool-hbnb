@@ -130,6 +130,8 @@ The User class is a person registered with personal informations.
 |-password |str|
 |-is_admin |bool|
 |+is_owner |bool|
+|-update_date |str|
+|-create_date |str|
 
 | Methods | Parameters | Return Type | Description |
 | :---------------: |:---------------:| :---------------:| :---------------:| 
@@ -145,7 +147,7 @@ The Owner class inherits from the User class, Owner class is also depedent of Re
 
 | Attributes | Type |
 | :---------------: |:---------------:|
-|+place |str|
+|+placelist |list|
 
 | Methods | Parameters | Return Type | Description |
 | :---------------: |:---------------:| :---------------:| :---------------:|
@@ -176,6 +178,8 @@ Place class is also aggregated with the class Amenity, they exist indepedently, 
 |+longitude |float|
 |+owner |UUID4|
 |+amenities_list |list|
+|-update_date |str|
+|-create_date |str|
 
 | Methods | Parameter | Return Type | Description |
 | :---------------: |:---------------:| :---------------:|:---------------:|
@@ -192,6 +196,8 @@ Amenity class is also aggregated with the class Place, they exist indepedently, 
 |+id |UUID4|
 |+name |str|
 |+description |str|
+|-update_date |str|
+|-create_date |str|
 
 | Methods | Parameter | Return Type | Description |
 | :---------------: |:---------------:| :---------------:|:---------------:|
@@ -215,6 +221,8 @@ Review class is depedent of User, without a user there are no reviews.
 |+user_review |UUID4|
 |+rating |int|
 |+comment |str|
+|-update_date |str|
+|-create_date |str|
 
 | Methods | Parameter | Return Type | Description |
 | :---------------: |:---------------:| :---------------:|:---------------:|
