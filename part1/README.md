@@ -26,7 +26,7 @@ This document covers multiple aspects of HBnB’s system design.
 # High-Level Architecture Package Diagram
 This diagram represents a **three-layered architecture** used in software design. It provides a conceptual overview of how the different components of the application are organized and how they interact with each other. It is divided into three layers that each have specific responsibilities and interacts with the layer below it.
 
-![printf image image (1)](https://pbs.twimg.com/media/Gj1IYDZX0AAI2is?format=jpg&name=small)
+![printf image image (1)](https://pbs.twimg.com/media/Gj7VkaAXcAAPXce?format=png&name=900x900)
 
 ## Legends
 - Packages appear as rectangles with small tabs at the top,
@@ -97,7 +97,7 @@ The diagram serves as a blueprint for the hbnb application, detailing the core c
 
 Business Logic Layer provides a structured and scalable foundation for the hbnb application, ensuring efficient management of users, places, and reviews while maintaining security and user experience.
 
-![printf image image (1)](https://pbs.twimg.com/media/Gj01V98XoAEDxxk?format=jpg&name=medium)
+![printf image image (1)](https://pbs.twimg.com/media/Gj7VnVXWEAAqAO4?format=png&name=small)
 
 ## Legends
 **Entity/Class**: Each is represented by a rectangle with up to 3 compartments (class's name, attributes and operations/methods) which visibility can be public (+), private (-) or protected (#):
@@ -235,7 +235,7 @@ Below are 4 API calls with their sequence diagram associated.
 A User signs up for a new account.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
 
-![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
+![printf image image (1)](https://pbs.twimg.com/media/Gj7V1UtXEAA5Rlb?format=png&name=small)
 
 
 | Component | Role |
@@ -249,7 +249,7 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 A user creates a new place listing.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
 
-![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
+![printf image image (1)](https://pbs.twimg.com/media/Gj7VtpLXwAAWSWO?format=png&name=small)
 
 
 | Component | Role |
@@ -264,7 +264,7 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 A user submits a review for a place.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
 
-![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
+![printf image image (1)](https://pbs.twimg.com/media/Gj7VwKUWcAA-Gby?format=png&name=small)
 
 
 | Component | Role |
@@ -279,7 +279,7 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 A user requests a list of places based on certain criteria.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
 
-![printf image image (1)](https://pbs.twimg.com/media/Gj02erqXsAEcYlQ?format=png&name=small)
+![printf image image (1)](https://pbs.twimg.com/media/Gj7VoyYWsAAWXgD?format=png&name=small)
 
 
 | Component | Role |
