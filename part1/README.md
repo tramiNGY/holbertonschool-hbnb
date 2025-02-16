@@ -115,6 +115,7 @@ Business Logic Layer provides a structured and scalable foundation for the hbnb 
 - **Composition**: A stronger form of aggregation. Represents a “whole-part” relationship where the part cannot exist without the whole. If the whole is destroyed, the part is destroyed as well.
 
 **Multiplicity**: How many objects of each class take part in the relationships and multiplicity can be expressed as:
+
 ![printf image image (1)](https://miro.medium.com/v2/resize:fit:970/1*bdhU4W2R3LcnVi1fqAubUw.png)
 
 ## Class User
