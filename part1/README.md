@@ -243,7 +243,7 @@ Below are 4 API calls with their sequence diagram associated.
 A User signs up for a new account.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
 
-![printf image image (1)](https://pbs.twimg.com/media/Gj7V1UtXEAA5Rlb?format=png&name=small)
+![printf image image (1)](https://pbs.twimg.com/media/Gj--vkDX0AAv5X9?format=png&name=900x900)
 
 
 | Component | Role |
