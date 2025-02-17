@@ -257,7 +257,7 @@ If the Business Logic Layer detects an issue, it sends a failure response to the
 A user creates a new place listing.
 If the Business Logic Layer detects an issue, it sends a failure response to the API, which then informs the User of the issue.
 
-![printf image image (1)](https://pbs.twimg.com/media/Gj7VtpLXwAAWSWO?format=png&name=small)
+![printf image image (1)](https://pbs.twimg.com/media/Gj-_JB0WQAEhJFo?format=png&name=small)
 
 
 | Component | Role |
