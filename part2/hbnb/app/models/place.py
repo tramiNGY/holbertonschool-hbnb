@@ -32,10 +32,6 @@ class Place(BaseModel):
             self.description = description
         if price:
             self.price = price
-        if latitude:
-            self.latitude = latitude
-        if longitude:
-            self.longitude = longitude
         if amenities_list is not None:
             self.amenities_list = amenities_list
         super().update()
