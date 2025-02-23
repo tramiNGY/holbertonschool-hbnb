@@ -40,11 +40,12 @@ class Place(BaseModel):
             self.amenities_list = amenities_list
         super().update()
 
-    def list(title, price, latitude, longitude, amenities_list)
+    def list(title, price, latitude, longitude, amenities_list):
         # to be added
-    
-    
+        pass
+
     def add_review(self, review):
+        """append reviews to a place"""
         self.reviews.append(review)
 
     def delete(self):
