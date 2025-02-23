@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 class BaseModel:
-    """aase class for common attributes and methods
+    """base class for common attributes and methods
     all class inherits from BaseModel to avoid redundancy in the code"""
     def __init__(self, id=None):
         self.id = id if id else uuid.uuid4()
