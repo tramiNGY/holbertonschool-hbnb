@@ -26,6 +26,25 @@ class User(BaseModel):
     def __login(self, email, password):
         return self.__email == email and self.__password == password
 
+
+     def update(self, first_name=None, last_name=None, email=None, password=None, is_admin=None):
+        """
+        Updates the user's attributes if new values are provided.
+        """
+        if first_name:
+            self.first_name = first_name
+        if last_name:
+            self.last_name = last_name
+        if email:
+            self.__email = email
+        if password:
+            self.__password = password
+        if is_admin is not None:  # Check if is_admin is explicitly set
+            self.__is_admin = is_admin
+
+        super().update()
+
+
     def delete(self):
         """delete all reviews associated with the user"""
         for place in self.owned_places:
