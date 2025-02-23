@@ -22,6 +22,28 @@ class Place(BaseModel):
         self.reviews = []
         owner.places.append(self)
 
+    def update(self, title=None, description=None, price=None, latitude=None, longitude=None, amenities_list=None):
+        """
+        Updates the attributes of the Place object if new values are provided.
+        """
+        if title:
+            self.title = title
+        if description:
+            self.description = description
+        if price:
+            self.price = price
+        if latitude:
+            self.latitude = latitude
+        if longitude:
+            self.longitude = longitude
+        if amenities_list is not None:
+            self.amenities_list = amenities_list
+        super().update()
+
+    def list(title, price, latitude, longitude, amenities_list)
+        # to be added
+    
+    
     def add_review(self, review):
         self.reviews.append(review)
 

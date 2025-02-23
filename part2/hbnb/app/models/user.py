@@ -4,6 +4,7 @@ this module contain a class User
 """
 from .base_model import BaseModel
 from .place import Place
+from datetime import datetime
 
 
 class User(BaseModel):
@@ -39,7 +40,7 @@ class User(BaseModel):
             self.__email = email
         if password:
             self.__password = password
-        if is_admin is not None:  # Check if is_admin is explicitly set
+        if is_admin is not None:
             self.__is_admin = is_admin
 
         super().update()
@@ -66,10 +67,8 @@ class Owner(User):
 
     def delete(self):
         """delete all places associated with the owner"""
-        for place in self.places:
-            place.delete()
+        # unlink user from review to delete user while keeping his review uploaded.
         del self
-
 
 class Admin(User):
     """represents an Admin, inherits from User"""

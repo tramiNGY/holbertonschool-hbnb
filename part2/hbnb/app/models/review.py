@@ -3,9 +3,8 @@
 this module contain a class Review
 """
 from .base_model import BaseModel
-from .place import Place
 from .user import User
-
+from datetime import datetime
 
 class Review(BaseModel):
     """represents a Review,
