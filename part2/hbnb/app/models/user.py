@@ -2,84 +2,98 @@
 """
 this module contain a class User
 """
-from .base_model import BaseModel
+from app.persistence.repository import InMemoryRepository as database
+import uuid
 from .place import Place
 from datetime import datetime
 
 
-class User(BaseModel):
+class User():
     """represents a User in the HBNB app"""
-    def __init__(self, first_name, last_name, email,
-                 password, is_admin=False, id=None):
-        super().__init__(id)
+    def __init__(self, user_id=None, first_name, last_name, email, password, place_list, is_admin=False, is_owner):
+        self.user_id = user_id
         self.first_name = first_name
         self.last_name = last_name
         self.__email = email
         self.__password = password
+        self.place_list = []
         self.__is_admin = is_admin
-        self.__update_date = datetime.now()
-        self.__create_date = datetime.now()
-        self.owned_places = []
+        self.is_owner = is_owner
 
-    def __register(self, first_name, last_name, password, email):
-        return User(first_name, last_name, email, password)
+    @staticmethod
+    def __register():
+        print("Register new account:")
+        first_name = input("First name: ")
+        last_name = input("Last name: ")
+        email = input("Email: ")
+        password = input("Password: ")
 
-    def __login(self, email, password):
-        return self.__email == email and self.__password == password
+        if database.get_by_attribute("email", email) is not None:
+            user_id = str(uuid.uuid4)
+            create_date = datetime.now()
+            new_user = User(user_id, first_name, last_name, email, password, create_date)
+            database.add(new_user)
+            print("User registered successfully!")
+            return True
+
+        return False
+
+    @staticmethod()
+    def __login():
+        email = input("Email: ")
+        password = input("Password: ")
+        if database.get_by_attribute("email", email) == email and database.get_by_attribute("password", password) == password:
+            print("Login success")
+            return True
+        return False
 
 
-     def update(self, first_name=None, last_name=None, email=None, password=None, is_admin=None):
+    def update(self):
         """
         Updates the user's attributes if new values are provided.
         """
-        if first_name:
-            self.first_name = first_name
-        if last_name:
-            self.last_name = last_name
-        if email:
-            self.__email = email
-        if password:
-            self.__password = password
-        if is_admin is not None:
-            self.__is_admin = is_admin
+        print("Update User informations:")
+        first_name = input("First name: ")
+        last_name = input("Last name: ")
+        email = input("Email: ")
+        password = input("Password: ")
+        update_date = datetime.now()
 
-        super().update()
+        new_infos = dict({"first_name": first_name, "last_name": last_name, "email": email, "password": password, "update_date": update_date})
+
+        for key, value in new_infos.items():
+            if value is not ("" or None):
+                new_infos[key] = value
+
+        if database.update(self, self.user_id, new_infos) is not None:
+            print("Informations have been updated")
+            return True
+        return False
 
 
     def delete(self):
         """delete all reviews associated with the user"""
-        for place in self.owned_places:
-            for review in place.reviews:
-                if review.user == self:
-                    review.delete()
-        del self
+        if self.is_owner == True:
+            for place_id in self.place_list:
+                database.delete(self, place_id)
+        database.delete(self, self.user_id)
 
-    def __user_type(self):
-        return "Admin" if self.__is_admin else "Regular User"
-
-
-class Owner(User):
-    """represents an Owner, inherits from User"""
-    def __init__(self, first_name, last_name, email, password, id=None):
-        super().__init__(first_name, last_name, email, password,
-                         is_admin=False, id=id)
-        self.places = []
-
-    def delete(self):
-        """delete all places associated with the owner"""
-        # unlink user from review to delete user while keeping his review uploaded.
-        del self
 
 class Admin(User):
     """represents an Admin, inherits from User"""
-    def __init__(self, first_name, last_name, email, password, id=None):
-        super().__init__(first_name, last_name, email, password,
-                         is_admin=True, id=id)
-        self.__update_date = datetime.now()
-        self.__create_date = datetime.now()
 
-    def __promote(self, user):
-        user.__is_admin = True
+    def __promote(self, user_id):
+        if self.__is_admin == True:
+            update_date = datetime.now()
+            if database.update(self, user_id, {"is_admin": True, "update_date": update_date}) is not None:
+                print("User has been promoted to Admin")
+                return True
+            return False
 
-    def __demote(self, user):
-        user.__is_admin = False
+    def __demote(self, user_id):
+        if self.__is_admin == False:
+            update_date = datetime.now()
+            if database.update(self, user_id, {"is_admin": False, "update_date": update_date}) is not None:
+                print("User is no longer an Admin")
+                return True
+            return False

@@ -9,6 +9,7 @@ from datetime import datetime
 class Review(BaseModel):
     """represents a Review,
     tied to Place by Composition and dependent on User"""
+    # addplace id
     def __init__(self, place, user, rating, comment, id=None):
         super().__init__(id)
         self.place = place
@@ -28,3 +29,6 @@ class Review(BaseModel):
 
     def delete(self):
         del self
+
+    def list_by_place(place_id):
+        pass

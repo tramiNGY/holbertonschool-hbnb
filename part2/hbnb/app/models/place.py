@@ -40,11 +40,8 @@ class Place(BaseModel):
         # to be added
         pass
 
-    def add_review(self, review):
-        """append reviews to a place"""
-        self.reviews.append(review)
 
-    def delete(self):
+    def delete(self, id):
         """delete all reviews associated with the place"""
         for review in self.reviews:
             review.delete()
