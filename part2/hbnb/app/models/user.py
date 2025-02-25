@@ -2,6 +2,7 @@
 """
 this module contain a class User
 """
+from .base_model import BaseModel
 from app.persistence.repository import InMemoryRepository as database
 import uuid
 from .place import Place
