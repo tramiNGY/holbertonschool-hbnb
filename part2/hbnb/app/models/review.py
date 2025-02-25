@@ -3,6 +3,7 @@
 this module contain a class Review
 """
 from .base_model import BaseModel
+from app.persistence.repository import InMemoryRepository as database
 from .user import User
 from datetime import datetime
 
@@ -20,6 +21,10 @@ class Review(BaseModel):
         self.__create_date = datetime.now()
         self.__update_date = datetime.now()
         place.add_review(self)
-
     def list_review_by_place(place_id):
-        pass
+        "list all reviews per place"
+        place_reviews = []
+        for review in database.get_all():
+            if review.place_id == place_id:
+                place_reviews.append(review)
+        return place_reviews

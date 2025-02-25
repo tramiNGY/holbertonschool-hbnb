@@ -4,6 +4,7 @@ this module contain a class Amenity
 """
 from .base_model import BaseModel
 from datetime import datetime
+from app.persistence.repository import InMemoryRepository as database
 
 
 class Amenity(BaseModel):
@@ -15,4 +16,5 @@ class Amenity(BaseModel):
         self.__create_date = datetime.now()
         self.__update_date = datetime.now()
 
-    def amenities_list:
+    def amenities_list():
+        return {amenity.name: amenity.description for amenity in database().get_all()}

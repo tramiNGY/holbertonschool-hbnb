@@ -19,13 +19,24 @@ class Place(BaseModel):
         self.owner = owner
         self.reviews = []  # List to store related reviews
         self.amenities = []  # List to store related amenities
-
     def add_review(self, review):
         """Add a review to the place."""
         self.reviews.append(review)
-
     def add_amenity(self, amenity):
         """Add an amenity to the place."""
         self.amenities.append(amenity)
-
-    def list_by_place:
+    def list_by_place(self):
+        """Dictionary of details for place."""
+        place_info = {
+            "title": self.title,
+            "description": self.description,
+            "price": self.price,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "owner": self.owner,
+            "reviews": self.reviews,
+            "amenities": self.amenities
+        }
+        return place_info
+    def filter_by_amenities():
+        """Filter places by amenities."""
