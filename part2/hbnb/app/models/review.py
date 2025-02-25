@@ -21,6 +21,7 @@ class Review(BaseModel):
         self.__create_date = datetime.now()
         self.__update_date = datetime.now()
         place.add_review(self)
+
     def list_review_by_place(place_id):
         "list all reviews per place"
         place_reviews = []
