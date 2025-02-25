@@ -11,15 +11,14 @@ from datetime import datetime
 
 class User(BaseModel):
     """represents a User in the HBNB app"""
-    def __init__(self, user_id=None, first_name, last_name, email, password, place_list, is_admin=False, is_owner):
+    def __init__(self, first_name, last_name, email, password, place_list, is_admin=False, user_id=None):
         self.user_id = user_id
         self.first_name = first_name
         self.last_name = last_name
-        self.__email = email
-        self.__password = password
+        self.email = email
+        self.password = password
         self.place_list = []
-        self.__is_admin = is_admin
-        self.is_owner = is_owner
+        self.is_admin = is_admin
 
 class Admin(User):
     """represents an Admin, inherits from User"""
