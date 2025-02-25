@@ -13,7 +13,7 @@ class Review(BaseModel):
     tied to Place by Composition and dependent on User"""
     # addplace id
     def __init__(self, place, user, rating, comment, id=None):
-        super().__init__(id)
+        super().__init__()
         self.place = place
         self.user = user
         self.rating = rating
