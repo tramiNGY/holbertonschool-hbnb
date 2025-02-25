@@ -6,6 +6,7 @@ from .base_model import BaseModel
 from .user import User
 from datetime import datetime
 
+
 class Review(BaseModel):
     """represents a Review,
     tied to Place by Composition and dependent on User"""
@@ -20,15 +21,5 @@ class Review(BaseModel):
         self.__update_date = datetime.now()
         place.add_review(self)
 
-    def update(self, rating=None, comment=None):
-        if rating:
-            self.rating = rating
-        if comment:
-            self.comment = comment
-        super().update()
-
-    def delete(self):
-        del self
-
-    def list_by_place(place_id):
+    def list_review_by_place(place_id):
         pass

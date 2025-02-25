@@ -3,6 +3,7 @@
 this module contain a class Amenity
 """
 from .base_model import BaseModel
+from datetime import datetime
 
 
 class Amenity(BaseModel):
@@ -14,12 +15,4 @@ class Amenity(BaseModel):
         self.__create_date = datetime.now()
         self.__update_date = datetime.now()
 
-    def update(self, name=None, description=None):
-        if name:
-            self.name = name
-        if description:
-            self.description = description
-        super().update()
-
-    def delete(self):
-        del self
+    def amenities_list:
