@@ -12,7 +12,7 @@ class Review(BaseModel):
     """represents a Review,
     tied to Place by Composition and dependent on User"""
     # addplace id
-    def __init__(self, place, user, rating, comment, id=None):
+    def __init__(self, place, user, rating, comment):
         super().__init__()
         self.place = place
         self.user = user
@@ -20,7 +20,6 @@ class Review(BaseModel):
         self.comment = comment
         self.__create_date = datetime.now()
         self.__update_date = datetime.now()
-        place.add_review(self)
 
     def list_review_by_place(place_id):
         "list all reviews per place"
