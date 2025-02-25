@@ -11,8 +11,8 @@ from datetime import datetime
 
 class User(BaseModel):
     """represents a User in the HBNB app"""
-    def __init__(self, first_name, last_name, email, password, place_list, is_admin=False, user_id=None):
-        self.user_id = user_id
+    def __init__(self, first_name, last_name, email, password, place_list, is_admin=False):
+        super().__init__()
         self.first_name = first_name
         self.last_name = last_name
         self.email = email

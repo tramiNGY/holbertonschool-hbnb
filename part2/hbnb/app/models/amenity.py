@@ -9,8 +9,8 @@ from app.persistence.repository import InMemoryRepository as database
 
 class Amenity(BaseModel):
     """Represents an Amenity, Aggregated with Place"""
-    def __init__(self, name, description, id=None):
-        super().__init__(id)
+    def __init__(self, name, description):
+        super().__init__()
         self.name = name
         self.description = description
         self.__create_date = datetime.now()
