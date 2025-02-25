@@ -16,5 +16,3 @@ class Amenity(BaseModel):
         self.__update_date = datetime.now()
 
     def amenities_list:
-
-fake def
