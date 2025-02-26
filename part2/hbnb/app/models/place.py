@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 class Place(BaseModel):
-    def __init__(self, title, description, price, latitude, longitude, owner):
+    def __init__(self, title, description, price, latitude, longitude, owner, amenities=[]):
         super().__init__()
         self.title = title
         self.description = description
@@ -18,7 +18,7 @@ class Place(BaseModel):
         self.longitude = longitude
         self.owner = owner
         self.reviews = []  # List to store related reviews
-        self.amenities = []  # List to store related amenities
+        self.amenities = amenities # List to store related amenities
 
     def add_review(self, review):
         """Add a review to the place."""

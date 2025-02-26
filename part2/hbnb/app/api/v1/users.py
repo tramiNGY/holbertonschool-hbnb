@@ -9,7 +9,7 @@ user_model = api.model('User', {
     'last_name': fields.String(required=True, description='Last name of the user'),
     'email': fields.String(required=True, description='Email of the user'),
     'password': fields.String(required=True, description='Password of the user'),
-    'place_list': fields.String(required=True, description='List of places owned by the user')
+    'place_list': fields.List(fields.String, required=True, description='List of places owned by the user')
 })
 
 @api.route('/')
@@ -30,6 +30,14 @@ class UserList(Resource):
         new_user = facade.create_user(user_data)
         return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email, 'place_list': new_user.place_list}, 201
     
+    @api.response(200, 'User details retrieved successfully')
+    @api.response(404, 'User not found')
+    def get(self):
+        """Get all users"""
+        users = facade.get_all_users()
+        if not users:
+            return {'error': 'No users found'}, 404
+        return [{'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email, 'place_list': user.place_list} for user in users], 200
 
 @api.route('/<user_id>')
 class UserResource(Resource):
@@ -41,3 +49,13 @@ class UserResource(Resource):
         if not user:
             return {'error': 'User not found'}, 404
         return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email, 'place_list': user.place_list}, 200
+    
+    @api.response(200, 'User details updated successfully')
+    @api.response(400, 'Invalid input data')
+    def put(self, user_id):
+        """Update user details"""
+        user_data = api.payload
+        updated_user = facade.update_user(user_id, user_data)
+        if not updated_user:
+            return {'error': 'User not found'}, 404
+        return {'id': updated_user.id, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email, 'place_list': updated_user.place_list}, 200
