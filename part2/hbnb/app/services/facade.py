@@ -21,7 +21,7 @@ class HBnBFacade:
     
     def get_user_by_email(self, email):
         # Retrieve a user by email from the repository
-        return self.user_repo.get_by_email(email)
+        return self.user_repo.get_by_attribute("email", email)
 
     def get_all_users(self):
         # Retrieve all users from the repository
@@ -30,7 +30,6 @@ class HBnBFacade:
     def update_user(self, user_id, user_data):
         # Update user data
         user = self.user_repo.get(user_id)
-
 
     def get_place(self, place_id):
         # Retrieve a place from the repository
