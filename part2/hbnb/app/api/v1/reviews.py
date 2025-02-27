@@ -20,8 +20,12 @@ class ReviewList(Resource):
         """Register a new review"""
         # Placeholder for the logic to register a new review
         review = api.payload
-        new_review = facade.create_review(review)
-        return {'id': new_review.id, 'comment': new_review.comment, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
+        try:    
+            new_review = facade.create_review(review)
+            return {'id': new_review.id, 'comment': new_review.comment, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
+        except ValueError:
+            return {'error': 'Invalid input data'}, 400
+
 
     @api.response(200, 'List of reviews retrieved successfully')
     def get(self):
