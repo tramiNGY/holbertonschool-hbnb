@@ -18,8 +18,6 @@ class Review(BaseModel):
         self.user_id = user_id
         self.rating = rating
         self.comment = comment
-        self.__create_date = datetime.now()
-        self.__update_date = datetime.now()
 
     def list_review_by_place(place_id):
         "list all reviews per place"
