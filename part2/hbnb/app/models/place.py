@@ -9,6 +9,7 @@ from datetime import datetime
 
 
 class Place(BaseModel):
+    """Represents a place that can be rented in the HbnB app"""
     def __init__(self, title, description, price, latitude, longitude, owner, reviews=[], amenities=[]):
         super().__init__()
         self.title = title
@@ -22,7 +23,7 @@ class Place(BaseModel):
         self.validate_place()
 
     def validate_place(self):
-        """Validate place data."""
+        """Validate place informations format"""
         if not self.title:
             raise ValueError("Title is required")
         if (not self.price) or self.price <= 0:
@@ -54,6 +55,3 @@ class Place(BaseModel):
             "amenities": self.amenities
         }
         return place_info
-
-    def filter_by_amenities():
-        """Filter places by amenities."""
