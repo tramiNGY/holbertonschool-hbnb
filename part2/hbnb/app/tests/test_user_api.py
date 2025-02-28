@@ -104,6 +104,7 @@ class TestUserEndpoints(unittest.TestCase):
         self.assertEqual(response.get_json()['first_name'], "Robert")
 
     def test_update_user_not_found(self):
+        #Update non existent user
         response = self.client.put('/api/v1/users/99999', json={
             "first_name": "Unknown",
             "last_name": "User",
