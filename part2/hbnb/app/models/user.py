@@ -31,11 +31,10 @@ class User(BaseModel):
             raise ValueError("Email is required")
         if not self.password:
             raise ValueError("Password is required")
-        
-    @staticmethod
-    def is_valid_email(email):
+        #validation de l'email
         email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$'
-        return re.match(email_regex, email) is not None
+        if not re.match(email_regex, self.email):
+            raise ValueError("Invalid email format")
 
 
 class Admin(User):

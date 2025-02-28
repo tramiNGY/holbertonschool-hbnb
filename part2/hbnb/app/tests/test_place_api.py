@@ -43,6 +43,18 @@ class TestPlaceEndpoints(unittest.TestCase):
         })
         self.assertEqual(response.status_code, 400)
     
+    def test_create_out_of_range(self):
+        response = self.client.post('/api/v1/places/', json={
+            "title": "villa",
+            "description": "vue sur mer",
+            "price": 3000000,
+            "latitude": 100,
+            "longitude": 190,
+            "owner": "tom",
+            "reviews": ["wonderful"],
+            "amenities": ["toilette"]
+        })
+    
     def test_get_all_places(self):
         response = self.client.get('/api/v1/places/')
         self.assertIn(response.status_code, [200, 404])  # 200 if places exist, 404 if none
