@@ -23,7 +23,7 @@ class TestAmenityEndpoints(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_get_all_amenities(self):
-        response = self.client.get('/api/v1/amenities')
+        response = self.client.get('/api/v1/amenities/')
         self.assertIn(response.status_code, [200, 404])
 
     def test_get_amenity_by_id(self):

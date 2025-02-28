@@ -13,8 +13,13 @@ class Amenity(BaseModel):
         super().__init__()
         self.name = name
         self.description = description
-        self.__create_date = datetime.now()
-        self.__update_date = datetime.now()
+        self.validate_amenity()
+
+    def validate_amenity(self):
+        if not self.name or self.name.strip() == "":
+            raise ValueError("name is required")
+        if not self.description or self.description.strip() == "":
+            raise ValueError("description is required")
 
     def amenities_list():
         return {amenity.name: amenity.description for amenity in database().get_all()}

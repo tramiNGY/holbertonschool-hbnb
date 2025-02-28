@@ -34,7 +34,7 @@ class TestAmenityEndpoints(unittest.TestCase):
         review_id = "review1"
         response = self.client.put(f'/api/v1/reviews/{review_id}', json={
         "comment": "Awesome",
-        "rating": "4"
+        "rating": 4
         })
         self.assertIn(response.status_code, [200, 404])
 

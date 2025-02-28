@@ -27,6 +27,8 @@ class Review(BaseModel):
         from app.models.user import User
         if not self.comment or self.comment.strip() == "":
             raise ValueError("Comment is required")
+        if not isinstance(self.rating, int) or not (1 <= self.rating <= 5):
+            raise ValueError("Rating must be an integer between 1 and 5")
         if not User.validate_user:
             raise ValueError("User_id is not a valid entity")
         if not Place.validate_place:
