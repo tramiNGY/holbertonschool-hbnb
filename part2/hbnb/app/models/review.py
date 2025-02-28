@@ -9,11 +9,7 @@ from datetime import datetime
 
 
 class Review(BaseModel):
-    """represents a Review,
-    tied to Place by Composition and dependent on User"""
-    user_repository = database()
-    place_repository = database()
-    # addplace id
+    """represents a Review tied to Place by Composition and dependent on User"""
     def __init__(self, place_id, user_id, rating, comment):
         super().__init__()
         self.place_id = place_id
@@ -23,6 +19,7 @@ class Review(BaseModel):
         self.validate_review()
 
     def validate_review(self):
+        """Validates review informations format"""
         from app.models.place import Place
         from app.models.user import User
         if not isinstance(self.comment, str) or not self.comment.strip():
