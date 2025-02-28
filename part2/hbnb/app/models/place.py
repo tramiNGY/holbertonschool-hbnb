@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 class Place(BaseModel):
-    def __init__(self, title, description, price, latitude, longitude, owner, amenities=[]):
+    def __init__(self, title, description, price, latitude, longitude, owner, reviews=[], amenities=[]):
         super().__init__()
         self.title = title
         self.description = description
@@ -17,7 +17,7 @@ class Place(BaseModel):
         self.latitude = latitude
         self.longitude = longitude
         self.owner = owner
-        self.reviews = []  # List to store related reviews
+        self.reviews = reviews # List to store related reviews
         self.amenities = amenities # List to store related amenities
         self.validate_place()
 

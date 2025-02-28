@@ -1,5 +1,6 @@
 import unittest
 from app import create_app
+from app.services import facade
 
 class TestPlaceEndpoints(unittest.TestCase):
     
@@ -32,10 +33,12 @@ class TestPlaceEndpoints(unittest.TestCase):
     def test_create_place_invalid_data(self):
         response = self.client.post('/api/v1/places/', json={
             "title": "",
+            "description": "",
             "price": -50.0,
             "latitude": "invalid",
             "longitude": None,
             "owner": "",
+            "reviews": "",
             "amenities": "not_a_list"
         })
         self.assertEqual(response.status_code, 400)
