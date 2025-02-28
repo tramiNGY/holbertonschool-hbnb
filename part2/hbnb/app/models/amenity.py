@@ -16,10 +16,12 @@ class Amenity(BaseModel):
         self.validate_amenity()
 
     def validate_amenity(self):
+        """validates amenity informations format"""
         if not self.name or self.name.strip() == "":
             raise ValueError("name is required")
         if not self.description or self.description.strip() == "":
             raise ValueError("description is required")
 
     def amenities_list():
+        "List all amenities"
         return {amenity.name: amenity.description for amenity in database().get_all()}
