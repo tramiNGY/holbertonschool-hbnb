@@ -23,6 +23,7 @@ class User(BaseModel):
         self.validate_user()
 
     def validate_user(self):
+        """Validate user informations format"""
         if not self.first_name:
             raise ValueError("First name is required")
         if not self.last_name:
@@ -31,7 +32,7 @@ class User(BaseModel):
             raise ValueError("Email is required")
         if not self.password:
             raise ValueError("Password is required")
-        #validation de l'email
+        #email validation
         email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$'
         if not re.match(email_regex, self.email):
             raise ValueError("Invalid email format")
@@ -40,7 +41,8 @@ class User(BaseModel):
 class Admin(User):
     """represents an Admin, inherits from User"""
     def __promote(self, user_id):
-        if self.__is_admin == True:
+        "Updates a regular user to Admin"
+        if self.is_admin == True:
             update_date = datetime.now()
             if database.update(self, user_id, {"is_admin": True, "update_date": update_date}) is not None:
                 print("User has been promoted to Admin")
@@ -48,7 +50,8 @@ class Admin(User):
             return False
 
     def __demote(self, user_id):
-        if self.__is_admin == False:
+        """Updates an Admin back to regular user"""
+        if self.is_admin == False:
             update_date = datetime.now()
             if database.update(self, user_id, {"is_admin": False, "update_date": update_date}) is not None:
                 print("User is no longer an Admin")
