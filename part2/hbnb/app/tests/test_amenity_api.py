@@ -33,8 +33,11 @@ class TestAmenityEndpoints(unittest.TestCase):
 
     def test_update_amenity(self):
         amenity_id = "amenity1"
-        response = self.client.put(f'/api/v1/amenity/{amenity_id}' json={
+        response = self.client.put(f'/api/v1/amenity/{amenity_id}', json={
             "name": "wifi",
             "description": "adsl"
         })
         self.assertIn(response.status_code, [200, 404])
+
+if __name__ == '__main__':
+    unittest.main()
