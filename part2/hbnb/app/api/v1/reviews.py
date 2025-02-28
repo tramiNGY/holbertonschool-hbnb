@@ -55,7 +55,7 @@ class ReviewResource(Resource):
     def put(self, review_id):
         """Update a review's information"""
         # Placeholder for the logic to update a review by ID
-        review = facade.put_review(review_id)
+        review = facade.get_review(review_id)
         if not review:
             return {'error': 'Review not found'}, 404
         return {'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
