@@ -104,7 +104,29 @@ The API will be available at http://localhost:5000/api/v1/
 
 To ensure the reliability and correctness of the API, **unit tests** have been implemented using `unittest`. These tests cover all major functionalities, including resource creation, retrieval, updating, and deletion.  
 
-### `Running the Tests`
+### `Curl tests`
+
+- **Here is an exemple of a cURL test for a POST api that you can run while the run.py file is running:**
+- curl -X POST http://example.com/reviews \
+-H "Content-Type: application/json" \
+-d '{
+    "comment": "Great place, really enjoyed my stay!",
+    "rating": 5,
+    "user_id": 1,
+    "place_id": 10
+}'
+
+- **Expected output:**
+
+  {
+  "comment": "Great place, really enjoyed my stay!",
+  "rating": 5,
+  "user_id": 1,
+  "place_id": 10
+}
+
+
+### `Running the Unitests`
 
 To run the test suite, use the following command in the root directory of your project:  
 python -m app.tests.<file_name>
