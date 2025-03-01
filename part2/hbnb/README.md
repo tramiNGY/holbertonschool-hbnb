@@ -110,6 +110,42 @@ To run the test suite, use the following command in the root directory of your p
 python -m app.tests.<file_name>
 Each test case checks for correct status codes **(200 OK, 201 Created, 400 Bad Request, 404 Not Found)**
 
+### Amenity Tests
+
+- **test_create_amenity** → Create a new amenity (✅ success)
+- **test_create_invalid_amenity** → Fail to create an amenity with invalid data (❌ fail)
+- **test_get_all_amenities** → Retrieve all amenities (✅/❌ success or not found)
+- **test_get_amenity_by_id** → Retrieve an amenity by ID (✅/❌ success or not found)
+- **test_update_amenity** → Update an amenity (✅/❌ success or not found)
+
+### Place Tests
+
+- **test_create_place** → Create a new place (✅ success)
+- **test_create_place_invalid_data** → Fail to create a place with invalid data (❌ fail)
+- **test_create_out_of_range** → Fail to create a place with out-of-range latitude/longitude (❌ fail)
+- **test_get_all_places** → Retrieve all places (✅/❌ success or not found)
+- **test_get_place_by_id** → Retrieve a place by ID (✅/❌ success or not found)
+- **test_update_place** → Update a place (✅/❌ success or not found)
+
+### Review Tests
+
+- **test_create_review** → Create a new review (✅ success)
+- **test_create_review_invalid_data** → Fail to create a review with invalid data (❌ fail)
+- **test_get_all_review** → Retrieve all reviews (✅/❌ success or not found)
+- **test_update_review** → Update a review (✅/❌ success or not found)
+- **test_delete_review** → Delete a review (✅/❌ success or not found)
+
+### User Tests
+
+- **test_create_user** → Create a new user (✅ success)
+- **test_create_user_invalid_data** → Fail to create a user with invalid data (❌ fail)
+- **test_create_user_duplicate_email** → Fail to create a user with an existing email (❌ fail)
+- **test_get_all_users** → Retrieve all users (✅ success)
+- **test_get_user_by_id** → Retrieve a user by ID (✅ success)
+- **test_get_user_not_found** → Fail to retrieve a user with a non-existent ID (❌ fail)
+- **test_update_user** → Update user information (✅ success)
+- **test_update_user_not_found** → Fail to update a user that does not exist (❌ fail)
+
 
 
 ## AUTHORS
