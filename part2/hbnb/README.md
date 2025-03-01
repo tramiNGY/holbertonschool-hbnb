@@ -1,5 +1,7 @@
-part 2 Implementation of Business Logic and API Endpoints
-# HBnB Evolution - RESTful API
+![printf image image (1)](https://pbs.twimg.com/media/Gj1Hgv2XYAAiHmC?format=jpg&name=small)
+
+
+# **HBnB Evolution - RESTful API**
 
 ## Description
 
@@ -14,6 +16,10 @@ HBnB Evolution is a RESTful API that provides endpoints for managing users, plac
 - RESTful API design with Flask
 - Business logic abstraction using the Facade pattern
 - Data persistence layer
+
+## Project Structure
+
+
 
 ## Directory Overview
 
@@ -94,3 +100,8 @@ To run the test suite, use:
 - GET /api/v1/amenities/<amenity_id> - Retrieve a specific amenity
 - PUT /api/v1/amenities/<amenity_id> - Update an amenity
 - DELETE /api/v1/amenities/<amenity_id> - Delete an amenity
+
+## AUTHORS
+- [Tra Mi NGUYEN](https://github.com/tramiNGY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Badge](https://badgen.net/badge/icon/github?icon=github&label)
+- [Tom DIBELLONIO](https://github.com/totomus83)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Badge](https://badgen.net/badge/icon/github?icon=github&label)
+- [Raphael DOTT](https://github.com/Raphaeldott)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Badge](https://badgen.net/badge/icon/github?icon=github&label)
