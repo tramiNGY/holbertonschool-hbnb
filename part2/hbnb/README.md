@@ -71,10 +71,6 @@ This directory contains the data persistence layer, managing database interactio
   python run.py
 The API will be available at http://localhost:5000/api/v1/
 
-Testing
-To run the test suite, use:
-  python -m app.tests.<file_name>
-
 ## API Endpoints
 ### `Users`
 - POST /api/v1/users/ - Create a new user
@@ -112,6 +108,8 @@ To ensure the reliability and correctness of the API, **unit tests** have been i
 
 To run the test suite, use the following command in the root directory of your project:  
 python -m app.tests.<file_name>
+Each test case checks for correct status codes **(200 OK, 201 Created, 400 Bad Request, 404 Not Found)**
+
 
 
 ## AUTHORS
