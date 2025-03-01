@@ -1,3 +1,4 @@
+
 ![printf image image (1)](https://pbs.twimg.com/media/Gj1Hgv2XYAAiHmC?format=jpg&name=small)
 
 
@@ -6,6 +7,8 @@
 ## Description
 
 HBnB Evolution is a RESTful API that provides endpoints for managing users, places, amenities, and reviews. This project follows a structured architecture to ensure scalability and maintainability.
+
+![printf image image (1)](https://i.postimg.cc/Z5HDcv0s/hbnb-api-structure.png)
 
 ## Features
 
