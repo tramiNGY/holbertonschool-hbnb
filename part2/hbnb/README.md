@@ -107,23 +107,24 @@ To ensure the reliability and correctness of the API, **unit tests** have been i
 ### `Curl tests`
 
 - **Here is an exemple of a cURL test for a POST api that you can run while the run.py file is running:**
-- curl -X POST http://example.com/reviews \
+
+  `curl -X POST http://localhost:5000/api/v1/reviews
 -H "Content-Type: application/json" \
 -d '{
     "comment": "Great place, really enjoyed my stay!",
     "rating": 5,
     "user_id": 1,
     "place_id": 10
-}'
+}'`
 
 - **Expected output:**
 
-  {
+   `{
   "comment": "Great place, really enjoyed my stay!",
   "rating": 5,
   "user_id": 1,
   "place_id": 10
-}
+}`
 
 
 ### `Running the Unitests`
