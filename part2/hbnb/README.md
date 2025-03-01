@@ -8,7 +8,7 @@
 
 HBnB Evolution is a RESTful API that provides endpoints for managing users, places, amenities, and reviews. This project follows a structured architecture to ensure scalability and maintainability.
 
-![structure](https://i.postimg.cc/RZrz8D16/hbnb-api-structure.png)
+
 
 ## Features
 
@@ -21,7 +21,7 @@ HBnB Evolution is a RESTful API that provides endpoints for managing users, plac
 - Data persistence layer
 
 ## Project Structure
-
+![structure](https://i.postimg.cc/RZrz8D16/hbnb-api-structure.png)
 
 
 ## Directory Overview
@@ -103,6 +103,16 @@ To run the test suite, use:
 - GET /api/v1/amenities/<amenity_id> - Retrieve a specific amenity
 - PUT /api/v1/amenities/<amenity_id> - Update an amenity
 - DELETE /api/v1/amenities/<amenity_id> - Delete an amenity
+
+## Testing the API  
+
+To ensure the reliability and correctness of the API, **unit tests** have been implemented using `unittest`. These tests cover all major functionalities, including resource creation, retrieval, updating, and deletion.  
+
+### `Running the Tests`
+
+To run the test suite, use the following command in the root directory of your project:  
+python -m app.tests.<file_name>
+
 
 ## AUTHORS
 - [Tra Mi NGUYEN](https://github.com/tramiNGY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Badge](https://badgen.net/badge/icon/github?icon=github&label)
