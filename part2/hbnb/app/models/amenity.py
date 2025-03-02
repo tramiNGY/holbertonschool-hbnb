@@ -4,7 +4,6 @@ this module contain a class Amenity
 """
 from .base_model import BaseModel
 from datetime import datetime
-from app.persistence.repository import InMemoryRepository as database
 
 
 class Amenity(BaseModel):
@@ -21,7 +20,3 @@ class Amenity(BaseModel):
             raise ValueError("name is required")
         if not self.description or self.description.strip() == "":
             raise ValueError("description is required")
-
-    def amenities_list():
-        "List all amenities"
-        return {amenity.name: amenity.description for amenity in database().get_all()}
