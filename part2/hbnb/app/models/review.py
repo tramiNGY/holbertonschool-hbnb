@@ -3,7 +3,6 @@
 this module contain a class Review
 """
 from .base_model import BaseModel
-from app.persistence.repository import InMemoryRepository as database
 from .user import User
 from datetime import datetime
 
@@ -31,10 +30,3 @@ class Review(BaseModel):
         if not Place.validate_place:
             raise ValueError("Place_id is not a valid entity")
 
-    def list_review_by_place(place_id):
-        "list all reviews per place"
-        place_reviews = []
-        for review in database.get_all():
-            if review.place_id == place_id:
-                place_reviews.append(review)
-        return place_reviews
