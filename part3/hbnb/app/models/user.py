@@ -8,6 +8,8 @@ import uuid
 from .place import Place
 from datetime import datetime
 import re
+from flask_bcrypt import Bcrypt
+bcrypt = Bcrypt()
 
 
 class User(BaseModel):
@@ -21,6 +23,14 @@ class User(BaseModel):
         self.place_list = place_list
         self.is_admin = is_admin
         self.validate_user()
+
+    def hash_password(self, password):
+        """Hashes the password before storing it."""
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def verify_password(self, password):
+        """Verifies if the provided password matches the hashed password."""
+        return bcrypt.check_password_hash(self.password, password)
 
     def validate_user(self):
         """Validate user informations format"""
@@ -36,6 +46,7 @@ class User(BaseModel):
         email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$'
         if not re.match(email_regex, self.email):
             raise ValueError("Invalid email format")
+        
 
 
 class Admin(User):
