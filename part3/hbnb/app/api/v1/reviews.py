@@ -17,6 +17,7 @@ class ReviewList(Resource):
     @api.expect(review_model)
     @api.response(201, 'Review successfully created')
     @api.response(400, 'Invalid input data')
+    @api.response(400, 'You cannot review your own place')
     @api.response(404, 'Place not found')
     @jwt_required
     def post(self):
@@ -28,7 +29,7 @@ class ReviewList(Resource):
         # users can only review places they do not own
         current_user = get_jwt_identity()
         if place.owner == current_user['id']:
-            return {'error': 'You cannot review your own place'}
+            return {'error': 'You cannot review your own place'}, 400
         # users can only create one review per place
         place_reviews = facade.get_reviews_by_place(review['place_id'])
         for existing_review in place_reviews:
