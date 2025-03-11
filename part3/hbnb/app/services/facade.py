@@ -114,7 +114,13 @@ class HBnBFacade:
     # Create a new review
         review = Review(**review_data)
         self.review_repo.add(review)
-        return review
+        return {
+        'id': review.id,
+        'comment': review.comment,
+        'rating': review.rating,
+        'user_id': review.user_id,
+        'place_id': review.place_id
+    }
 
     def get_review(self, review_id):
     # Retrieve a review by ID
