@@ -1,5 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 api = Namespace('places', description='Place operations')
 
@@ -32,9 +33,12 @@ class PlaceList(Resource):
     @api.expect(place_model)
     @api.response(201, 'Place successfully created')
     @api.response(400, 'Invalid input data')
+    @jwt_required()
     def post(self):
         """Register a new place"""
         place_data = api.payload
+        current_user = get_jwt_identity()
+        place_data['owner'] = current_user['id']
         try:
             new_place = facade.create_place(place_data)
             return {'id': new_place.id, 'title': new_place.title, 'descrpition': new_place.description, 'price': new_place.price, 'latitude': new_place.latitude, 'longitude' : new_place.longitude, 'owner' : new_place.owner, 'amenities' : new_place.amenities}, 201
@@ -66,11 +70,19 @@ class PlaceResource(Resource):
     @api.response(200, 'Place updated successfully')
     @api.response(404, 'Place not found')
     @api.response(400, 'Invalid input data')
+    @jwt_required()
     def put(self, place_id):
         """Update a place's information"""
+        current_user = get_jwt_identity()
+        place = facade.get_place(place_id)
+        if not place:
+            return {'error': 'Place not found'}, 404
+        if place.owner != current_user['id']:
+            return {'error': 'Only owner can modify this place'}, 403
+
         user_place = api.payload
         updated_place = facade.update_place(place_id, user_place)
         if not updated_place:
-            return {'error': 'Place not found'}, 404
+            return {'error': 'Failed to update this place'}, 400
         return {'id': updated_place.id, 'title': updated_place.title, 'descrpition': updated_place.description, 'price': updated_place.price, 'latitude': updated_place.latitude, 'longitude' : updated_place.longitude, 'amenities' : updated_place.amenities}, 200
     
