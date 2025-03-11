@@ -78,7 +78,7 @@ class PlaceResource(Resource):
         if not place:
             return {'error': 'Place not found'}, 404
         if place.owner != current_user['id']:
-            return {'error': 'Only owner can modify this place'}, 403
+            return {'error': 'Unauthorized action'}, 403
 
         user_place = api.payload
         updated_place = facade.update_place(place_id, user_place)
