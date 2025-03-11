@@ -36,8 +36,8 @@ class PlaceList(Resource):
     def post(self):
         """Register a new place"""
         place_data = api.payload
-        current_user = get_jwt_identity()
-        place_data['owner'] = current_user['id']
+        current_user_id = get_jwt_identity()
+        place_data['owner'] = current_user_id
         try:
             new_place = facade.create_place(place_data)
             return {'id': new_place.id, 'title': new_place.title, 'description': new_place.description, 'price': new_place.price, 'latitude': new_place.latitude, 'longitude' : new_place.longitude, 'owner' : new_place.owner, 'amenities' : new_place.amenities}, 201
