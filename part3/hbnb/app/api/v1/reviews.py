@@ -64,7 +64,6 @@ class ReviewResource(Resource):
 
     @api.expect(review_model)
     @api.response(200, 'Review updated successfully')
-    @api.response(400, 'Invalid input data')
     @api.response(404, 'Review not found')
     @api.response(403, 'Unauthorized action')
     @api.response(500, 'Failed to update this review')
@@ -82,9 +81,6 @@ class ReviewResource(Resource):
             return {'error': 'Unauthorized action'}, 403
         
         review_data = api.payload
-        # reviews must have a comment and a rating field
-        if 'comment' not in review_data or 'rating' not in review_data:
-            return {'error': 'Invalid input data'}, 400
         review.comment = review_data.get('comment', review.comment)
         review.rating = review_data.get('rating', review.rating)
         # update review in the database
