@@ -19,7 +19,7 @@ class User(BaseModel):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        self.password = password
+        self.hash_password(password)
         self.place_list = place_list
         self.is_admin = is_admin
         self.validate_user()
