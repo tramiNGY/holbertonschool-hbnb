@@ -21,8 +21,7 @@ class LoginResource(Resource):
 
         if not user or not user.verify_password(credentials['password']):
             return {'error': 'Invalid credentials'}, 401
-
-        access_token = create_access_token(identity=str(user.id))
+        access_token = create_access_token(identity={'id': user.id, 'is_admin': user.is_admin})
         return {'access_token': access_token}, 200
 
 @api.route('/protected')

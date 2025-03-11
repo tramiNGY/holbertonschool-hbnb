@@ -12,12 +12,12 @@ review_model = api.model('Review', {
     'place_id': fields.String(required=True, description='ID of the place')
 })
 
+
 @api.route('/')
 class ReviewList(Resource):
     @api.expect(review_model)
     @api.response(201, 'Review successfully created')
     @api.response(400, 'Invalid input data')
-    @api.response(400, 'You cannot review your own place')
     @api.response(404, 'Place not found')
     @jwt_required
     def post(self):
@@ -29,14 +29,13 @@ class ReviewList(Resource):
         # users can only review places they do not own
         current_user = get_jwt_identity()
         if place.owner == current_user['id']:
-            return {'error': 'You cannot review your own place'}, 400
+            return {'error': 'You cannot review your own place'}
         # users can only create one review per place
         place_reviews = facade.get_reviews_by_place(review['place_id'])
         for existing_review in place_reviews:
             if existing_review.user_id == current_user['id']:
                 return {'error': 'You have already reviewed this place'}, 400
-
-        try:    
+        try:
             new_review = facade.create_review(review)
             return {'id': new_review.id, 'comment': new_review.comment, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
         except ValueError:
@@ -62,7 +61,7 @@ class ReviewResource(Resource):
         if not review:
             return {'error': 'Review not found'}, 404
         return {'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
-
+    
     @api.expect(review_model)
     @api.response(200, 'Review updated successfully')
     @api.response(404, 'Review not found')
@@ -75,12 +74,12 @@ class ReviewResource(Resource):
         # check if review exists in the database
         if not review:
             return {'error': 'Review not found'}, 404
-        
+
         current_user = get_jwt_identity()
         # users can only modify reviews they created
         if review.user_id != current_user['id']:
             return {'error': 'Unauthorized action'}, 403
-        
+
         review_data = api.payload
         review.comment = review_data.get('comment', review.comment)
         review.rating = review_data.get('rating', review.rating)
@@ -105,9 +104,9 @@ class ReviewResource(Resource):
         # check if review exists in the database
         if not review:
             return {'error': 'Review not found'}, 404
-        # users can only delete reviews they created
+        # users can only delete reviews they created expect if is_admin=True
         current_user = get_jwt_identity()
-        if review.user_id != current_user['id']:
+        if review.user_id != current_user['id'] and not current_user.get('is_admin'):
             return {'error': 'Unauthorized action'}, 403
         # delete review in the database
         deleted_review = facade.delete_review(review_id)
