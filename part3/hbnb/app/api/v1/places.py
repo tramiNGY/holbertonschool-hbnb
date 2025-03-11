@@ -73,12 +73,14 @@ class PlaceResource(Resource):
     def put(self, place_id):
         """Update a place's information"""
         place = facade.get_place(place_id)
+        current_user_id = get_jwt_identity()
         # check if the place exists in the database
         if not place:
             return {'error': 'Place not found'}, 404
+        # Check if the current user is the owner or admin
+        is_admin = current_user_id.get('is_admin', False)
         # only the owner of the place can modify its information
-        current_user = get_jwt_identity()
-        if place.owner != current_user['id']:
+        if place.owner != current_user_id and not is_admin:
             return {'error': 'Unauthorized action'}, 403
         user_place = api.payload
         # updates the place information in the database
@@ -87,6 +89,7 @@ class PlaceResource(Resource):
         if not updated_place:
             return {'error': 'Failed to update this place'}, 500
         return {'id': updated_place.id, 'title': updated_place.title, 'description': updated_place.description, 'price': updated_place.price, 'latitude': updated_place.latitude, 'longitude' : updated_place.longitude, 'amenities' : updated_place.amenities}, 200
+
     @api.response(200, 'Review deleted successfully')
     @api.response(404, 'Review not found')
     @api.response(403, 'Unauthorized action')
@@ -108,9 +111,9 @@ class PlaceResource(Resource):
         if not deleted_place:
             return {'error': 'Failed to delete this place'}, 500
         return {'message': 'Place deleted successfully'}, 200
+
+
 @api.route('/<place_id>')
-
-
 class AdminPlaceModify(Resource):
     @api.expect(place_model)
     @api.response(200, 'Place updated successfully')
