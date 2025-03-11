@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
-from app.models.user import User
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 api = Namespace('users', description='User operations')
 
@@ -30,7 +30,7 @@ class UserList(Resource):
             new_user = facade.create_user(user_data)
             return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email, 'place_list': new_user.place_list}, 201
         except ValueError:
-            return {'error': 'Invalid input data'}, 400    
+            return {'error': 'Invalid input data'}, 400
 
     @api.response(200, 'User details retrieved successfully')
     @api.response(404, 'User not found')
@@ -53,11 +53,29 @@ class UserResource(Resource):
         return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email, 'place_list': user.place_list}, 200
     
     @api.response(200, 'User details updated successfully')
-    @api.response(400, 'Invalid input data')
+    @api.response(400, 'You cannot modify email or password')
+    @api.response(403, 'Unauthorized action')
+    @api.response(404, 'User not found')
+    @api.response(500, 'Internal server error')
+    @jwt_required()
     def put(self, user_id):
         """Update user details"""
-        user_data = api.payload
-        updated_user = facade.update_user(user_id, user_data)
-        if not updated_user:
+        user = facade.get_user(user_id)
+        # check if user exists in the database
+        if not user:
             return {'error': 'User not found'}, 404
+        # user can only modify their own details
+        current_user = get_jwt_identity()
+        if current_user['id'] != user_id:
+            return {'error': 'Unauthorized action'}, 403
+        
+        user_data = api.payload
+        # user cannot modify their email or password
+        if 'email' in user_data or 'password' in user_data:
+            return {'error': 'You cannot modify email or password'}, 400
+        # update user in the database
+        updated_user = facade.update_user(user_id, user_data)
+        # check if database issue occured when updating user
+        if not updated_user:
+            return {'error': 'Failed to update user'}, 500
         return {'id': updated_user.id, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email, 'place_list': updated_user.place_list}, 200

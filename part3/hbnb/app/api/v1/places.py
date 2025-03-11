@@ -1,5 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 api = Namespace('places', description='Place operations')
 
@@ -32,12 +33,15 @@ class PlaceList(Resource):
     @api.expect(place_model)
     @api.response(201, 'Place successfully created')
     @api.response(400, 'Invalid input data')
+    @jwt_required()
     def post(self):
         """Register a new place"""
         place_data = api.payload
+        current_user = get_jwt_identity()
+        place_data['owner'] = current_user['id']
         try:
             new_place = facade.create_place(place_data)
-            return {'id': new_place.id, 'title': new_place.title, 'descrpition': new_place.description, 'price': new_place.price, 'latitude': new_place.latitude, 'longitude' : new_place.longitude, 'owner' : new_place.owner, 'amenities' : new_place.amenities}, 201
+            return {'id': new_place.id, 'title': new_place.title, 'description': new_place.description, 'price': new_place.price, 'latitude': new_place.latitude, 'longitude' : new_place.longitude, 'owner' : new_place.owner, 'amenities' : new_place.amenities}, 201
         except ValueError:
             return {'error': 'Invalid input data'}, 400
         
@@ -47,7 +51,7 @@ class PlaceList(Resource):
         places = facade.get_all_places()
         if not places:
             return {'error': 'No places found'}, 404
-        return [{'id': place.id, 'title': place.title, 'descrpition': place.description, 'price': place.price, 'latitude': place.latitude, 'longitude' : place.longitude, 'owner' : place.owner, 'reviews' : place.reviews, 'amenities' : place.amenities} for place in places], 200
+        return [{'id': place.id, 'title': place.title, 'description': place.description, 'price': place.price, 'latitude': place.latitude, 'longitude' : place.longitude, 'owner' : place.owner, 'reviews' : place.reviews, 'amenities' : place.amenities} for place in places], 200
 
 
 @api.route('/<place_id>')
@@ -59,18 +63,31 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'No places found'}, 404
-        return {'id': place.id, 'title': place.title, 'descrpition': place.description, 'price': place.price, 'latitude': place.latitude, 'longitude' : place.longitude, 'owner' : place.owner, 'reviews' : place.reviews, 'amenities' : place.amenities}, 200
+        return {'id': place.id, 'title': place.title, 'description': place.description, 'price': place.price, 'latitude': place.latitude, 'longitude' : place.longitude, 'owner' : place.owner, 'reviews' : place.reviews, 'amenities' : place.amenities}, 200
 
 
     @api.expect(place_model)
     @api.response(200, 'Place updated successfully')
     @api.response(404, 'Place not found')
-    @api.response(400, 'Invalid input data')
+    @api.response(403, 'Unauthorized action')
+    @api.response(500, 'Failed to update this place')
+    @jwt_required()
     def put(self, place_id):
         """Update a place's information"""
-        user_place = api.payload
-        updated_place = facade.update_place(place_id, user_place)
-        if not updated_place:
+        place = facade.get_place(place_id)
+        # check if the place exists in the database
+        if not place:
             return {'error': 'Place not found'}, 404
-        return {'id': updated_place.id, 'title': updated_place.title, 'descrpition': updated_place.description, 'price': updated_place.price, 'latitude': updated_place.latitude, 'longitude' : updated_place.longitude, 'amenities' : updated_place.amenities}, 200
+        # only the owner of the place can modify its information
+        current_user = get_jwt_identity()
+        if place.owner != current_user['id']:
+            return {'error': 'Unauthorized action'}, 403
+
+        user_place = api.payload
+        # updates the place information in the database
+        updated_place = facade.update_place(place_id, user_place)
+        # check if database issue occured when updating place
+        if not updated_place:
+            return {'error': 'Failed to update this place'}, 500
+        return {'id': updated_place.id, 'title': updated_place.title, 'description': updated_place.description, 'price': updated_place.price, 'latitude': updated_place.latitude, 'longitude' : updated_place.longitude, 'amenities' : updated_place.amenities}, 200
     
