@@ -77,10 +77,8 @@ class PlaceResource(Resource):
         # check if the place exists in the database
         if not place:
             return {'error': 'Place not found'}, 404
-        # Check if the current user is the owner or admin
-        is_admin = current_user_id.get('is_admin', False)
         # only the owner of the place can modify its information
-        if place.owner != current_user_id and not is_admin:
+        if place.owner != current_user_id:
             return {'error': 'Unauthorized action'}, 403
         user_place = api.payload
         # updates the place information in the database
