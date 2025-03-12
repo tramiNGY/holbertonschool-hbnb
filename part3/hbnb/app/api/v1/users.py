@@ -62,12 +62,13 @@ class UserResource(Resource):
     def put(self, user_id):
         """Update user details"""
         user = facade.get_user(user_id)
+        current_user_id = get_jwt_identity()
         # check if user exists in the database
         if not user:
             return {'error': 'User not found'}, 404
         # user can only modify their own details
-        current_user = get_jwt_identity()
-        if current_user['id'] != user_id:
+       
+        if current_user_id != user_id:
             return {'error': 'Unauthorized action'}, 403
         
         user_data = api.payload
@@ -79,7 +80,7 @@ class UserResource(Resource):
         # check if database issue occured when updating user
         if not updated_user:
             return {'error': 'Failed to update user'}, 500
-        return {'id': updated_user.id, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email, 'place_list': updated_user.place_list}, 200
+        return {'id': current_user_id, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email, 'place_list': updated_user.place_list}, 200
 
 
 @api.route('/')
