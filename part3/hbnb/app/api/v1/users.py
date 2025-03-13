@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import get_jwt, jwt_required, get_jwt_identity
 from flask import request
 
 api = Namespace('users', description='User operations')
@@ -82,35 +82,32 @@ class UserResource(Resource):
             return {'error': 'Failed to update user'}, 500
         return {'id': current_user_id, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email, 'place_list': updated_user.place_list}, 200
 
-
-@api.route('/')
+@api.route('/admin')
 class AdminUserCreate(Resource):
-    @api.expect(user_model, validate=True)
-    @api.response(201, 'User successfully created')
-    @api.response(400, 'Email already registered')
-    @api.response(400, 'Invalid input data')
     @jwt_required()
     def post(self):
-        """Create a new user (Admin only)."""
         current_user = get_jwt_identity()
-        # Check if the logged-in user is an admin
-        if not current_user.get('is_admin'):
+        claims = get_jwt()
+        if not claims.get('is_admin'):
             return {'error': 'Admin privileges required'}, 403
-        # Get user data
+
+
         user_data = request.json
         email = user_data.get('email')
-        # Check if email is already registered
+
+        # Check if email is already in use
         if facade.get_user_by_email(email):
             return {'error': 'Email already registered'}, 400
-        # Create the new user
+
+        # Logic to create a new user
         try:
             new_user = facade.create_user(user_data)
-            return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email, 'place_list': new_user.place_list, 'is_admin': new_user.is_admin}, 201
+            return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email, 'place_list': new_user.place_list}, 201
         except ValueError:
             return {'error': 'Invalid input data'}, 400
 
 
-@api.route('/<user_id>')
+@api.route('/admin/<user_id>')
 class AdminUserModify(Resource):
     @api.response(200, 'User details updated successfully')
     @api.response(400, 'You cannot modify email or password')
@@ -119,26 +116,28 @@ class AdminUserModify(Resource):
     @api.response(500, 'Internal server error')
     @jwt_required()
     def put(self, user_id):
-        """Modify a user's details, including email and password (Admin only)."""
         current_user = get_jwt_identity()
-        # Check if the logged-in user is an admin
-        if not current_user.get('is_admin'):
-            return {'error': 'Admin privileges required'}, 403
-        # Get user data from request
+        claims = get_jwt()
+        if not claims.get('is_admin'):
+            return {'error': 'Adminivileges required'}, 403
+
         data = request.json
         email = data.get('email')
-        password = data.get('password')
+
         # Ensure email uniqueness
         if email:
             existing_user = facade.get_user_by_email(email)
             if existing_user and existing_user.id != user_id:
-                return {'error': 'Email is already in use'}, 400
-        # Fetch the user to be updated
+                return {'error': 'Email already in use'}, 400
+
         user = facade.get_user(user_id)
         if not user:
             return {'error': 'User not found'}, 404
+       
+        # Logic to update user details
+        updated_user = facade.update_user(user_id, data)
+        #check if user was updated
         if not updated_user:
             return {'error': 'Failed to update user'}, 500
-        # Update user details
-        updated_user = facade.update_user(user_id, data)
-        return {'id': updated_user.id, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email, 'place_list': updated_user.place_list}, 200
+       
+        return {'id': current_user, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email,'password': updated_user.password, 'place_list': updated_user.place_list}, 200

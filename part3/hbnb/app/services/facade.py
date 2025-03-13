@@ -85,6 +85,12 @@ class HBnBFacade:
         place.owner = place_data.get('owner', place.owner)
         place.amenities = place_data.get('amenities', place.amenities)
         return place
+    
+    def delete_place(self, place_id):
+    # Delete a place
+        if self.place_repo.delete(place_id):
+            return True
+        return False
     """methods for review"""
     def create_review(self, review_data):
     # Create a new review

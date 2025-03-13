@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import get_jwt, jwt_required, get_jwt_identity
 
 api = Namespace('reviews', description='Review operations')
 # Define the review model for input validation and documentation
@@ -107,11 +107,12 @@ class ReviewResource(Resource):
         """Delete a review"""
         review = facade.get_review(review_id)
         current_user_id = get_jwt_identity()
+        claims = get_jwt()
         # check if review exists in the database
         if not review:
             return {'error': 'Review not found'}, 404
         # users can only delete reviews they created expect if is_admin=True
-        if review.user_id != current_user_id:
+        if review.user_id != current_user_id and not claims.get('is_admin'):
             return {'error': 'Unauthorized action'}, 403
         # delete review in the database
         deleted_review = facade.delete_review(review_id)
@@ -119,6 +120,7 @@ class ReviewResource(Resource):
         if not deleted_review:
             return {'error': 'Failed to delete this review'}, 500
         return {'message': 'Review deleted successfully'}, 200
+    
 @api.route('/places/<place_id>/reviews')
 class PlaceReviewList(Resource):
     @api.response(200, 'List of reviews for the place retrieved successfully')
