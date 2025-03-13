@@ -37,3 +37,10 @@ class ProtectedResource(Resource):
             'message': f'Hello, user {current_user_id}',
             'is_admin': claims.get("is_admin", False)  # Get is_admin status
         }, 200
+
+@api.route('/generate_admin_token')
+class GenerateAdminToken(Resource):
+    def get(self):
+        ad_token = create_access_token(identity="admin", expires_delta=timedelta(days=365),
+                                    additional_claims={"is_admin": True})
+        return ({'admin_token': ad_token})

@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import get_jwt, jwt_required, get_jwt_identity
 
 api = Namespace('places', description='Place operations')
 # Define the models for related entities
@@ -101,7 +101,8 @@ class PlaceResource(Resource):
             return {'error': 'Place not found'}, 404
         # users can only delete places they own expect if is_admin=True
         current_user = get_jwt_identity()
-        if place.user_id != current_user['id'] and not current_user.get('is_admin'):
+        claims = get_jwt()
+        if place.owner != current_user and not claims.get('is_admin'):
             return {'error': 'Unauthorized action'}, 403
         # delete place in the database
         deleted_place = facade.delete_place(place_id)
@@ -111,7 +112,7 @@ class PlaceResource(Resource):
         return {'message': 'Place deleted successfully'}, 200
 
 
-@api.route('/<place_id>')
+@api.route('/admin/<place_id>')
 class AdminPlaceModify(Resource):
     @api.expect(place_model)
     @api.response(200, 'Place updated successfully')
@@ -121,12 +122,17 @@ class AdminPlaceModify(Resource):
     @jwt_required()
     def put(self, place_id):
         current_user = get_jwt_identity()
+       
+        claims = get_jwt()
+        if not claims.get('is_admin'):
+            return {'error': 'Admin privileges required'}, 403
+       
         # Set is_admin default to False if not exists
-        is_admin = current_user.get('is_admin', False)
-        user_id = current_user.get('id')
+       
         place = facade.get_place(place_id)
-        if not is_admin and place.owner_id != user_id:
-            return {'error': 'Unauthorized action'}, 403
+        if not place:
+            return {'error': 'Place not found'}, 404
+       
         # Logic to update the place
         user_place = api.payload
         # updates the place information in the database
