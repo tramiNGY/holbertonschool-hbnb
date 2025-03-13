@@ -33,7 +33,7 @@ class ReviewList(Resource):
 
         place_reviews = facade.get_reviews_by_place(review_data['place_id'])
         for existing_review in place_reviews:
-            if existing_review.user_id == current_user_id: #changed .user_id to ['user_id'] because its a dict
+            if existing_review.user_id == current_user_id: # dont make it a dict or you wont be able to make many reviews
                 return {'error': 'You have already reviewed this place'}, 400
 
         try:
@@ -89,7 +89,7 @@ class ReviewResource(Resource):
 
         current_user = get_jwt_identity()
         # users can only modify reviews they created
-        if review.user_id != current_user['id']:
+        if review.user_id != current_user:
             return {'error': 'Unauthorized action'}, 403
 
         review_data = api.payload
