@@ -1,6 +1,7 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
+from datetime import timedelta
 from app.services import facade
 
 api = Namespace('login', description='User authentication')
@@ -21,7 +22,7 @@ class LoginResource(Resource):
 
         if not user or not user.verify_password(credentials['password']):
             return {'error': 'Invalid credentials'}, 401
-        access_token = create_access_token(identity=str(user.id), additional_claims={"is_admin": user.is_admin})
+        access_token = create_access_token(identity=str(user.id), additional_claims={"is_admin": user.is_admin}, expires_delta=timedelta(days=1))
         return {'access_token': access_token}, 200
 
 @api.route('/protected')
