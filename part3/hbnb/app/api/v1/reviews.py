@@ -3,7 +3,6 @@ from app.services import facade
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 api = Namespace('reviews', description='Review operations')
-
 # Define the review model for input validation and documentation
 review_model = api.model('Review', {
     'comment': fields.String(required=True, description='Text of the review'),
@@ -23,19 +22,15 @@ class ReviewList(Resource):
         """Register a new review"""
         review_data = api.payload
         current_user_id = get_jwt_identity()  # Get user ID from JWT
-
         place = facade.get_place(review_data['place_id'])
         if not place:
             return {'error': 'Place not found'}, 404
-
         if place.owner == current_user_id:
             return {'error': 'You cannot review your own place'}, 400
-
         place_reviews = facade.get_reviews_by_place(review_data['place_id'])
         for existing_review in place_reviews:
             if existing_review.user_id == current_user_id: # dont make it a dict or you wont be able to make many reviews
                 return {'error': 'You have already reviewed this place'}, 400
-
         try:
             new_review = facade.create_review({
                 'comment': review_data['comment'],
@@ -52,8 +47,7 @@ class ReviewList(Resource):
             }, 201
         except ValueError:
             return {'error': 'Invalid input data'}, 400
-
-
+    
     @api.response(200, 'List of reviews retrieved successfully')
     @api.response(404, 'No reviews found')
     def get(self):
@@ -62,6 +56,7 @@ class ReviewList(Resource):
         if not reviews:
             return {'error': 'No reviews found'}, 404
         return [{'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id} for review in reviews], 200
+
 
 @api.route('/<review_id>')
 class ReviewResource(Resource):
@@ -73,7 +68,7 @@ class ReviewResource(Resource):
         if not review:
             return {'error': 'Review not found'}, 404
         return {'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
-    
+   
     @api.expect(review_model)
     @api.response(200, 'Review updated successfully')
     @api.response(404, 'Review not found')
@@ -86,12 +81,10 @@ class ReviewResource(Resource):
         # check if review exists in the database
         if not review:
             return {'error': 'Review not found'}, 404
-
         current_user = get_jwt_identity()
         # users can only modify reviews they created
         if review.user_id != current_user:
             return {'error': 'Unauthorized action'}, 403
-
         review_data = api.payload
         review.comment = review_data.get('comment', review.comment)
         review.rating = review_data.get('rating', review.rating)
@@ -104,7 +97,7 @@ class ReviewResource(Resource):
         if not updated_review:
             return {'error': 'Failed to update this review'}, 500
         return {'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
-
+   
     @api.response(200, 'Review deleted successfully')
     @api.response(404, 'Review not found')
     @api.response(403, 'Unauthorized action')
@@ -113,12 +106,12 @@ class ReviewResource(Resource):
     def delete(self, review_id):
         """Delete a review"""
         review = facade.get_review(review_id)
+        current_user_id = get_jwt_identity()
         # check if review exists in the database
         if not review:
             return {'error': 'Review not found'}, 404
         # users can only delete reviews they created expect if is_admin=True
-        current_user = get_jwt_identity()
-        if review.user_id != current_user['id'] and not current_user.get('is_admin'):
+        if review.user_id != current_user_id:
             return {'error': 'Unauthorized action'}, 403
         # delete review in the database
         deleted_review = facade.delete_review(review_id)
@@ -126,7 +119,6 @@ class ReviewResource(Resource):
         if not deleted_review:
             return {'error': 'Failed to delete this review'}, 500
         return {'message': 'Review deleted successfully'}, 200
-
 @api.route('/places/<place_id>/reviews')
 class PlaceReviewList(Resource):
     @api.response(200, 'List of reviews for the place retrieved successfully')
