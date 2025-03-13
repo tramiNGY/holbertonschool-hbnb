@@ -8,9 +8,8 @@ api = Namespace('reviews', description='Review operations')
 review_model = api.model('Review', {
     'comment': fields.String(required=True, description='Text of the review'),
     'rating': fields.Integer(required=True, description='Rating of the place (1-5)'),
-    'user_id': fields.String(required=True, description='ID of the user'),
     'place_id': fields.String(required=True, description='ID of the place')
-})
+}) #removed user_id because its only supposed to be set by the JWT
 
 
 @api.route('/')
@@ -19,25 +18,38 @@ class ReviewList(Resource):
     @api.response(201, 'Review successfully created')
     @api.response(400, 'Invalid input data')
     @api.response(404, 'Place not found')
-    @jwt_required
+    @jwt_required()
     def post(self):
         """Register a new review"""
-        review = api.payload
-        place = facade.get_place(review['place_id'])
+        review_data = api.payload
+        current_user_id = get_jwt_identity()  # Get user ID from JWT
+
+        place = facade.get_place(review_data['place_id'])
         if not place:
             return {'error': 'Place not found'}, 404
-        # users can only review places they do not own
-        current_user_id = get_jwt_identity()
+
         if place.owner == current_user_id:
-            return {'error': 'You cannot review your own place'}
-        # users can only create one review per place
-        place_reviews = facade.get_reviews_by_place(review['place_id'])
+            return {'error': 'You cannot review your own place'}, 400
+
+        place_reviews = facade.get_reviews_by_place(review_data['place_id'])
         for existing_review in place_reviews:
-            if existing_review.user_id == current_user_id:
+            if existing_review.user_id == current_user_id: #changed .user_id to ['user_id'] because its a dict
                 return {'error': 'You have already reviewed this place'}, 400
+
         try:
-            new_review = facade.create_review(review)
-            return {'id': new_review.id, 'comment': new_review.comment, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
+            new_review = facade.create_review({
+                'comment': review_data['comment'],
+                'rating': review_data['rating'],
+                'user_id': current_user_id,  # Set user_id from JWT
+                'place_id': review_data['place_id']
+            })
+            return {
+                'id': new_review['id'],
+                'comment': new_review['comment'],
+                'rating': new_review['rating'],
+                'user_id': new_review['user_id'],
+                'place_id': new_review['place_id']
+            }, 201
         except ValueError:
             return {'error': 'Invalid input data'}, 400
 
