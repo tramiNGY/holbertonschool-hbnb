@@ -10,15 +10,10 @@ class HBnBFacade:
     """Class for facade methods"""
     def __init__(self):
         self.user_repo = UserRepository()
-<<<<<<< Updated upstream
         self.place_repo = PlaceRepository()
-        self.review_repo = SQLAlchemyRepository(Review)
-        self.amenity_repo = SQLAlchemyRepository(Amenity)
-=======
-        self.place_repo = SQLAlchemyRepository(Place)
         self.review_repo = ReviewRepository()
         self.amenity_repo = AmenityRepository()
->>>>>>> Stashed changes
+
     """methods for user"""
     def create_user(self, user_data):
         # Create a new user and store it in the repository
