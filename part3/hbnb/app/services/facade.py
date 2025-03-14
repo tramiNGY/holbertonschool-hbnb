@@ -4,12 +4,13 @@ from app.models.amenity import Amenity
 from app.models.place import Place
 from app.models.review import Review
 from app.services.repositories.user_repository import UserRepository
+from app.services.repositories.place_repository import PlaceRepository
 
 class HBnBFacade:
     """Class for facade methods"""
     def __init__(self):
         self.user_repo = UserRepository()
-        self.place_repo = SQLAlchemyRepository(Place)
+        self.place_repo = PlaceRepository()
         self.review_repo = SQLAlchemyRepository(Review)
         self.amenity_repo = SQLAlchemyRepository(Amenity)
     """methods for user"""
@@ -91,6 +92,20 @@ class HBnBFacade:
         if self.place_repo.delete(place_id):
             return True
         return False
+    
+    def get_places_by_price_range(self, min_price, max_price):
+        # Retrieve places within a specific price range
+        return self.place_repo.get_by_price_range(min_price, max_price)
+
+    def get_places_by_amenity(self, amenity_id):
+        # Retrieve places with a specific amenity
+        return self.place_repo.get_by_amenity(amenity_id)
+
+    def get_places_by_owner(self, owner_id):
+        # Retrieve places owned by a specific user
+        return self.place_repo.get_by_owner(owner_id)
+    
+    
     """methods for review"""
     def create_review(self, review_data):
     # Create a new review
