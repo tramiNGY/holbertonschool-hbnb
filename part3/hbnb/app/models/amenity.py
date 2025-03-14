@@ -8,6 +8,12 @@ from datetime import datetime
 
 class Amenity(BaseModel):
     """Represents an Amenity, Aggregated with Place"""
+    __tablename__ = 'amenities'
+
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(500), nullable=True)
+    place_amenities = db.relationship('Place', secondary='place_amenity', backref='amenities')
+
     def __init__(self, name, description):
         super().__init__()
         self.name = name

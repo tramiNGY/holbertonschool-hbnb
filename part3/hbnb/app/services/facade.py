@@ -10,9 +10,15 @@ class HBnBFacade:
     """Class for facade methods"""
     def __init__(self):
         self.user_repo = UserRepository()
+<<<<<<< Updated upstream
         self.place_repo = PlaceRepository()
         self.review_repo = SQLAlchemyRepository(Review)
         self.amenity_repo = SQLAlchemyRepository(Amenity)
+=======
+        self.place_repo = SQLAlchemyRepository(Place)
+        self.review_repo = ReviewRepository()
+        self.amenity_repo = AmenityRepository()
+>>>>>>> Stashed changes
     """methods for user"""
     def create_user(self, user_data):
         # Create a new user and store it in the repository
@@ -126,7 +132,7 @@ class HBnBFacade:
         return self.review_repo.get_all()
     def get_reviews_by_place(self, place_id):
     # Retrieve all reviews for a specific place
-        return [review for review in self.review_repo.get_all() if review.place_id == place_id]
+        return self.review_repo.get_reviews_by_place(place_id)
     def update_review(self, review_id, review_data):
     # Update a review
         review = self.review_repo.get(review_id)
