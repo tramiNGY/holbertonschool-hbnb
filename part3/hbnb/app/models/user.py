@@ -3,6 +3,7 @@
 this module contain a class User
 """
 from .base_model import BaseModel
+from app import db
 from app.persistence.repository import InMemoryRepository as database
 import uuid
 from .place import Place
@@ -14,6 +15,15 @@ bcrypt = Bcrypt()
 
 class User(BaseModel):
     """represents a User in the HBNB app"""
+    __tablename__ = 'users'
+
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), nullable=False, unique=True)
+    password = db.Column(db.String(128), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    place_list = db.relationship('Place', backref='user', lazy=True)
+
     def __init__(self, first_name, last_name, email, password, place_list=[], is_admin=False):
         super().__init__()
         self.first_name = first_name
