@@ -12,11 +12,19 @@ class Place(BaseModel):
     """Represents a place that can be rented in the HbnB app"""
     __tablename__ = 'places'
 
+    id = db.Column(Integer, primary_key=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     price = db.Column(db.Float, nullable=False)
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
+    
+    # One to many
+    reviews = relationship('Review', backref='place', lazy=True)
+    owner = db.relationship('User', backref='places', lazy=True)
+    # Many to many
+    amenities = relationship('Amenity', secondary=place_amenity, lazy='subquery', backref=db.backref('places', lazy=True))
 
     def __init__(self, title, description, price, latitude, longitude, owner, reviews=[], amenities=[]):
         super().__init__()

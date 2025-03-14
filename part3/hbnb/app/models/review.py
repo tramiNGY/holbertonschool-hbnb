@@ -11,10 +11,15 @@ class Review(BaseModel):
     """represents a Review tied to Place by Composition and dependent on User"""
     __tablename__ = 'reviews'
     
+    id = Column(Integer, primary_key=True)
     place_id = db.Column(db.Integer, db.ForeignKey('places.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(500), nullable=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    place_id = Column(Integer, ForeignKey('places.id'), nullable=False)
+
+    # One to many
     place = db.relationship('Place', backref='reviews', lazy=True)
     user = db.relationship('User', backref='reviews', lazy=True)
 
