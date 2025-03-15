@@ -11,7 +11,6 @@ user_model = api.model('User', {
     'last_name': fields.String(required=True, description='Last name of the user'),
     'email': fields.String(required=True, description='Email of the user'),
     'password': fields.String(required=True, description='Password of the user'),
-    'place_list': fields.List(fields.String, required=True, description='List of places owned by the user'),
 })
 
 @api.route('/')
@@ -29,7 +28,7 @@ class UserList(Resource):
             return {'error': 'Email already registered'}, 400
         try:
             new_user = facade.create_user(user_data)
-            return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email, 'place_list': new_user.place_list}, 201
+            return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email}, 201
         except ValueError:
             return {'error': 'Invalid input data'}, 400
 
@@ -40,7 +39,7 @@ class UserList(Resource):
         users = facade.get_all_users()
         if not users:
             return {'error': 'No users found'}, 404
-        return [{'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email, 'place_list': user.place_list} for user in users], 200
+        return [{'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email} for user in users], 200
 
 @api.route('/<user_id>')
 class UserResource(Resource):
@@ -51,7 +50,7 @@ class UserResource(Resource):
         user = facade.get_user(user_id)
         if not user:
             return {'error': 'User not found'}, 404
-        return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email, 'place_list': user.place_list}, 200
+        return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email}, 200
     
     @api.response(200, 'User details updated successfully')
     @api.response(400, 'You cannot modify email or password')
@@ -80,7 +79,7 @@ class UserResource(Resource):
         # check if database issue occured when updating user
         if not updated_user:
             return {'error': 'Failed to update user'}, 500
-        return {'id': current_user_id, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email, 'place_list': updated_user.place_list}, 200
+        return {'id': current_user_id, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email}, 200
 
 @api.route('/admin')
 class AdminUserCreate(Resource):
@@ -102,7 +101,7 @@ class AdminUserCreate(Resource):
         # Logic to create a new user
         try:
             new_user = facade.create_user(user_data)
-            return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email, 'place_list': new_user.place_list}, 201
+            return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email}, 201
         except ValueError:
             return {'error': 'Invalid input data'}, 400
 
@@ -140,4 +139,4 @@ class AdminUserModify(Resource):
         if not updated_user:
             return {'error': 'Failed to update user'}, 500
        
-        return {'id': current_user, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email,'password': updated_user.password, 'place_list': updated_user.place_list}, 200
+        return {'id': current_user, 'first_name': updated_user.first_name, 'last_name': updated_user.last_name, 'email': updated_user.email,'password': updated_user.password}, 200
