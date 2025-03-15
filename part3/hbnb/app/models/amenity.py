@@ -3,7 +3,8 @@
 this module contain a class Amenity
 """
 from .base_model import BaseModel
-from datetime import datetime
+from app import db
+from app.models.association_tables import place_amenity_association
 
 
 class Amenity(BaseModel):
@@ -12,7 +13,7 @@ class Amenity(BaseModel):
 
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    place_amenities = db.relationship('Place', secondary='place_amenity', backref='amenities')
+    associated_places = db.relationship('Place', secondary=place_amenity_association, backref='amenities_associated')
 
     def __init__(self, name, description):
         super().__init__()

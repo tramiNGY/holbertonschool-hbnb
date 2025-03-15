@@ -3,27 +3,22 @@
 this module contain a class Review
 """
 from .base_model import BaseModel
-from .user import User
-from datetime import datetime
+from app import db
 
 
 class Review(BaseModel):
     """represents a Review tied to Place by Composition and dependent on User"""
     __tablename__ = 'reviews'
     
+    text = db.Column(db.String(500), nullable=True)
+    rating = db.Column(db.Integer, nullable=False)
     place_id = db.Column(db.Integer, db.ForeignKey('places.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
-    comment = db.Column(db.String(500), nullable=True)
-    place = db.relationship('Place', backref='reviews', lazy=True)
-    user = db.relationship('User', backref='reviews', lazy=True)
-
-    def __init__(self, place_id, user_id, rating, comment):
+    
+    def __init__(self, rating, text):
         super().__init__()
-        self.place_id = place_id
-        self.user_id = user_id
         self.rating = rating
-        self.comment = comment
+        self.text = text
         self.validate_review()
 
     def validate_review(self):
@@ -31,12 +26,20 @@ class Review(BaseModel):
         from app.models.place import Place
         from app.models.user import User
 
-        if not isinstance(self.comment, str) or not self.comment.strip():
-            raise ValueError("Comment is required and must be a non-empty string")
+        if not isinstance(self.text, str) or not self.text.strip():
+            raise ValueError("Text is required and must be a non-empty string")
         if not isinstance(self.rating, int) or not (1 <= self.rating <= 5):
             raise ValueError("Rating must be an integer between 1 and 5")
-        if not User.validate_user:
+        
+        # Create an instance of User with user's id who made the review
+        user = User.query.get(self.user_id)
+        if not user:
             raise ValueError("User_id is not a valid entity")
-        if not Place.validate_place:
+        user.validate_user()  # Validates user's information format
+
+        # Create an instance of Place with place's id of the review
+        place = Place.query.get(self.place_id)
+        if not place:
             raise ValueError("Place_id is not a valid entity")
+        place.validate_place()  # Validates place's information format
 

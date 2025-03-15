@@ -21,10 +21,7 @@ place_model = api.model('Place', {
     'description': fields.String(description='Description of the place'),
     'price': fields.Float(required=True, description='Price per night'),
     'latitude': fields.Float(required=True, description='Latitude of the place'),
-    'longitude': fields.Float(required=True, description='Longitude of the place'),
-    'owner': fields.String(required=True, description='ID of the owner'),
-    'reviews': fields.List(fields.String, description="List of reviews ID's"),
-    'amenities': fields.List(fields.String, required=True, description="List of amenities ID's")
+    'longitude': fields.Float(required=True, description='Longitude of the place')
 })
 
 @api.route('/')
@@ -37,10 +34,10 @@ class PlaceList(Resource):
         """Register a new place"""
         place_data = api.payload
         current_user_id = get_jwt_identity()
-        place_data['owner'] = current_user_id
+        place_data['user_id'] = current_user_id
         try:
             new_place = facade.create_place(place_data)
-            return {'id': new_place.id, 'title': new_place.title, 'description': new_place.description, 'price': new_place.price, 'latitude': new_place.latitude, 'longitude' : new_place.longitude, 'owner' : new_place.owner, 'amenities' : new_place.amenities}, 201
+            return {'id': new_place.id, 'title': new_place.title, 'description': new_place.description, 'price': new_place.price, 'latitude': new_place.latitude, 'longitude' : new_place.longitude}, 201
         except ValueError:
             return {'error': 'Invalid input data'}, 400
 
@@ -50,7 +47,7 @@ class PlaceList(Resource):
         places = facade.get_all_places()
         if not places:
             return {'error': 'No places found'}, 404
-        return [{'id': place.id, 'title': place.title, 'description': place.description, 'price': place.price, 'latitude': place.latitude, 'longitude' : place.longitude, 'owner' : place.owner, 'reviews' : place.reviews, 'amenities' : place.amenities} for place in places], 200
+        return [{'id': place.id, 'title': place.title, 'description': place.description, 'price': place.price, 'latitude': place.latitude, 'longitude' : place.longitude} for place in places], 200
 
 
 @api.route('/<place_id>')
@@ -62,7 +59,7 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'No places found'}, 404
-        return {'id': place.id, 'title': place.title, 'description': place.description, 'price': place.price, 'latitude': place.latitude, 'longitude' : place.longitude, 'owner' : place.owner, 'reviews' : place.reviews, 'amenities' : place.amenities}, 200
+        return {'id': place.id, 'title': place.title, 'description': place.description, 'price': place.price, 'latitude': place.latitude, 'longitude' : place.longitude}, 200
     
     @api.expect(place_model)
     @api.response(200, 'Place updated successfully')
@@ -78,7 +75,7 @@ class PlaceResource(Resource):
         if not place:
             return {'error': 'Place not found'}, 404
         # only the owner of the place can modify its information
-        if place.owner != current_user_id:
+        if place.user_id != current_user_id:
             return {'error': 'Unauthorized action'}, 403
         user_place = api.payload
         # updates the place information in the database
@@ -86,7 +83,7 @@ class PlaceResource(Resource):
         # check if database issue occured when updating place
         if not updated_place:
             return {'error': 'Failed to update this place'}, 500
-        return {'id': updated_place.id, 'title': updated_place.title, 'description': updated_place.description, 'price': updated_place.price, 'latitude': updated_place.latitude, 'longitude' : updated_place.longitude, 'amenities' : updated_place.amenities}, 200
+        return {'id': updated_place.id, 'title': updated_place.title, 'description': updated_place.description, 'price': updated_place.price, 'latitude': updated_place.latitude, 'longitude' : updated_place.longitude}, 200
 
     @api.response(200, 'Review deleted successfully')
     @api.response(404, 'Review not found')
@@ -102,7 +99,7 @@ class PlaceResource(Resource):
         # users can only delete places they own expect if is_admin=True
         current_user = get_jwt_identity()
         claims = get_jwt()
-        if place.owner != current_user and not claims.get('is_admin'):
+        if place.user_id != current_user and not claims.get('is_admin'):
             return {'error': 'Unauthorized action'}, 403
         # delete place in the database
         deleted_place = facade.delete_place(place_id)
@@ -140,4 +137,4 @@ class AdminPlaceModify(Resource):
         # check if database issue occured when updating place
         if not updated_place:
             return {'error': 'Failed to update this place'}, 500
-        return {'id': updated_place.id, 'title': updated_place.title, 'description': updated_place.description, 'price': updated_place.price, 'latitude': updated_place.latitude, 'longitude' : updated_place.longitude, 'amenities' : updated_place.amenities}, 200
+        return {'id': updated_place.id, 'title': updated_place.title, 'description': updated_place.description, 'price': updated_place.price, 'latitude': updated_place.latitude, 'longitude' : updated_place.longitude}, 200
