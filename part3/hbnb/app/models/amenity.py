@@ -4,7 +4,11 @@ this module contain a class Amenity
 """
 from .base_model import BaseModel
 from datetime import datetime
-
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+from app import db
+from .place import place_amenity
+from sqlalchemy.orm import relationship
 
 class Amenity(BaseModel):
     """Represents an Amenity, Aggregated with Place"""
@@ -15,8 +19,7 @@ class Amenity(BaseModel):
     description = db.Column(db.String(500), nullable=True)
     
     # Many to many
-    place_amenities = db.relationship('Place', secondary='place_amenity', backref='amenities')
-    places = relationship('Place', secondary=place_amenity, backref=db.backref('amenities', lazy=True))
+    places = db.relationship('Place', secondary=place_amenity, backref=db.backref('amenities_ref', lazy=True))
 
     def __init__(self, name, description):
         super().__init__()

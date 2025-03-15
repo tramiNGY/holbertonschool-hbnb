@@ -10,6 +10,8 @@ from .place import Place
 from datetime import datetime
 import re
 from flask_bcrypt import Bcrypt
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 bcrypt = Bcrypt()
 
 
@@ -26,7 +28,7 @@ class User(BaseModel):
     
     # One to many
     place_list = db.relationship('Place', backref='user', lazy=True)
-    reviews = relationship('Review', backref='user', lazy=True)
+    reviews = db.relationship('Review', backref='user_ref', lazy=True)
 
     def __init__(self, first_name, last_name, email, password, place_list=[], is_admin=False):
         super().__init__()

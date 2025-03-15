@@ -6,6 +6,13 @@ from .base_model import BaseModel
 import uuid
 from datetime import datetime
 from app import db
+from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy.orm import relationship
+
+place_amenity = db.Table('place_amenity',
+    db.Column('place_id', db.Integer, db.ForeignKey('places.id'), primary_key=True),
+    db.Column('amenity_id', db.Integer, db.ForeignKey('amenities.id'), primary_key=True)
+)
 
 
 class Place(BaseModel):
@@ -21,10 +28,10 @@ class Place(BaseModel):
     longitude = db.Column(db.Float, nullable=False)
     
     # One to many
-    reviews = relationship('Review', backref='place', lazy=True)
+    reviews = db.relationship('Review', backref='place_ref', lazy=True)
     owner = db.relationship('User', backref='places', lazy=True)
     # Many to many
-    amenities = relationship('Amenity', secondary=place_amenity, lazy='subquery', backref=db.backref('places', lazy=True))
+    amenities = db.relationship('Amenity', secondary=place_amenity, lazy='subquery', backref=db.backref('places_ref', lazy=True))
 
     def __init__(self, title, description, price, latitude, longitude, owner, reviews=[], amenities=[]):
         super().__init__()
