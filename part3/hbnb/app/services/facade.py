@@ -143,12 +143,15 @@ class HBnBFacade:
         if place:
             # Retourne un dictionnaire avec les informations du place
             return {
-                'id': place.id,
-                'title': place.title,
-                'description': place.description,
-                'price': place.price,
-                'latitude': place.latitude,
-                'longitude': place.longitude,
+                'place': {
+                    'id': place.id,
+                    'title': place.title,
+                    'description': place.description,
+                    'price': place.price,
+                    'latitude': place.latitude,
+                    'longitude': place.longitude,
+                    'user_id': place.user_id
+                },
                 'associated_amenities': [amenity.name for amenity in place.associated_amenities]
             }
     
