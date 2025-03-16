@@ -32,7 +32,7 @@ HBnB Evolution is a RESTful API that provides endpoints for managing users, plac
 
 This directory contains the data models used in the API. Each model represents a different entity:
 
-- `user.py`: Defines the User model with attributes like `first_name`, `last_name`, `email`, and `password`. Allows admin to modify email and password unlike regular user, admins can now also modify every user.
+- `user.py`: Defines the User model with attributes like `first_name`, `last_name`, `email`, and `password`. Allows admin to modify email and password unlike regular user, admins can now also modify every user, also hashes the passorw for security.
 - `place.py`: Defines the Place model, including attributes like `title`, `description`, `price`, `latitude`, and `longitude`.
 - `review.py`: Defines the Review model, storing user feedback on places.
 - `amenity.py`: Defines the Amenity model, storing amenities available for places.
