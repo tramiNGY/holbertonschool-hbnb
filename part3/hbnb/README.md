@@ -62,6 +62,8 @@ If the credentials are valid, an access token is generated using `create_access_
 
 Certain routes are restricted to users with administrative privileges. These routes check the is_admin claim in the JWT to ensure that the user has admin privileges before allowing access. The user must be authenticated and must have the `is_admin` claim set to True in the JWT to access the route.
 If the user is not an admin, the request is rejected with a 403 Forbidden status code.
+#### Enter this curl command to get an admin token:
+- curl http://127.0.0.1:5000/api/v1/auth/generate_admin_token
 
 ## `app/services/`
 
