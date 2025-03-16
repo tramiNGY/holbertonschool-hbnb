@@ -1,8 +1,8 @@
-to be changed for part 3
+
 ![printf image image (1)](https://pbs.twimg.com/media/Gj1Hgv2XYAAiHmC?format=jpg&name=small)
 
 
-# **HBnB Evolution - RESTful API**
+# **HBnB Evolution - Authorisation and Database**
 
 ## Description
 
@@ -19,6 +19,8 @@ HBnB Evolution is a RESTful API that provides endpoints for managing users, plac
 - RESTful API design with Flask
 - Business logic abstraction using the Facade pattern
 - Data persistence layer
+- Admin authorisation
+- SQL databse
 
 ## Project Structure
 ![structure](https://i.postimg.cc/RZrz8D16/hbnb-api-structure.png)
@@ -34,6 +36,8 @@ This directory contains the data models used in the API. Each model represents a
 - `place.py`: Defines the Place model, including attributes like `title`, `description`, `price`, `latitude`, and `longitude`.
 - `review.py`: Defines the Review model, storing user feedback on places.
 - `amenity.py`: Defines the Amenity model, storing amenities available for places.
+- `place_amenity.py`: Defines the association table linking places and amenities.
+- `base_model.py`: Defines a reusable base model with UUID primary keys and timestamp management.
 
 ### `app/api/v1/`
 
@@ -49,25 +53,32 @@ This directory contains the API endpoints that handle requests and responses.
 
 This directory contains the business logic layer, abstracting the logic from the API endpoints.
 
-- `facade.py`: Implements a Facade pattern to centralize business logic, ensuring API endpoints remain lightweight.
+`facade.py`: A service class that provides methods to manage users, places, amenities, and reviews, including CRUD operations and additional filtering functionality.
+
+### `app/services/repositories`
+
+- `amenity_repository.py`: Implements a repository for managing amenities.
+- `place_repository.py`: Implements a repository for managing places with filters for price range, amenities, and owners.
+- `review_repository.py`: Implements a repository for managing reviews, including retrieval by place.
+- `user_repository.py`: Implements a repository for managing users, including retrieval by email.
 
 ### `app/persistence/`
 
 This directory contains the data persistence layer, managing database interactions.
 
-- `repository.py`: Provides functions for fetching, creating, updating, and deleting records from the database.
+- `repository.py`: Defines an abstract repository pattern with in-memory and SQLAlchemy implementations.
 
 ## Installation
 
 - `Clone the repository`:
    git clone https://github.com/tramiNGY/holbertonschool-hbnb.git
 - `Navigate to the project directory`:
-  cd part2/hbnb/app
+  cd part3/hbnb/app
 - `Create a virtual environment and activate it`:
   python3 -m venv venv
   source venv/bin/activate
 - `Install dependencies`:
-  pip install flask && pip install flask-restx
+  pip install flask && pip install flask-restx && pip install  flask-bcrypt && pip install flask-jwt-extended && pip install sqlalchemy && pip install flask_sqlalchemy
 - `Running the API`
   python run.py
 The API will be available at http://localhost:5000/api/v1/
@@ -103,7 +114,7 @@ The API will be available at http://localhost:5000/api/v1/
 - PUT /api/v1/amenities/<amenity_id> - Update an amenity
 - DELETE /api/v1/amenities/<amenity_id> - Delete an amenity
 - POST /api/v1/amenities/admin: Add a new amenity.
-PUT /api/v1/amenities/admin/<amenity_id>: Modify the details of an amenity.
+- PUT /api/v1/amenities/admin/<amenity_id>: Modify the details of an amenity.
 
 
 ## Testing the API  
@@ -114,22 +125,20 @@ To ensure the reliability and correctness of the API, **unit tests** have been i
 
 - **Here is an exemple of a cURL test for a POST api that you can run while the run.py file is running:**
 
-  `curl -X POST http://localhost:5000/api/v1/reviews
--H "Content-Type: application/json" \
--d '{
-    "comment": "Great place, really enjoyed my stay!",
-    "rating": 5,
-    "user_id": 1,
-    "place_id": 10
-}'`
+curl -X POST "http://127.0.0.1:5000/api/v1/users/admin" 
+-d '{"email": "newuser@example.com", "first_name": "Admin", "last_name": "User"}' 
+-H "Authorization: Bearer <admin_token>" 
+-H "Content-Type: application/json"
 
 - **Expected output:**
 
    `{
-  "comment": "Great place, really enjoyed my stay!",
-  "rating": 5,
-  "user_id": 1,
-  "place_id": 10
+  "id": "1"
+  "email": "newuser@example.com",
+  "password": "password123"
+  "first_name": "Admin"
+  "last_name": "User"
+  "place_list": ["Modern House"]
 }`
 
 
@@ -174,14 +183,6 @@ Each test case checks for correct status codes **(200 OK, 201 Created, 400 Bad R
 - **test_get_user_not_found** → Fail to retrieve a user with a non-existent ID (❌ fail)
 - **test_update_user** → Update user information (✅ success)
 - **test_update_user_not_found** → Fail to update a user that does not exist (❌ fail)
-
-### Admin Tests
-
-Create a new user using admin route (✅ success)
-Modify a user's details, including email and password as an admin (✅ success)
-Add a new amenity as an admin (✅ success)
-Modify the details of an amenity as an admin (✅ success)
-
 
 
 ## AUTHORS
