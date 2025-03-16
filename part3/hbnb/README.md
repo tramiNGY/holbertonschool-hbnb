@@ -143,6 +143,7 @@ To ensure the reliability and correctness of the API, **unit tests** have been i
 ```
 get admin token :  curl http://127.0.0.1:5000/api/v1/auth/generate_admin_token
 ```
+#### Creating a user as an admin
 ```
 curl -X POST "http://127.0.0.1:5000/api/v1/users/admin" -d '{"email": "newuser@example.com", "first_name": "Admin", "last_name": "User"}' -H "Authorization: Bearer <admin_token>" -H "Content-Type: application/json"
 ```
@@ -155,6 +156,7 @@ curl -X POST "http://127.0.0.1:5000/api/v1/users/admin" -d '{"email": "newuser@e
   "first_name": "Admin"
   "last_name": "User"
   "place_list": ["Modern House"]
+  #### Editing a user as an admin
 ```
 curl -X PUT "http://127.0.0.1:5000/api/v1/users/admin/<userid>" -d '{"email": "updatedemail@example.com"}' -H "Authorization: Bearer <admin_token>" -H "Content-Type: application/json"
 ```
@@ -166,23 +168,43 @@ curl -X PUT "http://127.0.0.1:5000/api/v1/users/admin/<userid>" -d '{"email": "u
   "first_name": "Admin"
   "last_name": "User"
   "place_list": ["Modern House"]
-}`
+  }`
+#### Creating an amenity as an admin
 ```
 curl -X POST "http://127.0.0.1:5000/api/v1/amenities/admin" -d '{"name": "Swimming Pool", "description": "a 2 meter deep swimming pool"}' -H "Authorization: Bearer <admin_token>" -H "Content-Type: application/json"
 ```
+- **Expected output:**
    `{
 "id": "1"
 "name": "Swimming Pool", 
 "description": "a 2 meter deep swimming pool"
 }`
+#### Editing an amenity as an admin
 ```
 curl -X PUT "http://127.0.0.1:5000/api/v1/amenities/admin/<amenity_id>" -d '{"name": "Updated Amenity"}' -H "Authorization: Bearer <admin_token>" -H "Content-Type: application/json"
 ```
+- **Expected output:**
    `{
 "name": "Updated Amenity", 
 "description": "a 2 meter deep swimming pool"
 }`
 
+#### Deleting a place as an admin :
+```
+curl -X DELETE "http://127.0.0.1:5000/api/v1/places/admin/<placeid>" \
+-H "Authorization: Bearer <admin_token>" \
+-H "Content-Type: application/json"
+```
+- **Expected output:**
+`Place has been deleted successfully !`
+#### Deleting a review as an admin :
+```
+curl -X DELETE "http://127.0.0.1:5000/api/v1/reviews/admin/<reviewid>" \
+-H "Authorization: Bearer <admin_token>" \
+-H "Content-Type: application/json"
+```
+- **Expected output:**
+`Review has been deleted successfully !`
 ## AUTHORS
 - [Tra Mi NGUYEN](https://github.com/tramiNGY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Badge](https://badgen.net/badge/icon/github?icon=github&label)
 - [Tom DIBELLONIO](https://github.com/totomus83)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Badge](https://badgen.net/badge/icon/github?icon=github&label)
