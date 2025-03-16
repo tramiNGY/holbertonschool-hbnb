@@ -26,9 +26,9 @@ HBnB Evolution is a RESTful API that provides endpoints for managing users, plac
 ![structure](https://pbs.twimg.com/media/GmLKXb8bkAAhtlc?format=png&name=small)
 
 
-## Directory Overview
+# Directory Overview
 
-### `app/models/`
+## `app/models/`
 
 This directory contains the data models used in the API. Each model represents a different entity:
 
@@ -39,7 +39,7 @@ This directory contains the data models used in the API. Each model represents a
 - `place_amenity.py`: Defines the association table linking places and amenities.
 - `base_model.py`: Defines a reusable base model with UUID primary keys and timestamp management.
 
-### `app/api/v1/`
+## `app/api/v1/`
 
 This directory contains the API endpoints that handle requests and responses.
 
@@ -49,28 +49,28 @@ This directory contains the API endpoints that handle requests and responses.
 - `amenities.py`: Manages amenities available at different places.
 - `auth.py`: Handles regular user and admin authentication, including login and token generation for access control.
 
-## JWT Authentication Implementation
+### JWT Authentication Implementation
 
 Our HBNB app uses JWT (JSON Web Tokens) for user authentication and authorization. JWTs are used to securely transmit information between parties as a JSON object. In this application, JWTs are used to authenticate users and authorize them to access protected routes.
 
-###For regular users
+### For regular users
 
 When a user logs in with their email and password, the application verifies their credentials and generates a JWT if the credentials are valid. This JWT is then returned to the user and can be used for subsequent requests to access protected routes.
 
-### `app/services/`
+## `app/services/`
 
 This directory contains the business logic layer, abstracting the logic from the API endpoints.
 
 `facade.py`: A service class that provides methods to manage users, places, amenities, and reviews, including CRUD operations and additional filtering functionality.
 
-### `app/services/repositories`
+## `app/services/repositories`
 
 - `amenity_repository.py`: Implements a repository for managing amenities.
 - `place_repository.py`: Implements a repository for managing places with filters for price range, amenities, and owners.
 - `review_repository.py`: Implements a repository for managing reviews, including retrieval by place.
 - `user_repository.py`: Implements a repository for managing users, including retrieval by email.
 
-### `app/persistence/`
+## `app/persistence/`
 
 This directory contains the data persistence layer, managing database interactions.
 
