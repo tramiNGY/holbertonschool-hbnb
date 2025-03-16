@@ -16,12 +16,16 @@ class ReviewList(Resource):
     @api.response(201, 'Review successfully created')
     @api.response(400, 'Invalid input data')
     @api.response(404, 'Place not found')
+    @api.response(404, 'User not found')
     @jwt_required()
     def post(self):
         """Register a new review"""
         review_data = api.payload
         current_user_id = get_jwt_identity()  # Get user ID from JWT
         place = facade.get_place(review_data['place_id'])
+        user = facade.get_user_by_id(current_user_id)
+        if not user:
+            return {'error': 'User not found'}, 404
         if not place:
             return {'error': 'Place not found'}, 404
         if place['place']['user_id'] == current_user_id:
@@ -44,8 +48,8 @@ class ReviewList(Resource):
                 'user_id': new_review['user_id'],
                 'place_id': new_review['place_id']
             }, 201
-        except ValueError:
-            return {'error': 'Invalid input data'}, 400
+        except ValueError as e:
+            return {'error': f'Invalid input data: {str(e)}'}, 400
     
     @api.response(200, 'List of reviews retrieved successfully')
     @api.response(404, 'No reviews found')

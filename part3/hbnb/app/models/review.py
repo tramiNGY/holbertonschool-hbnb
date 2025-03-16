@@ -4,6 +4,8 @@ this module contain a class Review
 """
 from .base_model import BaseModel
 from app import db
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
 
 
 class Review(BaseModel):
@@ -12,8 +14,8 @@ class Review(BaseModel):
     
     text = db.Column(db.String(500), nullable=True)
     rating = db.Column(db.Integer, nullable=False)
-    place_id = db.Column(db.Integer, db.ForeignKey('places.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    place_id = db.Column(db.String(36), db.ForeignKey('places.id'), nullable=False)
+    user_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
     
     def __init__(self, rating, text):
         super().__init__()

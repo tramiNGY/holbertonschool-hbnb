@@ -8,3 +8,6 @@ class UserRepository(SQLAlchemyRepository):
 
     def get_user_by_email(self, email):
         return self.model.query.filter_by(email=email).first()
+    
+    def get_user_by_id(self, user_id):
+        return User.query.filter_by(id=user_id).first()

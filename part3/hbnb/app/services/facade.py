@@ -50,6 +50,9 @@ class HBnBFacade:
         # Return the updated user
         return user
     
+    def get_user_by_id(self, user_id):
+        return self.user_repo.get_user_by_id(user_id)
+    
 
     """methods for amenity"""
     def create_amenity(self, amenity_data):
@@ -110,6 +113,7 @@ class HBnBFacade:
     def get_amenities_by_ids(self, amenity_ids):
         # Retrieves places by their ids
         return self.amenity_repo.get_amenities_by_ids(amenity_ids)
+    
     
 
     """methods for place"""
