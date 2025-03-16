@@ -44,8 +44,9 @@ class HBnBFacade:
         # Update the user fields
         user.first_name = user_data.get('first_name', user.first_name)
         user.last_name = user_data.get('last_name', user.last_name)
-        user.email = user_data.get('email', user.email)
-        user.password = user_data.get('password', user.password)
+
+        # Save the updated user in the database
+        db.session.commit()
         # Return the updated user
         return user
     
@@ -53,8 +54,21 @@ class HBnBFacade:
     """methods for amenity"""
     def create_amenity(self, amenity_data):
         # Create a new amenity and stores it in the repository
-        amenity = Amenity(**amenity_data)
+        amenity = Amenity(
+            name=amenity_data['name'],
+            description=amenity_data.get('description', None)
+        )
+
+        # Add places to the amenity (many-to-many relation)
+        place_ids = amenity_data.get('associated_places', [])
+        if place_ids:
+        # Retrieve the places by their IDs
+            places = self.place_repo.get_places_by_ids(place_ids)
+            amenity.associated_places.extend(places)  # Adds places to the amenity
+
+        # Add the amenity in the database
         self.amenity_repo.add(amenity)
+
         return amenity
     
     def get_amenity(self, amenity_id):
@@ -68,11 +82,34 @@ class HBnBFacade:
     def update_amenity(self, amenity_id, amenity_data):
         # Update an amenity
         amenity = self.amenity_repo.get(amenity_id)
+        if not amenity:
+            return None
         amenity.name = amenity_data.get('name', amenity.name)
         amenity.description = amenity_data.get('description', amenity.description)
 
-        self.amenity_repo.save(amenity)
+        # Handles assiociate_places many-to-many relationship
+        place_ids = amenity_data.get('associated_places', [])
+        if place_ids is not None:
+            new_places = self.place_repo.get_places_by_ids(place_ids)
+
+        # Add the new places
+        for place in new_places:
+            if place not in amenity.associated_places:
+                amenity.associated_places.append(place)
+
+        # Delete former places not in the new list
+        to_remove = [place for place in amenity.associated_places if place.id not in place_ids]
+        for place in to_remove:
+            amenity.associated_places.remove(place)
+
+        # Saves changes in the database
+        db.session.commit()
+
         return amenity
+    
+    def get_amenities_by_ids(self, amenity_ids):
+        # Retrieves places by their ids
+        return self.amenity_repo.get_amenities_by_ids(amenity_ids)
     
 
     """methods for place"""
@@ -85,37 +122,53 @@ class HBnBFacade:
             latitude=place_data['latitude'],
             longitude=place_data['longitude'],
         )
-
+        # Adds user_id to place after its creation
+        place.user_id = place_data['user_id']
         # Adds amenities to the place
-        amenity_ids = place_data.get('amenities', [])
-        if amenity_ids:
-            # Fetch Amenity objects corresponding to amenity's id inputed by user
-            amenities = self.amenity_repo.get_amenities_by_ids(amenity_ids)
+        amenity_names = place_data.get('associated_amenities', [])
+        if amenity_names:
+            # Fetch Amenity objects corresponding to amenity's name inputed by user
+            amenities = self.amenity_repo.get_amenities_by_names(amenity_names)
             place.associated_amenities.extend(amenities)  # Adds amenities to the place
 
-        # Save the place in the database
-        db.session.add(place)
-        db.session.commit()
+        # Adds the place in the database
+        self.place_repo.add(place)
 
         return place
     
     def get_place(self, place_id):
-        # Retrieve a place by ID including associated amenities
-        place = self.place_repo.get(place_id)
+        """Retrieve a place by ID, including associated amenities"""
+        place = self.place_repo.get(place_id)  # Utilise la méthode dans le repository
+    
         if place:
-            # Fetch the associated amenities
-            place_amenities = place.associated_amenities
+            # Retourne un dictionnaire avec les informations du place
             return {
-                'place': place,
-                'amenities': [amenity.name for amenity in place_amenities]  # List of amenity names or IDs
+                'id': place.id,
+                'title': place.title,
+                'description': place.description,
+                'price': place.price,
+                'latitude': place.latitude,
+                'longitude': place.longitude,
+                'associated_amenities': [amenity.name for amenity in place.associated_amenities]
             }
+    
         return None
     
     def get_all_places(self):
         # Retrieve all places
         places = self.place_repo.get_all()
         return [
-            {'place': place, 'amenities': [amenity.name for amenity in place.associated_amenities]}
+            {
+                'place': {
+                    'id': place.id,
+                    'title': place.title,
+                    'description': place.description,
+                    'price': place.price,
+                    'latitude': place.latitude,
+                    'longitude': place.longitude
+                },
+                'associated_amenities': [amenity.name for amenity in place.associated_amenities]
+            }
             for place in places
         ]
     
@@ -130,14 +183,23 @@ class HBnBFacade:
         place.latitude = place_data.get('latitude', place.latitude)
         place.longitude = place_data.get('longitude', place.longitude)
         
-        # Update amenities
-        amenity_ids = place_data.get('amenities', [])
-        if amenity_ids is not None:  # If the amenities list is present in the data
+        # Handles associated_amenities many-to-many relationship
+        amenity_names = place_data.get('amenities', [])
+        if amenity_names is not None:  # If the amenities list is present in the data
             # Fetch the amenities from the database
-            new_amenities = self.amenity_repo.get_amenities_by_ids(amenity_ids)
-            place.associated_amenities = new_amenities  # Replace the old amenities with new ones
+            new_amenities = self.amenity_repo.get_amenities_by_names(amenity_names)
+        
+        # Add new amenities that are not already associated with the place
+        for amenity in new_amenities:
+            if amenity not in place.associated_amenities:
+                place.associated_amenities.append(amenity)
+        
+        # Remove amenities that are no longer associated with the place
+        to_remove = [amenity for amenity in place.associated_amenities if amenity.id not in amenity_names]
+        for amenity in to_remove:
+            place.associated_amenities.remove(amenity)
 
-        # Save the updated place
+        # Save the updated place in the database
         db.session.commit()
         return place
     
@@ -159,19 +221,18 @@ class HBnBFacade:
         # Retrieve places owned by a specific user
         return self.place_repo.get_by_owner(owner_id)
     
+    def get_places_by_ids(self, place_ids):
+        # Retrieves places by their ids
+        return self.place_repo.get_places_by_ids(place_ids)
+    
     
     """methods for review"""
     def create_review(self, review_data):
         # Create a new review
         review = Review(**review_data)
         self.review_repo.add(review)
-        return {
-        'id': review.id,
-        'comment': review.comment,
-        'rating': review.rating,
-        'user_id': review.user_id,
-        'place_id': review.place_id
-    }
+
+        return review
 
     def get_review(self, review_id):
         # Retrieve a review by ID
@@ -191,8 +252,8 @@ class HBnBFacade:
         review.text = review_data.get('text', review.text)
         review.rating = review_data.get('rating', review.rating)
 
-        # Saves review's modification in the database
-        self.review_repo.save(review)
+        # Save the updated review in the database
+        db.session.commit()
         return review
     
     def delete_review(self, review_id):
