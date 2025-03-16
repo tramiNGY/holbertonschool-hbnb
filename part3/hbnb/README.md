@@ -137,8 +137,418 @@ The API will be available at http://localhost:5000/api/v1/
 
 To ensure the reliability and correctness of the API, **unit tests** have been implemented using `unittest`. These tests cover all major functionalities, including resource creation, retrieval, updating, and deletion.  
 
-### `Curl tests`
+## CURL TESTS
 
+### Curl tests for Regular User (Not Admin)
+
+### CURL USER
+#### **CURL POST User**
+- **Create new user John**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/users/ -H "Content-Type: application/json" -H "Authorization: Bearer <your-jwt-token>" -d '{ "first_name": "John", "last_name": "Voe", "email": "john.doe@example.com", "password": "securePassword123"}'
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "e47e6410-d278-47ca-a3b7-e5d0e266fe1e",
+    "first_name": "John",
+    "last_name": "Voe",
+    "email": "john.doe@example.com"
+}
+
+```
+
+#### **CURL POST Login**
+- **Login with User John**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/auth/login -H "Content-Type: application/json" -d '{ "email": "john.doe@example.com", "password": "securePassword123" }'
+
+```
+- **Expected output**:
+
+```
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjE1NDc1NSwianRpIjoiYTQ0NmU3MWItNWFjMC00MjY2LWJlOWItODZjOGNiMWVkNDk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImU0N2U2NDEwLWQyNzgtNDdjYS1hM2I3LWU1ZDBlMjY2ZmUxZSIsIm5iZiI6MTc0MjE1NDc1NSwiY3NyZiI6ImY5Mjc4ZjE0LTFlNjctNDRlZS04NTdmLWE3ZDc1YjRkMDEzNyIsImV4cCI6MTc0MjI0MTE1NSwiaXNfYWRtaW4iOmZhbHNlfQ.ZS9hVTwqddzRnKuyUgb8s5o6YuDPh1NIzhIg6BOVEsQ"
+}
+
+```
+
+#### **CURL PUT User**
+- **Update User info by correct user**
+```
+curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d61378d2b" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjEzMzE5MSwianRpIjoiYTQ3NTM0NTUtM2M3Ni00NGI4LTk5OWEtMzU5Y2JkMzljNWJjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImExOTg2OTI0LTJjN2YtNDJhZi1iODdmLTk1OGQ2MTM3OGQyYiIsIm5iZiI6MTc0MjEzMzE5MSwiY3NyZiI6IjMzNTRkNmQ3LWMxN2YtNDgzOC04MTZlLTdjMjRjODZlNTliOSIsImV4cCI6MTc0MjIxOTU5MSwiaXNfYWRtaW4iOmZhbHNlfQ.Fl8PpIfNspyWeu8pqhHYc8w-tU-Xj4fO7DtT4wxbP1Y" \
+-H "Content-Type: application/json" \
+-d '{
+    "first_name": "John",
+    "last_name": "Doe"
+}'
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "a1986924-2c7f-42af-b87f-958d61378d2b",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com"
+}
+
+```
+
+#### **CURL POST another User**
+- **Create User Anna**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/users/ -H "Content-Type: application/json" -H "Authorization: Bearer <your-jwt-token>" -d '{ "first_name": "Anna", "last_name": "Doe", "email": "anna.doe@example.com", "password": "securePassword123"}'
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "09174248-810d-49b4-99ed-d642884f822b",
+    "first_name": "Anna",
+    "last_name": "Doe",
+    "email": "anna.doe@example.com"
+}
+
+```
+
+#### **CURL POST Login with another user**
+- **Login with user Anna**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/auth/login -H "Content-Type: application/json" -d '{ "email": "anna.doe@example.com", "password": "securePassword123" }'
+
+```
+- **Expected output**:
+
+```
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjE1NDgyMywianRpIjoiNmI4MjEwYzktMTlhNC00ZjY3LTkzYWQtMzNmNDUzM2JmYWYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjA5MTc0MjQ4LTgxMGQtNDliNC05OWVkLWQ2NDI4ODRmODIyYiIsIm5iZiI6MTc0MjE1NDgyMywiY3NyZiI6IjFjNjhhNjI2LTAwNGEtNGVmZC04MDY0LTBlZjE4NjBkYTRjYyIsImV4cCI6MTc0MjI0MTIyMywiaXNfYWRtaW4iOmZhbHNlfQ.HY-k95j5h0bWHUn4pHi2ua8DvA1A2HajSZWnJwIfNtA"
+}
+
+
+```
+
+#### **CURL PUT User with wrong user**
+- **Try to update John user's info by Anna**
+```
+curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d61378d2b" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjE1MTc5MCwianRpIjoiODBiYTA2NTItZDEyOS00NzhiLWI1OGItN2VhMTI5NDBkYWMwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjViZGM1NTkzLWRiODAtNDA0OS05MWYxLWI2OWU3MmVjOWNjYiIsIm5iZiI6MTc0MjE1MTc5MCwiY3NyZiI6IjExN2QyNzNiLTFjMzktNDE3ZC1iMWU0LWQzNDI3YjY0NzUxOCIsImV4cCI6MTc0MjIzODE5MCwiaXNfYWRtaW4iOmZhbHNlfQ.J5FXrIhcjYk-wRHpCfFiOhD1-hp6chweKr_QsC5ihk8" \
+-H "Content-Type: application/json" \
+-d '{                             
+    "first_name": "UpdatedFirstNamebyAnna",
+    "last_name": "UpdatedLastNamebyAnna"
+}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "error": "Unauthorized action"
+}
+
+```
+
+#### **CURL PUT User Update email by correct user**
+- **Try to update John email by John but email is not allowed to be modified**
+```
+curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d61378d2b" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjEzMzE5MSwianRpIjoiYTQ3NTM0NTUtM2M3Ni00NGI4LTk5OWEtMzU5Y2JkMzljNWJjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImExOTg2OTI0LTJjN2YtNDJhZi1iODdmLTk1OGQ2MTM3OGQyYiIsIm5iZiI6MTc0MjEzMzE5MSwiY3NyZiI6IjMzNTRkNmQ3LWMxN2YtNDgzOC04MTZlLTdjMjRjODZlNTliOSIsImV4cCI6MTc0MjIxOTU5MSwiaXNfYWRtaW4iOmZhbHNlfQ.Fl8PpIfNspyWeu8pqhHYc8w-tU-Xj4fO7DtT4wxbP1Y" -H "Content-Type: application/json" -d '{
+    "first_name": "John",
+    "last_name": "Doe", 
+    "email": "john2.doe@email.com"
+}'
+
+```
+- **Expected output**:
+
+```
+{
+    "error": "You cannot modify email or password"
+}
+
+```
+
+#### **CURL PUT User Update password by correct user**
+- **Try to update John password by John but password is not allowed to be modified**
+```
+curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d61378d2b" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjEzMzE5MSwianRpIjoiYTQ3NTM0NTUtM2M3Ni00NGI4LTk5OWEtMzU5Y2JkMzljNWJjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImExOTg2OTI0LTJjN2YtNDJhZi1iODdmLTk1OGQ2MTM3OGQyYiIsIm5iZiI6MTc0MjEzMzE5MSwiY3NyZiI6IjMzNTRkNmQ3LWMxN2YtNDgzOC04MTZlLTdjMjRjODZlNTliOSIsImV4cCI6MTc0MjIxOTU5MSwiaXNfYWRtaW4iOmZhbHNlfQ.Fl8PpIfNspyWeu8pqhHYc8w-tU-Xj4fO7DtT4wxbP1Y" -H "Content-Type: application/json" -d '{
+    "first_name": "John",
+    "last_name": "Doe", 
+    "password": "123!"
+}'
+
+```
+- **Expected output**:
+
+```
+{
+    "error": "You cannot modify email or password"
+}
+
+```
+
+### CURL AMENITY
+#### **CURL POST Amenity**
+- **Create new amenity Wifi**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "WiFi",
+    "description": "High-speed internet access"
+}'
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "188628e7-8af7-4dc9-8fb8-1879f69a7f43",
+    "name": "WiFi",
+    "description": "High-speed internet access"
+}
+
+```
+
+#### **CURL POST Amenity**
+- **Create new amenity Air Conditioning**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Air Conditioning",
+    "description": "Cool down with air conditioning"
+}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "cb900d74-eeb0-47eb-a241-fb1996776f96",
+    "name": "Air Conditioning",
+    "description": "Cool down with air conditioning"
+}
+
+```
+
+#### **CURL POST Amenity**
+- **Create new amenity Parking**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Parking",
+    "description": "Free parking for guests"
+}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "97563b0a-8bd8-4689-ad5c-ac4a5aa1586b",
+    "name": "Parking",
+    "description": "Free parking for guests"
+}
+
+```
+
+#### **CURL POST Amenity**
+- **Create new amenity Parking**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Parking",
+    "description": "Free parking for guests"
+}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "97563b0a-8bd8-4689-ad5c-ac4a5aa1586b",
+    "name": "Parking",
+    "description": "Free parking for guests"
+}
+
+```
+
+#### **CURL GET All Amenities**
+- **Get all the amenities in the amenities database**
+```
+curl -X GET http://127.0.0.1:5000/api/v1/amenities/ \
+-H "Authorization: Bearer <votre_token>"
+
+```
+- **Expected output**:
+
+```
+[
+    {
+        "id": "188628e7-8af7-4dc9-8fb8-1879f69a7f43",
+        "name": "WiFi",
+        "description": "High-speed internet access"
+    },
+    {
+        "id": "cb900d74-eeb0-47eb-a241-fb1996776f96",
+        "name": "Air Conditioning",
+        "description": "Cool down with air conditioning"
+    },
+    {
+        "id": "97563b0a-8bd8-4689-ad5c-ac4a5aa1586b",
+        "name": "Parking",
+        "description": "Free parking for guests"
+    }
+]
+
+```
+
+#### **CURL GET Amenity by amenity_id**
+- **Get the amenity info base on amenity_id test with WiFi**
+```
+curl -X GET http://127.0.0.1:5000/api/v1/amenities/188628e7-8af7-4dc9-8fb8-1879f69a7f43 \
+-H "Authorization: Bearer <votre_token>"
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "188628e7-8af7-4dc9-8fb8-1879f69a7f43",
+    "name": "WiFi",
+    "description": "High-speed internet access"
+}
+```
+
+#### **CURL PUT Update Amenity's info**
+- **Update amenity WiFi's info**
+```
+curl -X PUT http://127.0.0.1:5000/api/v1/amenities/188628e7-8af7-4dc9-8fb8-1879f69a7f43 \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer <votre_token>" \
+-d '{
+    "name": "WiFi",
+    "description": "Super fast internet access"
+}'
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "188628e7-8af7-4dc9-8fb8-1879f69a7f43",
+    "name": "WiFi",
+    "description": "Super fast internet access"
+}
+
+```
+
+
+### CURL PLACE
+#### **CURL POST Place**
+- **Create new place Place-1 by John**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/places/ \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjE1NDc1NSwianRpIjoiYTQ0NmU3MWItNWFjMC00MjY2LWJlOWItODZjOGNiMWVkNDk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImU0N2U2NDEwLWQyNzgtNDdjYS1hM2I3LWU1ZDBlMjY2ZmUxZSIsIm5iZiI6MTc0MjE1NDc1NSwiY3NyZiI6ImY5Mjc4ZjE0LTFlNjctNDRlZS04NTdmLWE3ZDc1YjRkMDEzNyIsImV4cCI6MTc0MjI0MTE1NSwiaXNfYWRtaW4iOmZhbHNlfQ.ZS9hVTwqddzRnKuyUgb8s5o6YuDPh1NIzhIg6BOVEsQ" \
+-d '{
+    "title": "Place-1",
+    "description": "This is a test place",
+    "price": 100.0,
+    "latitude": 40.7128,
+    "longitude": -74.0060,
+    "associated_amenities": ["WiFi", "Air Conditioning", "Parking"]
+}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "53cf3bc0-cc72-40e7-8d86-a976d0c11fc6",
+    "title": "Place-1",
+    "description": "This is a test place",
+    "price": 100.0,
+    "latitude": 40.7128,
+    "longitude": -74.006,
+    "associated_amenities": [
+        "WiFi",
+        "Parking",
+        "Air Conditioning"
+    ]
+}
+
+```
+
+#### **CURL GET ALL Places**
+- **Get all the places in the places database**
+```
+curl -X GET http://127.0.0.1:5000/api/v1/places/ -H "Authorization: Bearer <your_token>"
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "53cf3bc0-cc72-40e7-8d86-a976d0c11fc6",
+    "title": "Place-1",
+    "description": "This is a test place",
+    "price": 100.0,
+    "latitude": 40.7128,
+    "longitude": -74.006,
+    "associated_amenities": [
+        "Air Conditioning",
+        "Parking",
+        "WiFi"
+    ]
+}
+
+```
+
+#### **CURL GET Place by place_id**
+- **Get the place's info by place_id test with Place-1**
+```
+curl -X GET "http://127.0.0.1:5000/api/v1/places/53cf3bc0-cc72-40e7-8d86-a976d0c11fc6"      -H "Authorization: Bearer <your_token>"
+
+```
+- **Expected output**:
+
+```
+{
+    "place": {
+        "id": "53cf3bc0-cc72-40e7-8d86-a976d0c11fc6",
+        "title": "Place-1",
+        "description": "This is a test place",
+        "price": 100.0,
+        "latitude": 40.7128,
+        "longitude": -74.006,
+        "user_id": "e47e6410-d278-47ca-a3b7-e5d0e266fe1e"
+    },
+    "associated_amenities": [
+        "Parking",
+        "WiFi",
+        "Air Conditioning"
+    ]
+}
+
+```
+### CURL PLACE PUT AND CURL REVIEW
+#### Curl are not posted here because issues need to be fixed first_name because Curl tests are failing for those.
+
+### Curl tests for Admin
 - **Here is an exemple of a cURL test for a POST api that you can run while the run.py file is running:**
 ```
 get admin token :  curl http://127.0.0.1:5000/api/v1/auth/generate_admin_token
