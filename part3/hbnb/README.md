@@ -42,6 +42,12 @@ This directory contains the data models used in the API. Each model represents a
 ### `app/api/v1/`
 
 This directory contains the API endpoints that handle requests and responses.
+We added a JTW system for the authorization.
+The GenerateAdminToken class generate a token that allows the acces of admin methods that will not be available for the regular user.
+These features include :
+-  can manage user accounts, including creating and modifying user details.
+- can bypass ownership restrictions for places and reviews
+- can delete any place or review, bypassing the ownership restrictions that regular users face.
 
 - `users.py`: Handles user-related operations (creation, retrieval, update, and deletion).
 - `places.py`: Manages places, including creating, updating, and retrieving places.
