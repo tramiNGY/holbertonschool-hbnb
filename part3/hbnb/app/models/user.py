@@ -3,9 +3,8 @@
 this module contain a class User
 """
 from .base_model import BaseModel
+from app import db
 from app.persistence.repository import InMemoryRepository as database
-import uuid
-from .place import Place
 from datetime import datetime
 import re
 from flask_bcrypt import Bcrypt
@@ -14,13 +13,22 @@ bcrypt = Bcrypt()
 
 class User(BaseModel):
     """represents a User in the HBNB app"""
-    def __init__(self, first_name, last_name, email, password, place_list=[], is_admin=False):
+    __tablename__ = 'users'
+
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), nullable=False, unique=True)
+    password = db.Column(db.String(128), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    place_list = db.relationship('Place', backref='owner', lazy=True)
+    review_list = db.relationship('Review', backref='author', lazy=True)
+
+    def __init__(self, first_name, last_name, email, password, is_admin=False):
         super().__init__()
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.hash_password(password)
-        self.place_list = place_list
         self.is_admin = is_admin
         self.validate_user()
 

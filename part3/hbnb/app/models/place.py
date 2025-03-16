@@ -3,22 +3,30 @@
 this module contain a class Place
 """
 from .base_model import BaseModel
-import uuid
-from datetime import datetime
+from app import db
+from app.models.association_tables import place_amenity_association
 
 
 class Place(BaseModel):
     """Represents a place that can be rented in the HbnB app"""
-    def __init__(self, title, description, price, latitude, longitude, owner, reviews=[], amenities=[]):
+    __tablename__ = 'places'
+
+    title = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+    user_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
+    review_list = db.relationship('Review', backref='reviewed_place', lazy=True)
+    associated_amenities = db.relationship('Amenity', secondary=place_amenity_association, backref='places_associated')
+
+    def __init__(self, title, description, price, latitude, longitude):
         super().__init__()
         self.title = title
         self.description = description
         self.price = price
         self.latitude = latitude
         self.longitude = longitude
-        self.owner = owner
-        self.reviews = reviews # List to store related reviews
-        self.amenities = amenities # List to store related amenities
         self.validate_place()
 
     def validate_place(self):
@@ -48,9 +56,6 @@ class Place(BaseModel):
             "description": self.description,
             "price": self.price,
             "latitude": self.latitude,
-            "longitude": self.longitude,
-            "owner": self.owner,
-            "reviews": self.reviews,
-            "amenities": self.amenities
+            "longitude": self.longitude
         }
         return place_info
