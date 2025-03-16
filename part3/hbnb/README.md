@@ -140,14 +140,12 @@ To ensure the reliability and correctness of the API, **unit tests** have been i
 ### `Curl tests`
 
 - **Here is an exemple of a cURL test for a POST api that you can run while the run.py file is running:**
-
-#### get admin token :  curl http://127.0.0.1:5000/api/v1/auth/generate_admin_token
-
-#### curl -X POST "http://127.0.0.1:5000/api/v1/users/admin" 
-#### -d '{"email": "newuser@example.com", "first_name": "Admin", "last_name": "User"}' 
-#### -H "Authorization: Bearer <admin_token>" 
-#### -H "Content-Type: application/json"
-
+```
+get admin token :  curl http://127.0.0.1:5000/api/v1/auth/generate_admin_token
+```
+```
+curl -X POST "http://127.0.0.1:5000/api/v1/users/admin" -d '{"email": "newuser@example.com", "first_name": "Admin", "last_name": "User"}' -H "Authorization: Bearer <admin_token>" -H "Content-Type: application/json"
+```
 - **Expected output:**
 
    `{
@@ -157,12 +155,9 @@ To ensure the reliability and correctness of the API, **unit tests** have been i
   "first_name": "Admin"
   "last_name": "User"
   "place_list": ["Modern House"]
-}`
-#### curl -X PUT "http://127.0.0.1:5000/api/v1/users/admin/<userid>"
-#### -d '{"email": "updatedemail@example.com"}'
-#### -H "Authorization: Bearer <admin_token>"
-#### -H "Content-Type: application/json"
-
+```
+curl -X PUT "http://127.0.0.1:5000/api/v1/users/admin/<userid>" -d '{"email": "updatedemail@example.com"}' -H "Authorization: Bearer <admin_token>" -H "Content-Type: application/json"
+```
 - **Expected output:**
 
    `{
@@ -172,23 +167,17 @@ To ensure the reliability and correctness of the API, **unit tests** have been i
   "last_name": "User"
   "place_list": ["Modern House"]
 }`
-
-#### curl -X POST "http://127.0.0.1:5000/api/v1/amenities/admin" 
-#### -d '{"name": "Swimming Pool", "description": "a 2 meter deep swimming pool"}' 
-#### -H "Authorization: Bearer <admin_token>" 
-#### -H "Content-Type: application/json"
-
+```
+curl -X POST "http://127.0.0.1:5000/api/v1/amenities/admin" -d '{"name": "Swimming Pool", "description": "a 2 meter deep swimming pool"}' -H "Authorization: Bearer <admin_token>" -H "Content-Type: application/json"
+```
    `{
 "id": "1"
 "name": "Swimming Pool", 
 "description": "a 2 meter deep swimming pool"
 }`
-
-#### curl -X PUT "http://127.0.0.1:5000/api/v1/amenities/admin/<amenity_id>" 
-#### -d '{"name": "Updated Amenity"}' 
-#### -H "Authorization: Bearer <admin_token>" 
-#### -H "Content-Type: application/json"
-
+```
+curl -X PUT "http://127.0.0.1:5000/api/v1/amenities/admin/<amenity_id>" -d '{"name": "Updated Amenity"}' -H "Authorization: Bearer <admin_token>" -H "Content-Type: application/json"
+```
    `{
 "name": "Updated Amenity", 
 "description": "a 2 meter deep swimming pool"
