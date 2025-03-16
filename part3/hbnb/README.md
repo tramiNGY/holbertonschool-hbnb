@@ -51,11 +51,17 @@ This directory contains the API endpoints that handle requests and responses.
 
 ### JWT Authentication Implementation
 
-Our HBNB app uses JWT (JSON Web Tokens) for user authentication and authorization. JWTs are used to securely transmit information between parties as a JSON object. In this application, JWTs are used to authenticate users and authorize them to access protected routes.
+Our HBNB app uses JWT (JSON Web Tokens) for user authentication and authorization. JWTs are used to securely transmit information between parties as a JSON object. In this application, JWTs are used to authenticate users and authorize them to access protected routes. Certain routes in the application are protected and require the user to provide a valid JWT in the Authorization header to access them. These routes are secured using the @jwt_required() decorator, which ensures that the user is authenticated before accessing the route.
 
 ### For regular users
 
-When a user logs in with their email and password, the application verifies their credentials and generates a JWT if the credentials are valid. This JWT is then returned to the user and can be used for subsequent requests to access protected routes.
+When a user logs in with their email and password, the application verifies their credentials and generates a JWT if the credentials are valid. This JWT is then returned to the user and can be used for subsequent requests to access protected routes. This happens during the post request to login, the server verifies if the provided email exists in the database and whether the password is correct.
+If the credentials are valid, an access token is generated using `create_access_token`. 
+
+### For admin
+
+Certain routes are restricted to users with administrative privileges. These routes check the is_admin claim in the JWT to ensure that the user has admin privileges before allowing access. The user must be authenticated and must have the `is_admin` claim set to True in the JWT to access the route.
+If the user is not an admin, the request is rejected with a 403 Forbidden status code.
 
 ## `app/services/`
 
