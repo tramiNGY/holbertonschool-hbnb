@@ -232,7 +232,9 @@ class HBnBFacade:
     """methods for review"""
     def create_review(self, review_data):
         # Create a new review
-        review = Review(**review_data)
+        review = Review(rating=review_data['rating'], text=review_data['text'])
+        review.user_id = review_data['user_id']
+        review.place_id = review_data['place_id']
         self.review_repo.add(review)
 
         return review

@@ -24,7 +24,7 @@ class ReviewList(Resource):
         place = facade.get_place(review_data['place_id'])
         if not place:
             return {'error': 'Place not found'}, 404
-        if place.owner == current_user_id:
+        if place['place']['user_id'] == current_user_id:
             return {'error': 'You cannot review your own place'}, 400
         place_reviews = facade.get_reviews_by_place(review_data['place_id'])
         for existing_review in place_reviews:
@@ -32,14 +32,14 @@ class ReviewList(Resource):
                 return {'error': 'You have already reviewed this place'}, 400
         try:
             new_review = facade.create_review({
-                'comment': review_data['comment'],
+                'text': review_data['text'],
                 'rating': review_data['rating'],
                 'user_id': current_user_id,  # Set user_id from JWT
                 'place_id': review_data['place_id']
             })
             return {
                 'id': new_review['id'],
-                'comment': new_review['comment'],
+                'text': new_review['text'],
                 'rating': new_review['rating'],
                 'user_id': new_review['user_id'],
                 'place_id': new_review['place_id']
@@ -54,7 +54,7 @@ class ReviewList(Resource):
         reviews = facade.get_all_reviews()
         if not reviews:
             return {'error': 'No reviews found'}, 404
-        return [{'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id} for review in reviews], 200
+        return [{'id': review.id, 'text': review.text, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id} for review in reviews], 200
 
 
 @api.route('/<review_id>')
@@ -66,7 +66,7 @@ class ReviewResource(Resource):
         review = facade.get_review(review_id)
         if not review:
             return {'error': 'Review not found'}, 404
-        return {'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
+        return {'id': review.id, 'text': review.text, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
    
     @api.expect(review_model)
     @api.response(200, 'Review updated successfully')
@@ -85,17 +85,17 @@ class ReviewResource(Resource):
         if review.user_id != current_user:
             return {'error': 'Unauthorized action'}, 403
         review_data = api.payload
-        review.comment = review_data.get('comment', review.comment)
+        review.text = review_data.get('text', review.text)
         review.rating = review_data.get('rating', review.rating)
         # update review in the database
         updated_review = facade.update_review(review.id, {
-            'comment': review.comment,
+            'text': review.text,
             'rating': review.rating,
         })
         # check if database issue occured when updating review
         if not updated_review:
             return {'error': 'Failed to update this review'}, 500
-        return {'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
+        return {'id': review.id, 'text': review.text, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
    
     @api.response(200, 'Review deleted successfully')
     @api.response(404, 'Review not found')
@@ -129,4 +129,4 @@ class PlaceReviewList(Resource):
         reviews = facade.get_reviews_by_place(place_id)
         if not reviews:
             return {'error': 'No reviews found for this place'}, 404
-        return [{'id': review.id, 'comment': review.comment, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id} for review in reviews], 200
+        return [{'id': review.id, 'text': review.text, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id} for review in reviews], 200
