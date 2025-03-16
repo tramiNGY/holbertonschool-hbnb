@@ -23,7 +23,7 @@ HBnB Evolution is a RESTful API that provides endpoints for managing users, plac
 - SQL databse
 
 ## Project Structure
-![structure](https://i.postimg.cc/RZrz8D16/hbnb-api-structure.png)
+![structure](https://pbs.twimg.com/media/GmLKXb8bkAAhtlc?format=png&name=small)
 
 
 ## Directory Overview
