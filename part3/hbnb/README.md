@@ -42,15 +42,20 @@ This directory contains the data models used in the API. Each model represents a
 ### `app/api/v1/`
 
 This directory contains the API endpoints that handle requests and responses.
-We added a JTW system for the authorization.
-The GenerateAdminToken class generate a token that allows the acces of admin methods that will not be available for the regular user.
-These features include the management of user accounts, including creating and modifying user details, bypassing ownership restrictions for places and reviews, the deletion of any place or review, bypassing the ownership.
 
 - `users.py`: Handles user-related operations (creation, retrieval, update, and deletion).
 - `places.py`: Manages places, including creating, updating, and retrieving places.
 - `reviews.py`: Manages reviews left by users for different places.
 - `amenities.py`: Manages amenities available at different places.
 - `auth.py`: Handles regular user and admin authentication, including login and token generation for access control.
+
+## JWT Authentication Implementation
+
+Our HBNB app uses JWT (JSON Web Tokens) for user authentication and authorization. JWTs are used to securely transmit information between parties as a JSON object. In this application, JWTs are used to authenticate users and authorize them to access protected routes.
+
+###For regular users
+
+When a user logs in with their email and password, the application verifies their credentials and generates a JWT if the credentials are valid. This JWT is then returned to the user and can be used for subsequent requests to access protected routes.
 
 ### `app/services/`
 
