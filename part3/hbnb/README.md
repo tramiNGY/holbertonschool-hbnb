@@ -128,6 +128,8 @@ To ensure the reliability and correctness of the API, **unit tests** have been i
 
 - **Here is an exemple of a cURL test for a POST api that you can run while the run.py file is running:**
 
+  get admin token :  curl http://127.0.0.1:5000/api/v1/auth/generate_admin_token
+
 curl -X POST "http://127.0.0.1:5000/api/v1/users/admin" 
 -d '{"email": "newuser@example.com", "first_name": "Admin", "last_name": "User"}' 
 -H "Authorization: Bearer <admin_token>" 
