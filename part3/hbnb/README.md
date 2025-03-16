@@ -30,7 +30,7 @@ HBnB Evolution is a RESTful API that provides endpoints for managing users, plac
 
 This directory contains the data models used in the API. Each model represents a different entity:
 
-- `user.py`: Defines the User model with attributes like `first_name`, `last_name`, `email`, and `password`.
+- `user.py`: Defines the User model with attributes like `first_name`, `last_name`, `email`, and `password`. Allows admin to modify email and password unlike regular user, admins can now also modify every user.
 - `place.py`: Defines the Place model, including attributes like `title`, `description`, `price`, `latitude`, and `longitude`.
 - `review.py`: Defines the Review model, storing user feedback on places.
 - `amenity.py`: Defines the Amenity model, storing amenities available for places.
@@ -43,6 +43,7 @@ This directory contains the API endpoints that handle requests and responses.
 - `places.py`: Manages places, including creating, updating, and retrieving places.
 - `reviews.py`: Manages reviews left by users for different places.
 - `amenities.py`: Manages amenities available at different places.
+- `auth.py`: Handles regular user and admin authentication, including login and token generation for access control.
 
 ### `app/services/`
 
@@ -78,6 +79,8 @@ The API will be available at http://localhost:5000/api/v1/
 - GET /api/v1/users/<user_id> - Retrieve a specific user
 - PUT /api/v1/users/<user_id> - Update a user
 - DELETE /api/v1/users/<user_id> - Delete a user
+- POST /api/v1/users/admin: Create a new user.
+- PUT /api/v1/users/admin/<user_id>: Modify a user's details, including email and password.
 
 ### `Places`
 - POST /api/v1/places/ - Create a new place
@@ -99,6 +102,9 @@ The API will be available at http://localhost:5000/api/v1/
 - GET /api/v1/amenities/<amenity_id> - Retrieve a specific amenity
 - PUT /api/v1/amenities/<amenity_id> - Update an amenity
 - DELETE /api/v1/amenities/<amenity_id> - Delete an amenity
+- POST /api/v1/amenities/admin: Add a new amenity.
+PUT /api/v1/amenities/admin/<amenity_id>: Modify the details of an amenity.
+
 
 ## Testing the API  
 
@@ -168,6 +174,13 @@ Each test case checks for correct status codes **(200 OK, 201 Created, 400 Bad R
 - **test_get_user_not_found** → Fail to retrieve a user with a non-existent ID (❌ fail)
 - **test_update_user** → Update user information (✅ success)
 - **test_update_user_not_found** → Fail to update a user that does not exist (❌ fail)
+
+### Admin Tests
+
+Create a new user using admin route (✅ success)
+Modify a user's details, including email and password as an admin (✅ success)
+Add a new amenity as an admin (✅ success)
+Modify the details of an amenity as an admin (✅ success)
 
 
 
