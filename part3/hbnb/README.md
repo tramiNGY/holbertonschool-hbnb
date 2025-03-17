@@ -549,7 +549,7 @@ curl -X GET "http://127.0.0.1:5000/api/v1/places/53cf3bc0-cc72-40e7-8d86-a976d0c
 #### Curl are not posted here because issues need to be fixed first_name because Curl tests are failing for those.
 
 ### Curl tests for Admin
-- **Here is an exemple of a cURL test for a POST api that you can run while the run.py file is running:**
+
 ```
 get admin token :  curl http://127.0.0.1:5000/api/v1/auth/generate_admin_token
 ```
