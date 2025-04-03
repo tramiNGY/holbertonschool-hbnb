@@ -37,7 +37,7 @@ class PlaceList(Resource):
         place_data['user_id'] = current_user_id
         try:
             new_place = facade.create_place(place_data)
-            associated_amenities = [amenity.name for amenity in new_place.associated_amenities]
+            associated_amenities = [amenity.id for amenity in new_place.associated_amenities]
             return {'id': new_place.id, 'title': new_place.title, 'description': new_place.description, 'price': new_place.price, 'latitude': new_place.latitude, 'longitude' : new_place.longitude, 'associated_amenities': associated_amenities}, 201
         except ValueError:
             return {'error': 'Invalid input data'}, 400
@@ -101,7 +101,7 @@ class PlaceResource(Resource):
         if not updated_place:
             return {'error': 'Failed to update this place'}, 500
         # Get associated amenities for the updated place
-        associated_amenities = [amenity.name for amenity in updated_place.associated_amenities]
+        associated_amenities = [amenity.id for amenity in updated_place.associated_amenities]
         # Return the updated place details along with associated amenities
         return {
             'id': updated_place.id,
