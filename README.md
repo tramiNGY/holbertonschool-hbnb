@@ -1,3 +1,4 @@
+![printf image image (1)](https://pbs.twimg.com/media/Gj1Hgv2XYAAiHmC?format=jpg&name=small)
 
 # Introduction
 The **HBnB** (Holberton BnB) project is a **simplified version of an Airbnb-like application** designed to help users manage and interact with various services such as listing properties, managing user profiles, leaving reviews, and handling amenities. This project has been broken down into several phases, each focusing on specific areas of development to ensure the application is robust, user-friendly, and scalable.
