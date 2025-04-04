@@ -152,9 +152,9 @@ curl -X POST http://127.0.0.1:5000/api/v1/users/ -H "Content-Type: application/j
 
 ```
 {
-    "id": "e47e6410-d278-47ca-a3b7-e5d0e266fe1e",
+    "id": "2f4bdca0-acbf-414b-8183-e95b59289cf8",
     "first_name": "John",
-    "last_name": "Voe",
+    "last_name": "Doe",
     "email": "john.doe@example.com"
 }
 
@@ -170,7 +170,7 @@ curl -X POST http://127.0.0.1:5000/api/v1/auth/login -H "Content-Type: applicati
 
 ```
 {
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjE1NDc1NSwianRpIjoiYTQ0NmU3MWItNWFjMC00MjY2LWJlOWItODZjOGNiMWVkNDk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImU0N2U2NDEwLWQyNzgtNDdjYS1hM2I3LWU1ZDBlMjY2ZmUxZSIsIm5iZiI6MTc0MjE1NDc1NSwiY3NyZiI6ImY5Mjc4ZjE0LTFlNjctNDRlZS04NTdmLWE3ZDc1YjRkMDEzNyIsImV4cCI6MTc0MjI0MTE1NSwiaXNfYWRtaW4iOmZhbHNlfQ.ZS9hVTwqddzRnKuyUgb8s5o6YuDPh1NIzhIg6BOVEsQ"
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MzY4NjY1NCwianRpIjoiOGQ3YTM3MDMtNjUxYi00NzYyLTkxYzktNzQzYTFkOWE1MTk4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjJmNGJkY2EwLWFjYmYtNDE0Yi04MTgzLWU5NWI1OTI4OWNmOCIsIm5iZiI6MTc0MzY4NjY1NCwiY3NyZiI6Ijc1ZTQzNTYxLWIwMjMtNGEzYi1iOWJmLTllNTU3MGJiY2IzNiIsImV4cCI6MTc0Mzc3MzA1NCwiaXNfYWRtaW4iOmZhbHNlfQ.utKTQC0kwLgulWfftQw9ESHjJSo_pE4KNqUWJM1Oaj8"
 }
 
 ```
@@ -179,7 +179,7 @@ curl -X POST http://127.0.0.1:5000/api/v1/auth/login -H "Content-Type: applicati
 - **Update User info by correct user**
 ```
 curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d61378d2b" \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjEzMzE5MSwianRpIjoiYTQ3NTM0NTUtM2M3Ni00NGI4LTk5OWEtMzU5Y2JkMzljNWJjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImExOTg2OTI0LTJjN2YtNDJhZi1iODdmLTk1OGQ2MTM3OGQyYiIsIm5iZiI6MTc0MjEzMzE5MSwiY3NyZiI6IjMzNTRkNmQ3LWMxN2YtNDgzOC04MTZlLTdjMjRjODZlNTliOSIsImV4cCI6MTc0MjIxOTU5MSwiaXNfYWRtaW4iOmZhbHNlfQ.Fl8PpIfNspyWeu8pqhHYc8w-tU-Xj4fO7DtT4wxbP1Y" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MzY4NjY1NCwianRpIjoiOGQ3YTM3MDMtNjUxYi00NzYyLTkxYzktNzQzYTFkOWE1MTk4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjJmNGJkY2EwLWFjYmYtNDE0Yi04MTgzLWU5NWI1OTI4OWNmOCIsIm5iZiI6MTc0MzY4NjY1NCwiY3NyZiI6Ijc1ZTQzNTYxLWIwMjMtNGEzYi1iOWJmLTllNTU3MGJiY2IzNiIsImV4cCI6MTc0Mzc3MzA1NCwiaXNfYWRtaW4iOmZhbHNlfQ.utKTQC0kwLgulWfftQw9ESHjJSo_pE4KNqUWJM1Oaj8" \
 -H "Content-Type: application/json" \
 -d '{
     "first_name": "John",
@@ -191,7 +191,7 @@ curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d6137
 
 ```
 {
-    "id": "a1986924-2c7f-42af-b87f-958d61378d2b",
+    "id": "2f4bdca0-acbf-414b-8183-e95b59289cf8",
     "first_name": "John",
     "last_name": "Doe",
     "email": "john.doe@example.com"
@@ -209,7 +209,7 @@ curl -X POST http://127.0.0.1:5000/api/v1/users/ -H "Content-Type: application/j
 
 ```
 {
-    "id": "09174248-810d-49b4-99ed-d642884f822b",
+    "id": "11697646-ce7a-4075-8845-8ab1ef6643bf",
     "first_name": "Anna",
     "last_name": "Doe",
     "email": "anna.doe@example.com"
@@ -227,7 +227,7 @@ curl -X POST http://127.0.0.1:5000/api/v1/auth/login -H "Content-Type: applicati
 
 ```
 {
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjE1NDgyMywianRpIjoiNmI4MjEwYzktMTlhNC00ZjY3LTkzYWQtMzNmNDUzM2JmYWYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjA5MTc0MjQ4LTgxMGQtNDliNC05OWVkLWQ2NDI4ODRmODIyYiIsIm5iZiI6MTc0MjE1NDgyMywiY3NyZiI6IjFjNjhhNjI2LTAwNGEtNGVmZC04MDY0LTBlZjE4NjBkYTRjYyIsImV4cCI6MTc0MjI0MTIyMywiaXNfYWRtaW4iOmZhbHNlfQ.HY-k95j5h0bWHUn4pHi2ua8DvA1A2HajSZWnJwIfNtA"
+    "access_token": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0Mzc3OTgzNywianRpIjoiOGFkOGEwZjMtOGY2NC00ZDcwLWEwNjAtN2UwMWZjNjc3ODM0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExNjk3NjQ2LWNlN2EtNDA3NS04ODQ1LThhYjFlZjY2NDNiZiIsIm5iZiI6MTc0Mzc3OTgzNywiY3NyZiI6IjFkOTJiYzMzLWI1ODQtNDRiNS1hNjEyLWRhZmFkNWQzZTc4NCIsImV4cCI6MTc0Mzg2NjIzNywiaXNfYWRtaW4iOmZhbHNlfQ.PZeRZk8-EBfrYb-NNZbMGOZ3xGNYA8Ynge_mqz9-0kM"
 }
 
 
@@ -236,8 +236,8 @@ curl -X POST http://127.0.0.1:5000/api/v1/auth/login -H "Content-Type: applicati
 #### **CURL PUT User with wrong user**
 - **Try to update John user's info by Anna**
 ```
-curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d61378d2b" \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjE1MTc5MCwianRpIjoiODBiYTA2NTItZDEyOS00NzhiLWI1OGItN2VhMTI5NDBkYWMwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjViZGM1NTkzLWRiODAtNDA0OS05MWYxLWI2OWU3MmVjOWNjYiIsIm5iZiI6MTc0MjE1MTc5MCwiY3NyZiI6IjExN2QyNzNiLTFjMzktNDE3ZC1iMWU0LWQzNDI3YjY0NzUxOCIsImV4cCI6MTc0MjIzODE5MCwiaXNfYWRtaW4iOmZhbHNlfQ.J5FXrIhcjYk-wRHpCfFiOhD1-hp6chweKr_QsC5ihk8" \
+curl -X PUT "http://127.0.0.1:5000/api/v1/users/2f4bdca0-acbf-414b-8183-e95b59289cf8" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0Mzc3OTgzNywianRpIjoiOGFkOGEwZjMtOGY2NC00ZDcwLWEwNjAtN2UwMWZjNjc3ODM0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExNjk3NjQ2LWNlN2EtNDA3NS04ODQ1LThhYjFlZjY2NDNiZiIsIm5iZiI6MTc0Mzc3OTgzNywiY3NyZiI6IjFkOTJiYzMzLWI1ODQtNDRiNS1hNjEyLWRhZmFkNWQzZTc4NCIsImV4cCI6MTc0Mzg2NjIzNywiaXNfYWRtaW4iOmZhbHNlfQ.PZeRZk8-EBfrYb-NNZbMGOZ3xGNYA8Ynge_mqz9-0kM" \
 -H "Content-Type: application/json" \
 -d '{                             
     "first_name": "UpdatedFirstNamebyAnna",
@@ -258,7 +258,7 @@ curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d6137
 #### **CURL PUT User Update email by correct user**
 - **Try to update John email by John but email is not allowed to be modified**
 ```
-curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d61378d2b" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjEzMzE5MSwianRpIjoiYTQ3NTM0NTUtM2M3Ni00NGI4LTk5OWEtMzU5Y2JkMzljNWJjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImExOTg2OTI0LTJjN2YtNDJhZi1iODdmLTk1OGQ2MTM3OGQyYiIsIm5iZiI6MTc0MjEzMzE5MSwiY3NyZiI6IjMzNTRkNmQ3LWMxN2YtNDgzOC04MTZlLTdjMjRjODZlNTliOSIsImV4cCI6MTc0MjIxOTU5MSwiaXNfYWRtaW4iOmZhbHNlfQ.Fl8PpIfNspyWeu8pqhHYc8w-tU-Xj4fO7DtT4wxbP1Y" -H "Content-Type: application/json" -d '{
+curl -X PUT "http://127.0.0.1:5000/api/v1/users/2f4bdca0-acbf-414b-8183-e95b59289cf8" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MzY4NjY1NCwianRpIjoiOGQ3YTM3MDMtNjUxYi00NzYyLTkxYzktNzQzYTFkOWE1MTk4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjJmNGJkY2EwLWFjYmYtNDE0Yi04MTgzLWU5NWI1OTI4OWNmOCIsIm5iZiI6MTc0MzY4NjY1NCwiY3NyZiI6Ijc1ZTQzNTYxLWIwMjMtNGEzYi1iOWJmLTllNTU3MGJiY2IzNiIsImV4cCI6MTc0Mzc3MzA1NCwiaXNfYWRtaW4iOmZhbHNlfQ.utKTQC0kwLgulWfftQw9ESHjJSo_pE4KNqUWJM1Oaj8" -H "Content-Type: application/json" -d '{
     "first_name": "John",
     "last_name": "Doe", 
     "email": "john2.doe@email.com"
@@ -277,7 +277,7 @@ curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d6137
 #### **CURL PUT User Update password by correct user**
 - **Try to update John password by John but password is not allowed to be modified**
 ```
-curl -X PUT "http://127.0.0.1:5000/api/v1/users/a1986924-2c7f-42af-b87f-958d61378d2b" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjEzMzE5MSwianRpIjoiYTQ3NTM0NTUtM2M3Ni00NGI4LTk5OWEtMzU5Y2JkMzljNWJjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImExOTg2OTI0LTJjN2YtNDJhZi1iODdmLTk1OGQ2MTM3OGQyYiIsIm5iZiI6MTc0MjEzMzE5MSwiY3NyZiI6IjMzNTRkNmQ3LWMxN2YtNDgzOC04MTZlLTdjMjRjODZlNTliOSIsImV4cCI6MTc0MjIxOTU5MSwiaXNfYWRtaW4iOmZhbHNlfQ.Fl8PpIfNspyWeu8pqhHYc8w-tU-Xj4fO7DtT4wxbP1Y" -H "Content-Type: application/json" -d '{
+curl -X PUT "http://127.0.0.1:5000/api/v1/users/2f4bdca0-acbf-414b-8183-e95b59289cf8" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MzY4NjY1NCwianRpIjoiOGQ3YTM3MDMtNjUxYi00NzYyLTkxYzktNzQzYTFkOWE1MTk4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjJmNGJkY2EwLWFjYmYtNDE0Yi04MTgzLWU5NWI1OTI4OWNmOCIsIm5iZiI6MTc0MzY4NjY1NCwiY3NyZiI6Ijc1ZTQzNTYxLWIwMjMtNGEzYi1iOWJmLTllNTU3MGJiY2IzNiIsImV4cCI6MTc0Mzc3MzA1NCwiaXNfYWRtaW4iOmZhbHNlfQ.utKTQC0kwLgulWfftQw9ESHjJSo_pE4KNqUWJM1Oaj8" -H "Content-Type: application/json" -d '{
     "first_name": "John",
     "last_name": "Doe", 
     "password": "123!"
@@ -309,7 +309,7 @@ curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
 
 ```
 {
-    "id": "188628e7-8af7-4dc9-8fb8-1879f69a7f43",
+    "id": "86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9",
     "name": "WiFi",
     "description": "High-speed internet access"
 }
@@ -332,7 +332,7 @@ curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
 
 ```
 {
-    "id": "cb900d74-eeb0-47eb-a241-fb1996776f96",
+    "id": "86dc6bc0-a24e-4879-abd0-7e6cecb6921c",
     "name": "Air Conditioning",
     "description": "Cool down with air conditioning"
 }
@@ -355,7 +355,7 @@ curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
 
 ```
 {
-    "id": "97563b0a-8bd8-4689-ad5c-ac4a5aa1586b",
+    "id": "b3d1cf15-4482-4edf-bb99-8829d0c61b36",
     "name": "Parking",
     "description": "Free parking for guests"
 }
@@ -368,8 +368,8 @@ curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
 curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
 -H "Content-Type: application/json" \
 -d '{
-    "name": "Parking",
-    "description": "Free parking for guests"
+    "name": "Pool",
+    "description": "Outdoor swimming pool"
 }'
 
 
@@ -378,9 +378,9 @@ curl -X POST http://127.0.0.1:5000/api/v1/amenities/ \
 
 ```
 {
-    "id": "97563b0a-8bd8-4689-ad5c-ac4a5aa1586b",
-    "name": "Parking",
-    "description": "Free parking for guests"
+    "id": "bbed3e09-855e-438e-950f-552defdd296d",
+    "name": "Pool",
+    "description": "Outdoor swimming pool"
 }
 
 ```
@@ -397,19 +397,24 @@ curl -X GET http://127.0.0.1:5000/api/v1/amenities/ \
 ```
 [
     {
-        "id": "188628e7-8af7-4dc9-8fb8-1879f69a7f43",
+        "id": "86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9",
         "name": "WiFi",
-        "description": "High-speed internet access"
+        "description": "Super fast internet access"
     },
     {
-        "id": "cb900d74-eeb0-47eb-a241-fb1996776f96",
+        "id": "86dc6bc0-a24e-4879-abd0-7e6cecb6921c",
         "name": "Air Conditioning",
         "description": "Cool down with air conditioning"
     },
     {
-        "id": "97563b0a-8bd8-4689-ad5c-ac4a5aa1586b",
+        "id": "b3d1cf15-4482-4edf-bb99-8829d0c61b36",
         "name": "Parking",
         "description": "Free parking for guests"
+    },
+    {
+        "id": "bbed3e09-855e-438e-950f-552defdd296d",
+        "name": "Pool",
+        "description": "Outdoor swimming pool"
     }
 ]
 
@@ -418,7 +423,7 @@ curl -X GET http://127.0.0.1:5000/api/v1/amenities/ \
 #### **CURL GET Amenity by amenity_id**
 - **Get the amenity info base on amenity_id test with WiFi**
 ```
-curl -X GET http://127.0.0.1:5000/api/v1/amenities/188628e7-8af7-4dc9-8fb8-1879f69a7f43 \
+curl -X GET http://127.0.0.1:5000/api/v1/amenities/86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9 \
 -H "Authorization: Bearer <votre_token>"
 
 ```
@@ -435,7 +440,7 @@ curl -X GET http://127.0.0.1:5000/api/v1/amenities/188628e7-8af7-4dc9-8fb8-1879f
 #### **CURL PUT Update Amenity's info**
 - **Update amenity WiFi's info**
 ```
-curl -X PUT http://127.0.0.1:5000/api/v1/amenities/188628e7-8af7-4dc9-8fb8-1879f69a7f43 \
+curl -X PUT http://127.0.0.1:5000/api/v1/amenities/86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9 \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer <votre_token>" \
 -d '{
@@ -448,7 +453,7 @@ curl -X PUT http://127.0.0.1:5000/api/v1/amenities/188628e7-8af7-4dc9-8fb8-1879f
 
 ```
 {
-    "id": "188628e7-8af7-4dc9-8fb8-1879f69a7f43",
+    "id": "86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9",
     "name": "WiFi",
     "description": "Super fast internet access"
 }
@@ -462,32 +467,31 @@ curl -X PUT http://127.0.0.1:5000/api/v1/amenities/188628e7-8af7-4dc9-8fb8-1879f
 ```
 curl -X POST http://127.0.0.1:5000/api/v1/places/ \
 -H "Content-Type: application/json" \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MjE1NDc1NSwianRpIjoiYTQ0NmU3MWItNWFjMC00MjY2LWJlOWItODZjOGNiMWVkNDk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImU0N2U2NDEwLWQyNzgtNDdjYS1hM2I3LWU1ZDBlMjY2ZmUxZSIsIm5iZiI6MTc0MjE1NDc1NSwiY3NyZiI6ImY5Mjc4ZjE0LTFlNjctNDRlZS04NTdmLWE3ZDc1YjRkMDEzNyIsImV4cCI6MTc0MjI0MTE1NSwiaXNfYWRtaW4iOmZhbHNlfQ.ZS9hVTwqddzRnKuyUgb8s5o6YuDPh1NIzhIg6BOVEsQ" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MzY4NjY1NCwianRpIjoiOGQ3YTM3MDMtNjUxYi00NzYyLTkxYzktNzQzYTFkOWE1MTk4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjJmNGJkY2EwLWFjYmYtNDE0Yi04MTgzLWU5NWI1OTI4OWNmOCIsIm5iZiI6MTc0MzY4NjY1NCwiY3NyZiI6Ijc1ZTQzNTYxLWIwMjMtNGEzYi1iOWJmLTllNTU3MGJiY2IzNiIsImV4cCI6MTc0Mzc3MzA1NCwiaXNfYWRtaW4iOmZhbHNlfQ.utKTQC0kwLgulWfftQw9ESHjJSo_pE4KNqUWJM1Oaj8" \
 -d '{
     "title": "Place-1",
     "description": "This is a test place",
     "price": 100.0,
     "latitude": 40.7128,
     "longitude": -74.0060,
-    "associated_amenities": ["WiFi", "Air Conditioning", "Parking"]
+    "associated_amenities": ["86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9", "86dc6bc0-a24e-4879-abd0-7e6cecb6921c", "b3d1cf15-4482-4edf-bb99-8829d0c61b36"]
 }'
-
 
 ```
 - **Expected output**:
 
 ```
 {
-    "id": "53cf3bc0-cc72-40e7-8d86-a976d0c11fc6",
+    "id": "ef46b4db-b860-4381-848b-593add5a1df4",
     "title": "Place-1",
     "description": "This is a test place",
     "price": 100.0,
     "latitude": 40.7128,
     "longitude": -74.006,
     "associated_amenities": [
-        "WiFi",
-        "Parking",
-        "Air Conditioning"
+        "86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9",
+        "86dc6bc0-a24e-4879-abd0-7e6cecb6921c",
+        "b3d1cf15-4482-4edf-bb99-8829d0c61b36"
     ]
 }
 
@@ -502,26 +506,28 @@ curl -X GET http://127.0.0.1:5000/api/v1/places/ -H "Authorization: Bearer <your
 - **Expected output**:
 
 ```
-{
-    "id": "53cf3bc0-cc72-40e7-8d86-a976d0c11fc6",
-    "title": "Place-1",
-    "description": "This is a test place",
-    "price": 100.0,
-    "latitude": 40.7128,
-    "longitude": -74.006,
-    "associated_amenities": [
-        "Air Conditioning",
-        "Parking",
-        "WiFi"
-    ]
-}
+[
+    {
+        "id": "ef46b4db-b860-4381-848b-593add5a1df4",
+        "title": "Updated Place-2",
+        "description": "This is an updated test place",
+        "price": 175.0,
+        "latitude": 51.5075,
+        "longitude": -0.128,
+        "associated_amenities": [
+            "86dc6bc0-a24e-4879-abd0-7e6cecb6921c",
+            "bbed3e09-855e-438e-950f-552defdd296d",
+            "86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9"
+        ]
+    }
+]
 
 ```
 
 #### **CURL GET Place by place_id**
 - **Get the place's info by place_id test with Place-1**
 ```
-curl -X GET "http://127.0.0.1:5000/api/v1/places/53cf3bc0-cc72-40e7-8d86-a976d0c11fc6"      -H "Authorization: Bearer <your_token>"
+curl -X GET "http://127.0.0.1:5000/api/v1/places/ef46b4db-b860-4381-848b-593add5a1df4"      -H "Authorization: Bearer <your_token>"
 
 ```
 - **Expected output**:
@@ -529,24 +535,219 @@ curl -X GET "http://127.0.0.1:5000/api/v1/places/53cf3bc0-cc72-40e7-8d86-a976d0c
 ```
 {
     "place": {
-        "id": "53cf3bc0-cc72-40e7-8d86-a976d0c11fc6",
-        "title": "Place-1",
-        "description": "This is a test place",
-        "price": 100.0,
-        "latitude": 40.7128,
-        "longitude": -74.006,
-        "user_id": "e47e6410-d278-47ca-a3b7-e5d0e266fe1e"
+        "id": "ef46b4db-b860-4381-848b-593add5a1df4",
+        "title": "Updated Place-2",
+        "description": "This is an updated test place",
+        "price": 175.0,
+        "latitude": 51.5075,
+        "longitude": -0.128,
+        "user_id": "2f4bdca0-acbf-414b-8183-e95b59289cf8"
     },
     "associated_amenities": [
-        "Parking",
-        "WiFi",
-        "Air Conditioning"
+        "86dc6bc0-a24e-4879-abd0-7e6cecb6921c",
+        "86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9",
+        "bbed3e09-855e-438e-950f-552defdd296d"
     ]
 }
 
 ```
-### CURL PLACE PUT AND CURL REVIEW
-#### Curl are not posted here because issues need to be fixed first_name because Curl tests are failing for those.
+#### **CURL PUT place by correct owner**
+- **Update assicated_amenities of John's place**:
+```
+curl -X PUT "http://127.0.0.1:5000/api/v1/places/ef46b4db-b860-4381-848b-593add5a1df4" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MzY4NjY1NCwianRpIjoiOGQ3YTM3MDMtNjUxYi00NzYyLTkxYzktNzQzYTFkOWE1MTk4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjJmNGJkY2EwLWFjYmYtNDE0Yi04MTgzLWU5NWI1OTI4OWNmOCIsIm5iZiI6MTc0MzY4NjY1NCwiY3NyZiI6Ijc1ZTQzNTYxLWIwMjMtNGEzYi1iOWJmLTllNTU3MGJiY2IzNiIsImV4cCI6MTc0Mzc3MzA1NCwiaXNfYWRtaW4iOmZhbHNlfQ.utKTQC0kwLgulWfftQw9ESHjJSo_pE4KNqUWJM1Oaj8" \
+-H "Content-Type: application/json" \
+-d '{
+    "title": "Updated Place-2",
+    "description": "This is an updated test place",
+    "price": 175.0,
+    "latitude": 51.5075,
+    "longitude": -0.1280,
+    "associated_amenities": ["86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9", "86dc6bc0-a24e-4879-abd0-7e6cecb6921c", "bbed3e09-855e-438e-950f-552defdd296d"]
+}'
+
+```
+- **Expected output**:
+```
+{
+    "id": "ef46b4db-b860-4381-848b-593add5a1df4",
+    "title": "Updated Place-2",
+    "description": "This is an updated test place",
+    "price": 175.0,
+    "latitude": 51.5075,
+    "longitude": -0.128,
+    "associated_amenities": [
+        "86dc6bc0-a24e-4879-abd0-7e6cecb6921c",
+        "86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9",
+        "bbed3e09-855e-438e-950f-552defdd296d"
+    ]
+}
+
+```
+
+#### **CURL PUT place by wrong owner**
+- **Try update assicated_amenities of John's place by Anna**:
+```
+curl -X PUT "http://127.0.0.1:5000/api/v1/places/ef46b4db-b860-4381-848b-593add5a1df4" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0Mzc5MDA3MCwianRpIjoiYWQzZmQ0ZjAtNjkwZC00MDkzLThiYTgtNzNkNjg2ZDU5Mzk3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExNjk3NjQ2LWNlN2EtNDA3NS04ODQ1LThhYjFlZjY2NDNiZiIsIm5iZiI6MTc0Mzc5MDA3MCwiY3NyZiI6IjkzMWI1NGFjLWYwZjAtNGMwOC04OGRlLTU0ZDRjZjM1MWE4YSIsImV4cCI6MTc0Mzg3NjQ3MCwiaXNfYWRtaW4iOmZhbHNlfQ.IgAAz2M7QdIWsQX9bOtIF3k8o9Mg-usdrI7U-XvdkZc" \
+-H "Content-Type: application/json" \
+-d '{
+    "title": "Updated Place-2",
+    "description": "This is an updated test place",
+    "price": 175.0,
+    "latitude": 51.5075,
+    "longitude": -0.1280,
+    "associated_amenities": ["86d70ede-ad4a-4902-ae53-c5d2cf0c5ba9", "86dc6bc0-a24e-4879-abd0-7e6cecb6921c", "8a37fddc-db3c-4d11-abbd-030858c23390"]
+}'
+
+```
+- **Expected output**:
+```
+{
+    "error": "Unauthorized action"
+}
+
+```
+
+### CURL REVIEW
+#### **CURL POST Review**
+- **Create new review on Place1 owned by John, reviews by Anna (not by the owner)**
+```
+curl -X POST "http://127.0.0.1:5000/api/v1/reviews/" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0Mzc5MDA3MCwianRpIjoiYWQzZmQ0ZjAtNjkwZC00MDkzLThiYTgtNzNkNjg2ZDU5Mzk3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExNjk3NjQ2LWNlN2EtNDA3NS04ODQ1LThhYjFlZjY2NDNiZiIsIm5iZiI6MTc0Mzc5MDA3MCwiY3NyZiI6IjkzMWI1NGFjLWYwZjAtNGMwOC04OGRlLTU0ZDRjZjM1MWE4YSIsImV4cCI6MTc0Mzg3NjQ3MCwiaXNfYWRtaW4iOmZhbHNlfQ.IgAAz2M7QdIWsQX9bOtIF3k8o9Mg-usdrI7U-XvdkZc" \
+-H "Content-Type: application/json" \
+-d '{"text": "Nice place", "rating": 4, "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "04e18142-8143-472f-8f81-d9288028da1e",
+    "text": "Nice",
+    "rating": 4,
+    "user_id": "fb13be43-fa7a-41b4-ab36-b2ddcd8c7b6a",
+    "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"
+}
+
+
+```
+
+#### **CURL POST another Review on same place with same user**
+- **Create another review (but only one per place per user allowed**
+```
+curl -X POST "http://127.0.0.1:5000/api/v1/reviews/" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0Mzc5MDA3MCwianRpIjoiYWQzZmQ0ZjAtNjkwZC00MDkzLThiYTgtNzNkNjg2ZDU5Mzk3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExNjk3NjQ2LWNlN2EtNDA3NS04ODQ1LThhYjFlZjY2NDNiZiIsIm5iZiI6MTc0Mzc5MDA3MCwiY3NyZiI6IjkzMWI1NGFjLWYwZjAtNGMwOC04OGRlLTU0ZDRjZjM1MWE4YSIsImV4cCI6MTc0Mzg3NjQ3MCwiaXNfYWRtaW4iOmZhbHNlfQ.IgAAz2M7QdIWsQX9bOtIF3k8o9Mg-usdrI7U-XvdkZc" \
+-H "Content-Type: application/json" \
+-d '{"comment": "second review", "rating": 4, "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "error": "You have already reviewed this place"
+}
+
+```
+
+#### **CURL PUT Review**
+- **Update new review on Place1 owned by John, reviews by Anna (not by the owner)**
+```
+curl -X POST "http://127.0.0.1:5000/api/v1/reviews/" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0Mzc5MDA3MCwianRpIjoiYWQzZmQ0ZjAtNjkwZC00MDkzLThiYTgtNzNkNjg2ZDU5Mzk3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExNjk3NjQ2LWNlN2EtNDA3NS04ODQ1LThhYjFlZjY2NDNiZiIsIm5iZiI6MTc0Mzc5MDA3MCwiY3NyZiI6IjkzMWI1NGFjLWYwZjAtNGMwOC04OGRlLTU0ZDRjZjM1MWE4YSIsImV4cCI6MTc0Mzg3NjQ3MCwiaXNfYWRtaW4iOmZhbHNlfQ.IgAAz2M7QdIWsQX9bOtIF3k8o9Mg-usdrI7U-XvdkZc" \
+-H "Content-Type: application/json" \
+-d '{"text": "Very nice", "rating": 5, "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "04e18142-8143-472f-8f81-d9288028da1e",
+    "text": "Very nice",
+    "rating": 5,
+    "user_id": "fb13be43-fa7a-41b4-ab36-b2ddcd8c7b6a",
+    "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"
+}
+
+```
+
+#### **CURL GET ALL REVIEWS**
+- **Get all reviews on all places**
+```
+curl -X GET http://127.0.0.1:5000/api/v1/reviews/ -H "Authorization: Bearer <your_token>"
+
+```
+- **Expected output**:
+
+```
+[
+    {
+        "id": "19d0c6bd-1c7c-4230-8284-5ab7837aea1e",
+        "text": "Test other user comment",
+        "rating": 4,
+        "user_id": "11697646-ce7a-4075-8845-8ab1ef6643bf",
+        "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"
+    },
+    {
+        "id": "3e00a05a-f9ea-426e-93ca-805ee345cb17",
+        "text": "Wonderful placet",
+        "rating": 5,
+        "user_id": "e4fb5b3b-7620-4778-af4e-a613386e5907",
+        "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"
+    },
+    {
+        "id": "04e18142-8143-472f-8f81-d9288028da1e",
+        "text": "Very nice",
+        "rating": 5,
+        "user_id": "fb13be43-fa7a-41b4-ab36-b2ddcd8c7b6a",
+        "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"
+    }
+]
+
+```
+
+#### **CURL GET REVIEW BY ID**
+- **Get review by its id**
+```
+curl -X GET http://127.0.0.1:5000/api/v1/reviews/ -H "Authorization: Bearer <your_token>"
+
+```
+- **Expected output**:
+
+```
+{
+    "id": "04e18142-8143-472f-8f81-d9288028da1e",
+    "text": "Very nice",
+    "rating": 5,
+    "user_id": "fb13be43-fa7a-41b4-ab36-b2ddcd8c7b6a",
+    "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"
+}
+
+```
+
+#### **DELETE REVIEW BY CORRECT USER**
+- **Delete a review by the user who wrote it**
+```
+curl -X DELETE "http://127.0.0.1:5000/api/v1/reviews/19d0c6bd-1c7c-4230-8284-5ab7837aea1e" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0Mzc5MDA3MCwianRpIjoiYWQzZmQ0ZjAtNjkwZC00MDkzLThiYTgtNzNkNjg2ZDU5Mzk3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExNjk3NjQ2LWNlN2EtNDA3NS04ODQ1LThhYjFlZjY2NDNiZiIsIm5iZiI6MTc0Mzc5MDA3MCwiY3NyZiI6IjkzMWI1NGFjLWYwZjAtNGMwOC04OGRlLTU0ZDRjZjM1MWE4YSIsImV4cCI6MTc0Mzg3NjQ3MCwiaXNfYWRtaW4iOmZhbHNlfQ.IgAAz2M7QdIWsQX9bOtIF3k8o9Mg-usdrI7U-XvdkZc" \
+-H "Content-Type: application/json" \
+-d '{"comment": "Test other user comment", "rating": 4, "place_id": "ef46b4db-b860-4381-848b-593add5a1df4"}'
+
+
+```
+- **Expected output**:
+
+```
+{
+    "message": "Review deleted successfully"
+}
+
+```
 
 ### Curl tests for Admin
 
