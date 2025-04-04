@@ -129,10 +129,10 @@ class HBnBFacade:
         # Adds user_id to place after its creation
         place.user_id = place_data['user_id']
         # Adds amenities to the place
-        amenity_names = place_data.get('associated_amenities', [])
-        if amenity_names:
+        amenity_ids = place_data.get('associated_amenities', [])
+        if amenity_ids:
             # Fetch Amenity objects corresponding to amenity's name inputed by user
-            amenities = self.amenity_repo.get_amenities_by_names(amenity_names)
+            amenities = self.amenity_repo.get_amenities_by_ids(amenity_ids)
             place.associated_amenities.extend(amenities)  # Adds amenities to the place
 
         # Adds the place in the database
@@ -156,7 +156,7 @@ class HBnBFacade:
                     'longitude': place.longitude,
                     'user_id': place.user_id
                 },
-                'associated_amenities': [amenity.name for amenity in place.associated_amenities]
+                'associated_amenities': [amenity.id for amenity in place.associated_amenities]
             }
     
         return None
@@ -174,7 +174,7 @@ class HBnBFacade:
                     'latitude': place.latitude,
                     'longitude': place.longitude
                 },
-                'associated_amenities': [amenity.name for amenity in place.associated_amenities]
+                'associated_amenities': [amenity.id for amenity in place.associated_amenities]
             }
             for place in places
         ]
@@ -191,10 +191,10 @@ class HBnBFacade:
         place.longitude = place_data.get('longitude', place.longitude)
         
         # Handles associated_amenities many-to-many relationship
-        amenity_names = place_data.get('amenities', [])
-        if amenity_names is not None:  # If the amenities list is present in the data
+        amenity_ids = place_data.get('associated_amenities', [])
+        if amenity_ids is not None:  # If the amenities list is present in the data
             # Fetch the amenities from the database
-            new_amenities = self.amenity_repo.get_amenities_by_names(amenity_names)
+            new_amenities = self.amenity_repo.get_amenities_by_ids(amenity_ids)
         
         # Add new amenities that are not already associated with the place
         for amenity in new_amenities:
@@ -202,7 +202,7 @@ class HBnBFacade:
                 place.associated_amenities.append(amenity)
         
         # Remove amenities that are no longer associated with the place
-        to_remove = [amenity for amenity in place.associated_amenities if amenity.id not in amenity_names]
+        to_remove = [amenity for amenity in place.associated_amenities if amenity.id not in amenity_ids]
         for amenity in to_remove:
             place.associated_amenities.remove(amenity)
 
