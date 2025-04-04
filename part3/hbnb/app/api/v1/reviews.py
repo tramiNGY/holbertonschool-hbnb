@@ -32,21 +32,21 @@ class ReviewList(Resource):
             return {'error': 'You cannot review your own place'}, 400
         place_reviews = facade.get_reviews_by_place(review_data['place_id'])
         for existing_review in place_reviews:
-            if existing_review.user_id == current_user_id: # dont make it a dict or you wont be able to make many reviews
+            if existing_review.user_id == current_user_id:
                 return {'error': 'You have already reviewed this place'}, 400
         try:
             new_review = facade.create_review({
                 'text': review_data['text'],
                 'rating': review_data['rating'],
-                'user_id': current_user_id,  # Set user_id from JWT
+                'user_id': current_user_id,
                 'place_id': review_data['place_id']
             })
             return {
-                'id': new_review['id'],
-                'text': new_review['text'],
-                'rating': new_review['rating'],
-                'user_id': new_review['user_id'],
-                'place_id': new_review['place_id']
+                'id': new_review.id,
+                'text': new_review.text,
+                'rating': new_review.rating,
+                'user_id': new_review.user_id,
+                'place_id': new_review.place_id
             }, 201
         except ValueError as e:
             return {'error': f'Invalid input data: {str(e)}'}, 400
