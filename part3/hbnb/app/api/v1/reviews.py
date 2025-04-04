@@ -120,7 +120,7 @@ class ReviewResource(Resource):
         # delete review in the database
         deleted_review = facade.delete_review(review_id)
         # check if database issue occured when deleting review
-        if not deleted_review:
+        if deleted_review:
             return {'error': 'Failed to delete this review'}, 500
         return {'message': 'Review deleted successfully'}, 200
     
