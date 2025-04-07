@@ -21,6 +21,12 @@ header {
     padding: 1rem;
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 nav a {
     color: #fff;
     text-decoration: none;
@@ -29,4 +35,34 @@ nav a {
 
 main {
     padding: 2rem;
+}
+
+.place-card {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.details-button {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.details-button:hover {
+    background-color: #444;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
