@@ -13,7 +13,7 @@ class Amenity(BaseModel):
 
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    associated_places = db.relationship('Place', secondary=place_amenity_association, backref='amenities_associated')
+    associated_places = db.relationship('Place', secondary=place_amenity_association, back_populates='associated_amenities')
 
     def __init__(self, name, description):
         super().__init__()
