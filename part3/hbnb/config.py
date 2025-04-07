@@ -3,7 +3,7 @@ import os
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
     DEBUG = False
-    CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:5500')
+    CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:5500, https://localhost:5500')
 
 class DevelopmentConfig(Config):
     DEBUG = True

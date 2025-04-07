@@ -6,12 +6,12 @@ from flask_restx import Api
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from flask import request, Response
 
 # Initialize exensions
 bcrypt = Bcrypt()
 jwt = JWTManager()
 db = SQLAlchemy()
-cors = CORS()
 
 
 # Initialize the app
@@ -19,11 +19,25 @@ def create_app(config_class="config.DevelopmentConfig"):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
+    CORS(app, origins=["http://localhost:5500", "https://localhost:5500"], supports_credentials=True)
+
+    @app.before_request
+    def handle_options():
+        if request.method == 'OPTIONS':
+            # If it's an OPTIONS request, respond with necessary headers
+            response = Response()
+            response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5500'
+            response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
+            response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+            response.headers['Access-Control-Allow-Credentials'] = 'true'
+            return response
+
+    app.config['PREFERRED_URL_SCHEME'] = 'http'
+    
     # Initialize extensions with the app
     bcrypt.init_app(app)
     jwt.init_app(app)
     db.init_app(app)
-    cors.init_app(app, origins="http://localhost:5500")
     
     # Create the API object
     api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API')
