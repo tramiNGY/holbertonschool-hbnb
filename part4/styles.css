@@ -57,6 +57,10 @@ main {
     background-color: #444;
 }
 
+#login-link {
+    display: block !important;
+}
+
 footer {
     background-color: #333;
     color: white;

@@ -27,6 +27,8 @@ async function loginUser(email, password) {
         const data = await response.json();
         document.cookie = `token=${data.access_token}; path=/`;
         console.log("Cookie after login", document.cookie); // debug log to verify cookie
+        window.location.href = 'index.html';
+
     } else {
         alert('Login failed: ' + response.statusText);
     }
@@ -35,16 +37,20 @@ async function loginUser(email, password) {
 function checkAuthentication() {
     const token = getCookie('token');
     const loginLink = document.getElementById('login-link');
+    console.log('Token:', token);
+    console.log('loginLink:', loginLink);
 
-    if (!loginLink) {
-        console.error('login-link element not found!');
-    }
-
-    if (!token) {
-        loginLink.style.display = 'block'; // Show the login link
-    } else {
-        loginLink.style.display = 'none'; // Hide the login link
-        fetchPlaces(token); // Call fetchPlaces if the user is logged in
+    if (window.location.pathname.includes('index.html')) {
+        if (loginLink) {
+            if (!token) {
+                loginLink.style.display = 'block';
+            } else {
+                loginLink.style.display = 'none';
+                fetchPlaces(token);
+            }
+        } else {
+            console.error('login-link element not found!');
+        }
     }
 }
 
@@ -66,7 +72,8 @@ async function fetchPlaces(token) {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include',
         });
 
         if (response.ok) {
@@ -83,7 +90,7 @@ async function fetchPlaces(token) {
 
 // Function to display the places
 function displayPlaces(places) {
-    const placesContainer = document.getElementById('places-container');
+    const placesContainer = document.getElementById('places-list');
     placesContainer.innerHTML = '';
 
     places.forEach(place => {
@@ -92,7 +99,7 @@ function displayPlaces(places) {
         placeElement.innerHTML = `
             <h3>${place.title}</h3>
             <p>Description: ${place.description}</p>
-            <p>Price: ${place.price}€</p>
+            <p class="place-price">Price: ${place.price}€</p>
             <p>Latitude: ${place.latitude}</p>
             <p>Longitude: ${place.longitude}</p>
             
@@ -103,17 +110,22 @@ function displayPlaces(places) {
 
 function setupPriceFilter() {
     const priceFilter = document.getElementById('price-filter');
-    priceFilter.addEventListener('change', (event) => {
-        const selectedPrice = event.target.value;
-        filterPlacesByPrice(selectedPrice);
-    });
+    
+    if (priceFilter) {
+        priceFilter.addEventListener('change', (event) => {
+            const selectedPrice = event.target.value;
+            filterPlacesByPrice(selectedPrice);
+        });
+    } else {
+        console.log('price-filter element not found!');
+    }
 }
 
 function filterPlacesByPrice(selectedPrice) {
     const places = document.querySelectorAll('.place');
     
     places.forEach(placeElement => {
-        const price = parseInt(placeElement.querySelector('p:nth-child(3)').textContent.replace('Price: ', ''), 10);
+        const price = parseFloat(placeElement.querySelector('.place-price').textContent.replace('Price: ', '').replace('€', '').trim());
         
         if (selectedPrice === 'All' || price <= selectedPrice) {
             placeElement.style.display = 'block';
