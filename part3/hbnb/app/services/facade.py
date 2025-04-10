@@ -142,10 +142,24 @@ class HBnBFacade:
     
     def get_place(self, place_id):
         """Retrieve a place by ID, including associated amenities"""
-        place = self.place_repo.get(place_id)  # Utilise la méthode dans le repository
-    
+        place = self.place_repo.get(place_id)
+
         if place:
-            # Retourne un dictionnaire avec les informations du place
+            amenities = [amenity.name for amenity in place.associated_amenities]
+
+            reviews = []
+            for review in place.review_list:
+                user = db.session.query(User).filter_by(id=review.user_id).first()
+                if user:
+                    reviews.append({
+                        'user': {
+                            'first_name': user.first_name,
+                            'last_name': user.last_name,
+                        },
+                        'text': review.text,
+                        'rating': review.rating
+                    })
+
             return {
                 'place': {
                     'id': place.id,
@@ -156,9 +170,10 @@ class HBnBFacade:
                     'longitude': place.longitude,
                     'user_id': place.user_id
                 },
-                'associated_amenities': [amenity.id for amenity in place.associated_amenities]
+                'associated_amenities': amenities,
+                'reviews': reviews
             }
-    
+
         return None
     
     def get_all_places(self):
