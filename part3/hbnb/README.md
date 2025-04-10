@@ -609,6 +609,44 @@ curl -X PUT "http://127.0.0.1:5000/api/v1/places/ef46b4db-b860-4381-848b-593add5
 
 ```
 
+#### **CURL GET reviews by place id**
+- **Return Place-1 info with amenities and all reviews associated**:
+```
+curl -X GET "http://127.0.0.1:5000/api/v1/places/5f2e41b8-a40c-46d3-9afc-e027a2c3707a" -H "Authorization: Bearer <your_token>"
+
+```
+- **Expected output**:
+```
+{
+    "place": {
+        "id": "5f2e41b8-a40c-46d3-9afc-e027a2c3707a",
+        "title": "Place-1",
+        "description": "Little house near the sea",
+        "price": 100.0,
+        "latitude": 40.7128,
+        "longitude": -74.006,
+        "user_id": "e77f20d6-cb9b-4a09-b488-b9f62eebc559"
+    },
+    "associated_amenities": [
+        "WiFi",
+        "Parking",
+        "Air Conditioning"
+    ],
+    "reviews": [
+        {
+            "user": {
+                "first_name": "Anna",
+                "last_name": "Doe"
+            },
+            "text": "Nice place",
+            "rating": 4
+        }
+    ]
+}
+
+
+```
+
 ### CURL REVIEW
 #### **CURL POST Review**
 - **Create new review on Place1 owned by John, reviews by Anna (not by the owner)**
