@@ -26,9 +26,7 @@ async function loginUser(email, password) {
     if (response.ok) {
         const data = await response.json();
         document.cookie = `token=${data.access_token}; path=/`;
-        console.log("Cookie after login", document.cookie); // debug log to verify cookie
         window.location.href = 'index.html';
-
     } else {
         alert('Login failed: ' + response.statusText);
     }
@@ -37,21 +35,17 @@ async function loginUser(email, password) {
 function checkAuthentication() {
     const token = getCookie('token');
     const loginLink = document.getElementById('login-link');
-    console.log('Token:', token);
-    console.log('loginLink:', loginLink);
 
     if (window.location.pathname.includes('index.html')) {
         if (loginLink) {
             if (!token) {
                 loginLink.style.display = 'block';
+                fetchPlaces();
             } else {
                 loginLink.style.display = 'none';
                 fetchPlaces(token);
             }
-        } else {
-            console.error('login-link element not found!');
         }
-        fetchPlaces(token);
     }
 }
 
@@ -79,7 +73,6 @@ async function fetchPlaces(token) {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Fetched places data:', data);
             displayPlaces(data);
         } else {
             console.error('Failed to fetch places:', response.statusText);
@@ -89,31 +82,37 @@ async function fetchPlaces(token) {
     }
 }
 
-// Function to display the places
 function displayPlaces(places) {
     const placesContainer = document.getElementById('places-list');
     placesContainer.innerHTML = '';
 
-    places.forEach(place => {
-        const placeElement = document.createElement('div');
-        placeElement.classList.add('place');
-        placeElement.innerHTML = `
-            <h3>${place.title}</h3>
-            <p>Description: ${place.description}</p>
-            <p class="place-price">Price: ${place.price}€</p>
-            <p>Latitude: ${place.latitude}</p>
-            <p>Longitude: ${place.longitude}</p>
-            <button class="view-details" data-place-id="${place.id}">View Details</button>
-            
-        `;
-        placesContainer.appendChild(placeElement);
-    });
-    document.querySelectorAll('.view-details').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const placeId = event.target.dataset.placeId;
-            window.location.href = `place.html?place_id=${placeId}`;
+    if (places && places.length > 0) {
+        places.forEach(place => {
+            const placeElement = document.createElement('div');
+            placeElement.classList.add('place');
+
+            placeElement.innerHTML = `
+                <h3>${place.title}</h3>
+                <p>Description: ${place.description}</p>
+                <p class="place-price">Price: ${place.price}€</p>
+                <button class="view-details" data-place-id="${place.id}" data-latitude="${place.latitude}" data-longitude="${place.longitude}" data-reviews="${encodeURIComponent(JSON.stringify(place.reviews || []))}">View Details</button>
+            `;
+            placesContainer.appendChild(placeElement);
         });
-    });
+
+        document.querySelectorAll('.view-details').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const placeId = event.target.dataset.placeId;
+                const latitude = event.target.dataset.latitude;
+                const longitude = event.target.dataset.longitude;
+                const reviews = event.target.dataset.reviews ? event.target.dataset.reviews : '[]';
+
+                window.location.href = `place.html?place_id=${placeId}&latitude=${latitude}&longitude=${longitude}&reviews=${reviews}`;
+            });
+        });
+    } else {
+        placesContainer.innerHTML = '<p>No places found.</p>';
+    }
 }
 
 function setupPriceFilter() {
@@ -124,8 +123,6 @@ function setupPriceFilter() {
             const selectedPrice = event.target.value;
             filterPlacesByPrice(selectedPrice);
         });
-    } else {
-        console.log('price-filter element not found!');
     }
 }
 
