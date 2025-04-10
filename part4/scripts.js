@@ -51,6 +51,7 @@ function checkAuthentication() {
         } else {
             console.error('login-link element not found!');
         }
+        fetchPlaces(token);
     }
 }
 
