@@ -103,9 +103,16 @@ function displayPlaces(places) {
             <p class="place-price">Price: ${place.price}€</p>
             <p>Latitude: ${place.latitude}</p>
             <p>Longitude: ${place.longitude}</p>
+            <button class="view-details" data-place-id="${place.id}">View Details</button>
             
         `;
         placesContainer.appendChild(placeElement);
+    });
+    document.querySelectorAll('.view-details').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const placeId = event.target.dataset.placeId;
+            window.location.href = `place.html?place_id=${placeId}`;
+        });
     });
 }
 
